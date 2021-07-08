@@ -39,7 +39,7 @@ public class OpenRouteService implements IRoutingService {
                 .header("Content-Type", "application/json")
                 .header("authorization", parameters.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(parameters.toJSON()))
+                .POST(HttpRequest.BodyPublishers.ofString(parameters.toCorrectFormat()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());
@@ -53,7 +53,7 @@ public class OpenRouteService implements IRoutingService {
     }
 
     @Override
-    public RoutingResponse computeRoute(MobilityPreferences preferences) {
+    public Optional<RoutingResponse> computeRoute(MobilityPreferences preferences) {
         return null;
     }
 
