@@ -67,6 +67,17 @@ public class OpenRouteServiceRequest implements RoutingRequest {
     private boolean geometry = true;
     private Integer maximum_speed = 130;
 
+    public OpenRouteServiceRequest(String profile, List<Coordinate> coordinates) {
+        this.profile = profile;
+        for(Coordinate coo: coordinates) {
+            this.addCoordinate(coo);
+        }
+    }
+
+    public String toJSON() {
+        return "{\"coordinates\":[[8.681495,49.41461],[8.686507,49.41943],[8.687872,49.420318]]}";
+    }
+
     public String getAuthorization() {
         return authorization;
     }
