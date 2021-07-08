@@ -7,10 +7,13 @@ import com.routing.connector.models.Coordinate;
 
 public class OpenRouteServiceRequest implements RoutingRequest {
 
+    //required
     private final String authorization = "5b3ce3597851110001cf6248540f077434854eeda3fb744c240bc46f";
 
+    //required
     private String profile = "driving-car";
 
+    //required
     private List<double[]> coordinates = new ArrayList<>();
     private String alternative_routes = "";
         private float share_factor;
