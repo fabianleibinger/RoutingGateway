@@ -1,4 +1,4 @@
-package com.routing.connector.routingservices.requests;
+package com.routing.connector.routingservices.parameters;
 
 import com.routing.connector.models.Coordinate;
 

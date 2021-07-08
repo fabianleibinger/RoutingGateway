@@ -2,7 +2,7 @@ package com.routing.connector;
 
 import com.routing.connector.models.Coordinate;
 import com.routing.connector.routingservices.adapters.OpenRouteService;
-import com.routing.connector.routingservices.requests.OpenRouteServiceParameters;
+import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
 import com.routing.connector.routingservices.requests.OpenRouteServiceRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
