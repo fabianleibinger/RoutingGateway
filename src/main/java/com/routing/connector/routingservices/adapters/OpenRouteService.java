@@ -19,17 +19,27 @@ public class OpenRouteService implements IRoutingService {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
+    /**
+     * Adds a path variable to the URL specifying the mode.
+     * @param pathSegment
+     * @return URL
+     */
     public String getURLWithPath(String pathSegment) {
         return URL + "/" + pathSegment;
     }
 
-    public Optional<HttpResponse<String>> postRequest(OpenRouteServiceRequest request) {
+    /**
+     * Sends POST request to Openrouteservice and tries to receive a HTTP response.
+     * @param parameters for Openrouteservice
+     * @return HTTP Response that includes a JSON route.
+     */
+    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest parameters) {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create(getURLWithPath(request.getProfile())))
+                .uri(URI.create(getURLWithPath(parameters.getProfile())))
                 .header("Content-Type", "application/json")
-                .header("authorization", request.getAuthorization())
+                .header("authorization", parameters.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(request.toJSON()))
+                .POST(HttpRequest.BodyPublishers.ofString(parameters.toJSON()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());

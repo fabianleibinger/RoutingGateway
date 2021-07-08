@@ -22,7 +22,7 @@ public class MainApplication {
 		OpenRouteServiceRequest request = new OpenRouteServiceRequest("driving-car", coordinates);
 
 		OpenRouteService routingService = new OpenRouteService();
-		routingService.postRequest(request);
+		routingService.receiveResponse(request);
 	}
 
 }

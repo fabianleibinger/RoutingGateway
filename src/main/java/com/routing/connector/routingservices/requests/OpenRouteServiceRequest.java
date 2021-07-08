@@ -11,7 +11,7 @@ public class OpenRouteServiceRequest implements RoutingRequest {
     private final String authorization = "5b3ce3597851110001cf6248540f077434854eeda3fb744c240bc46f";
 
     //required
-    private String profile = "driving-car";
+    private String profile;
 
     //required
     private List<double[]> coordinates = new ArrayList<>();
