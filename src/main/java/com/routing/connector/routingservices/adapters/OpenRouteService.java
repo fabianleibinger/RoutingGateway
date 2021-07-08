@@ -49,11 +49,11 @@ public class OpenRouteService implements IRoutingService {
 
     @Override
     public String getName() {
-        return "null";
+        return NAME;
     }
 
     @Override
     public String getURL() {
-        return null;
+        return URL;
     }
 }
