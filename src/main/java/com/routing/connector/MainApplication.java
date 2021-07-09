@@ -19,19 +19,16 @@ public class MainApplication {
 		List<Coordinate> coordinates = new ArrayList<>();
 		coordinates.add(new Coordinate(8.681495, 49.41461));
 		coordinates.add(new Coordinate(8.686507, 49.41943));
-		coordinates.add(new Coordinate(8.687872, 49.420318));
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters(coordinates);
 
-		//OpenRouteServiceAlternativeRoutes altRoutes = new OpenRouteServiceAlternativeRoutes(1f, 1, 1f);
-        //parameters.setAlternativeRoutes(altRoutes);
-        parameters.getAlternativeRoutes().setShare_factor(1f);
+		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
 
-		OpenRouteServiceRequest request = new OpenRouteServiceRequest("driving-car", parameters);
+		OpenRouteServiceRequest request = new OpenRouteServiceRequest("cycling-regular", parameters);
 
 		OpenRouteService routingService = new OpenRouteService();
 		routingService.receiveResponse(request);
 
-		parameters.toJSON();
+		parameters.toJson();
 	}
 
 }

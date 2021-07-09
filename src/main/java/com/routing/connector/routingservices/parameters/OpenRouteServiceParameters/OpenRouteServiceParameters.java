@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Request Body Parameters for OpenRouteService.
  * Default values included.
+ * Getters for complex types include instantiation if value equals null.
  */
 public class OpenRouteServiceParameters {
 
@@ -35,41 +36,7 @@ public class OpenRouteServiceParameters {
     private String language;
     //default false
     private Boolean maneuvers;
-    private String options;
-        private String avoid_borders;
-        private List<Integer> avoid_countries;
-        private List<String> avoid_features;
-        private String avoid_polygons;
-        private String profile_params;
-            private String restrictions;
-                private Float axleload;
-                //default false
-                private Boolean hazmat;
-                private Float height;
-                private Float length;
-                //default 6
-                private Integer maximum_incline;
-                //default 0.6f
-                private Float maximum_sloped_kerb;
-                private Float minimum_width;
-                //default "good"
-                private String smoothness_type;
-                //default "cobblestone:flattened"
-                private String surface_type;
-                //default "grade1"
-                private String track_type;
-                private Float weight;
-                private Float width;
-            private String weightings;
-                private Float green;
-                private Float quiet;
-                private Integer steepness_difficulty;
-        private String round_trip;
-            //private Float length;
-            private Integer points;
-            private Integer seed;
-        //default "hgv"
-        private String vehicle_type;
+    private OpenRouteServiceOptions options;
     //default "recommended"
     private String preference;
     //default false
@@ -89,10 +56,6 @@ public class OpenRouteServiceParameters {
     }
 
     public String toJson() {
-        return "{\"coordinates\":[[8.681495,49.41461],[8.686507,49.41943],[8.687872,49.420318]]}";
-    }
-
-    public String toJSON() {
         Gson gson = new Gson();
         String json = gson.toJson(this);
         System.out.println(json);
@@ -220,224 +183,15 @@ public class OpenRouteServiceParameters {
         this.maneuvers = maneuvers;
     }
 
-    public String getOptions() {
+    public OpenRouteServiceOptions getOptions() {
+        if (this.options == null) {
+            this.options = new OpenRouteServiceOptions();
+        }
         return options;
     }
 
-    public void setOptions(String options) {
+    public void setOptions(OpenRouteServiceOptions options) {
         this.options = options;
-    }
-
-    public String getAvoidBorders() {
-        return avoid_borders;
-    }
-
-    public void setAvoidBorders(String avoid_borders) {
-        this.avoid_borders = avoid_borders;
-    }
-
-    public List<Integer> getAvoidCountries() {
-        if (this.avoid_countries == null) {
-            this.avoid_countries = new ArrayList<>();
-        }
-        return avoid_countries;
-    }
-
-    public void setAvoidCountries(List<Integer> avoid_countries) {
-        this.avoid_countries = avoid_countries;
-    }
-
-    public List<String> getAvoidFeatures() {
-        if (this.avoid_features == null) {
-            this.avoid_features = new ArrayList<>();
-        }
-        return avoid_features;
-    }
-
-    public void setAvoidFeatures(List<String> avoid_features) {
-        this.avoid_features = avoid_features;
-    }
-
-    public String getAvoidPolygons() {
-        return avoid_polygons;
-    }
-
-    public void setAvoidPolygons(String avoid_polygons) {
-        this.avoid_polygons = avoid_polygons;
-    }
-
-    public String getProfileParams() {
-        return profile_params;
-    }
-
-    public void setProfileParams(String profile_params) {
-        this.profile_params = profile_params;
-    }
-
-    public String getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(String restrictions) {
-        this.restrictions = restrictions;
-    }
-
-    public Float getAxleload() {
-        return axleload;
-    }
-
-    public void setAxleload(Float axleload) {
-        this.axleload = axleload;
-    }
-
-    public Boolean isHazmat() {
-        return hazmat;
-    }
-
-    public void setHazmat(Boolean hazmat) {
-        this.hazmat = hazmat;
-    }
-
-    public Float getHeight() {
-        return height;
-    }
-
-    public void setHeight(Float height) {
-        this.height = height;
-    }
-
-    public Float getLength() {
-        return length;
-    }
-
-    public void setLength(Float length) {
-        this.length = length;
-    }
-
-    public Integer getMaximumIncline() {
-        return maximum_incline;
-    }
-
-    public void setMaximumIncline(Integer maximum_incline) {
-        this.maximum_incline = maximum_incline;
-    }
-
-    public Float getMaximumSlopedKerb() {
-        return maximum_sloped_kerb;
-    }
-
-    public void setMaximumSlopedKerb(Float maximum_sloped_kerb) {
-        this.maximum_sloped_kerb = maximum_sloped_kerb;
-    }
-
-    public Float getMinimumWidth() {
-        return minimum_width;
-    }
-
-    public void setMinimumWidth(Float minimum_width) {
-        this.minimum_width = minimum_width;
-    }
-
-    public String getSmoothnessType() {
-        return smoothness_type;
-    }
-
-    public void setSmoothnessType(String smoothness_type) {
-        this.smoothness_type = smoothness_type;
-    }
-
-    public String getSurfaceType() {
-        return surface_type;
-    }
-
-    public void setSurfaceType(String surface_type) {
-        this.surface_type = surface_type;
-    }
-
-    public String getTrackType() {
-        return track_type;
-    }
-
-    public void setTrackType(String track_type) {
-        this.track_type = track_type;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
-    public Float getWidth() {
-        return width;
-    }
-
-    public void setWidth(Float width) {
-        this.width = width;
-    }
-
-    public String getWeightings() {
-        return weightings;
-    }
-
-    public void setWeightings(String weightings) {
-        this.weightings = weightings;
-    }
-
-    public Float getGreen() {
-        return green;
-    }
-
-    public void setGreen(Float green) {
-        this.green = green;
-    }
-
-    public Float getQuiet() {
-        return quiet;
-    }
-
-    public void setQuiet(Float quiet) {
-        this.quiet = quiet;
-    }
-
-    public Integer getSteepnessDifficulty() {
-        return steepness_difficulty;
-    }
-
-    public void setSteepnessDifficulty(Integer steepness_difficulty) { this.steepness_difficulty = steepness_difficulty; }
-
-    public String getRoundTrip() {
-        return round_trip;
-    }
-
-    public void setRoundTrip(String round_trip) {
-        this.round_trip = round_trip;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
-
-    public Integer getSeed() {
-        return seed;
-    }
-
-    public void setSeed(Integer seed) {
-        this.seed = seed;
-    }
-
-    public String getVehicleType() {
-        return vehicle_type;
-    }
-
-    public void setVehicleType(String vehicle_type) {
-        this.vehicle_type = vehicle_type;
     }
 
     public String getPreference() {
