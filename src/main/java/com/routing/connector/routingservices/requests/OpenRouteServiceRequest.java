@@ -1,6 +1,6 @@
 package com.routing.connector.routingservices.requests;
 
-import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
 
 public class OpenRouteServiceRequest implements RoutingRequest {
 

@@ -1,4 +1,4 @@
-package com.routing.connector.routingservices.parameters;
+package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
 
 import com.google.gson.Gson;
 import com.routing.connector.models.Coordinate;
@@ -9,57 +9,54 @@ import java.util.List;
 public class OpenRouteServiceParameters {
 
     //required
-    private List<double[]> coordinates = new ArrayList<>();
-    private String alternative_routes = "";
-        private float share_factor;
-        private Integer target_count;
-        private float weight_factor;
+    private List<Double[]> coordinates = new ArrayList<>();
+    private OpenRouteServiceAlternativeRoutes alternative_routes;
     private List<String> attributes = new ArrayList<>();
-    private List<float[]> bearings = new ArrayList<>();
-    private boolean continue_straight = false;
-    private boolean elevation = false;
+    private List<Float[]> bearings = new ArrayList<>();
+    private Boolean continue_straight = false;
+    private Boolean elevation = false;
     private List<String> extra_info = new ArrayList<>();
-    private boolean geometry_simplify = false;
-    private String id = "";
-    private boolean instructions = true;
+    private Boolean geometry_simplify = false;
+    private String id;
+    private Boolean instructions = true;
     private String instructions_format = "text";
     private String language = "en";
-    private boolean maneuvers = false;
-    private String options = "";
+    private Boolean maneuvers = false;
+    private String options;
         private String avoid_borders = "controlled";
         private List<Integer> avoid_countries = new ArrayList<>();
         private List<String> avoid_features = new ArrayList<>();
-        private String avoid_polygons = "";
-        private String profile_params = "";
-            private String restrictions = "";
-                private float axleload;
-                private boolean hazmat = false;
-                private float height;
-                private float length;
+        private String avoid_polygons;
+        private String profile_params;
+            private String restrictions;
+                private Float axleload;
+                private Boolean hazmat = false;
+                private Float height;
+                private Float length;
                 private Integer maximum_incline = 6;
-                private float maximum_sloped_kerb = 0.6f;
-                private float minimum_width;
+                private Float maximum_sloped_kerb = 0.6f;
+                private Float minimum_width;
                 private String smoothness_type = "good";
                 private String surface_type = "cobblestone:flattened";
                 private String track_type = "grade1";
-                private float weight;
-                private float width;
-            private String weightings = "";
-                private float green;
-                private float quiet;
+                private Float weight;
+                private Float width;
+            private String weightings;
+                private Float green;
+                private Float quiet;
                 private Integer steepness_difficulty;
-        private String round_trip = "";
-            //private float length;
+        private String round_trip;
+            //private Float length;
             private Integer points;
             private Integer seed;
         private String vehicle_type = "hgv";
     private String preference = "recommended";
-    private boolean roundabout_exits = false;
+    private Boolean roundabout_exits = false;
     private List<Integer> skip_segments = new ArrayList<>();
-    private boolean suppress_warnings = false;
+    private Boolean suppress_warnings = false;
     private String units = "m";
-    private boolean geometry = true;
-    private Integer maximum_speed = 130;
+    private Boolean geometry = true;
+    private Integer maximum_speed;
 
     public OpenRouteServiceParameters(List<Coordinate> coordinates) {
         for (Coordinate coo : coordinates) {
@@ -79,48 +76,27 @@ public class OpenRouteServiceParameters {
     }
 
     public void addCoordinate(Coordinate coordinate) {
-        double[] newCoordinate = new double[]{coordinate.getLatitude(), coordinate.getLongitude()};
+        Double[] newCoordinate = new Double[]{coordinate.getLatitude(), coordinate.getLongitude()};
         coordinates.add(newCoordinate);
     }
 
-    public List<double[]> getCoordinates() {
+    public List<Double[]> getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(List<double[]> coordinates) {
+    public void setCoordinates(List<Double[]> coordinates) {
         this.coordinates = coordinates;
     }
 
-    public String getAlternativeRoutes() {
+    public OpenRouteServiceAlternativeRoutes getAlternativeRoutes() {
+        if (alternative_routes == null) {
+            alternative_routes = new OpenRouteServiceAlternativeRoutes();
+        }
         return alternative_routes;
     }
 
-    public void setAlternativeRoutes(String alternative_routes) {
+    public void setAlternativeRoutes(OpenRouteServiceAlternativeRoutes alternative_routes) {
         this.alternative_routes = alternative_routes;
-    }
-
-    public float getShareFactor() {
-        return share_factor;
-    }
-
-    public void setShareFactor(Integer share_factor) {
-        this.share_factor = share_factor;
-    }
-
-    public Integer getTargetCount() {
-        return target_count;
-    }
-
-    public void setTargetCount(Integer target_count) {
-        this.target_count = target_count;
-    }
-
-    public float getWeightFactor() {
-        return weight_factor;
-    }
-
-    public void setWeightFactor(float weight_factor) {
-        this.weight_factor = weight_factor;
     }
 
     public List<String> getAttributes() {
@@ -131,27 +107,27 @@ public class OpenRouteServiceParameters {
         this.attributes = attributes;
     }
 
-    public List<float[]> getBearings() {
+    public List<Float[]> getBearings() {
         return bearings;
     }
 
-    public void setBearings(List<float[]> bearings) {
+    public void setBearings(List<Float[]> bearings) {
         this.bearings = bearings;
     }
 
-    public boolean isContinueStraight() {
+    public Boolean isContinueStraight() {
         return continue_straight;
     }
 
-    public void setContinueStraight(boolean continue_straight) {
+    public void setContinueStraight(Boolean continue_straight) {
         this.continue_straight = continue_straight;
     }
 
-    public boolean isElevation() {
+    public Boolean isElevation() {
         return elevation;
     }
 
-    public void setElevation(boolean elevation) {
+    public void setElevation(Boolean elevation) {
         this.elevation = elevation;
     }
 
@@ -163,11 +139,11 @@ public class OpenRouteServiceParameters {
         this.extra_info = extra_info;
     }
 
-    public boolean isGeometrySimplify() {
+    public Boolean isGeometrySimplify() {
         return geometry_simplify;
     }
 
-    public void setGeometrySimplify(boolean geometry_simplify) {
+    public void setGeometrySimplify(Boolean geometry_simplify) {
         this.geometry_simplify = geometry_simplify;
     }
 
@@ -179,11 +155,11 @@ public class OpenRouteServiceParameters {
         this.id = id;
     }
 
-    public boolean isInstructions() {
+    public Boolean isInstructions() {
         return instructions;
     }
 
-    public void setInstructions(boolean instructions) {
+    public void setInstructions(Boolean instructions) {
         this.instructions = instructions;
     }
 
@@ -203,11 +179,11 @@ public class OpenRouteServiceParameters {
         this.language = language;
     }
 
-    public boolean isManeuvers() {
+    public Boolean isManeuvers() {
         return maneuvers;
     }
 
-    public void setManeuvers(boolean maneuvers) {
+    public void setManeuvers(Boolean maneuvers) {
         this.maneuvers = maneuvers;
     }
 
@@ -267,35 +243,35 @@ public class OpenRouteServiceParameters {
         this.restrictions = restrictions;
     }
 
-    public float getAxleload() {
+    public Float getAxleload() {
         return axleload;
     }
 
-    public void setAxleload(float axleload) {
+    public void setAxleload(Float axleload) {
         this.axleload = axleload;
     }
 
-    public boolean isHazmat() {
+    public Boolean isHazmat() {
         return hazmat;
     }
 
-    public void setHazmat(boolean hazmat) {
+    public void setHazmat(Boolean hazmat) {
         this.hazmat = hazmat;
     }
 
-    public float getHeight() {
+    public Float getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(Float height) {
         this.height = height;
     }
 
-    public float getLength() {
+    public Float getLength() {
         return length;
     }
 
-    public void setLength(float length) {
+    public void setLength(Float length) {
         this.length = length;
     }
 
@@ -307,19 +283,19 @@ public class OpenRouteServiceParameters {
         this.maximum_incline = maximum_incline;
     }
 
-    public float getMaximumSlopedKerb() {
+    public Float getMaximumSlopedKerb() {
         return maximum_sloped_kerb;
     }
 
-    public void setMaximumSlopedKerb(float maximum_sloped_kerb) {
+    public void setMaximumSlopedKerb(Float maximum_sloped_kerb) {
         this.maximum_sloped_kerb = maximum_sloped_kerb;
     }
 
-    public float getMinimumWidth() {
+    public Float getMinimumWidth() {
         return minimum_width;
     }
 
-    public void setMinimumWidth(float minimum_width) {
+    public void setMinimumWidth(Float minimum_width) {
         this.minimum_width = minimum_width;
     }
 
@@ -347,19 +323,19 @@ public class OpenRouteServiceParameters {
         this.track_type = track_type;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
-    public float getWidth() {
+    public Float getWidth() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth(Float width) {
         this.width = width;
     }
 
@@ -371,19 +347,19 @@ public class OpenRouteServiceParameters {
         this.weightings = weightings;
     }
 
-    public float getGreen() {
+    public Float getGreen() {
         return green;
     }
 
-    public void setGreen(float green) {
+    public void setGreen(Float green) {
         this.green = green;
     }
 
-    public float getQuiet() {
+    public Float getQuiet() {
         return quiet;
     }
 
-    public void setQuiet(float quiet) {
+    public void setQuiet(Float quiet) {
         this.quiet = quiet;
     }
 
@@ -441,11 +417,11 @@ public class OpenRouteServiceParameters {
         this.skip_segments = skip_segments;
     }
 
-    public boolean isSuppressWarnings() {
+    public Boolean isSuppressWarnings() {
         return suppress_warnings;
     }
 
-    public void setSuppressWarnings(boolean suppress_warnings) {
+    public void setSuppressWarnings(Boolean suppress_warnings) {
         this.suppress_warnings = suppress_warnings;
     }
 
@@ -457,11 +433,11 @@ public class OpenRouteServiceParameters {
         this.units = units;
     }
 
-    public boolean isRoundaboutExits() {
+    public Boolean isRoundaboutExits() {
         return roundabout_exits;
     }
 
-    public void setRoundaboutExits(boolean roundabout_exits) {
+    public void setRoundaboutExits(Boolean roundabout_exits) {
         this.roundabout_exits = roundabout_exits;
     }
 
@@ -473,11 +449,11 @@ public class OpenRouteServiceParameters {
         this.maximum_speed = maximum_speed;
     }
 
-    public boolean isGeometry() {
+    public Boolean isGeometry() {
         return geometry;
     }
 
-    public void setGeometry(boolean geometry) {
+    public void setGeometry(Boolean geometry) {
         this.geometry = geometry;
     }
 }
