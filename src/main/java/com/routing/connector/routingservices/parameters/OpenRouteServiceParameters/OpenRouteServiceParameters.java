@@ -1,7 +1,7 @@
 package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
 
-import com.google.gson.Gson;
 import com.routing.connector.models.Coordinate;
+import com.routing.connector.routingservices.parameters.JsonParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Default values included.
  * Getters for complex types include instantiation if value equals null.
  */
-public class OpenRouteServiceParameters {
+public class OpenRouteServiceParameters extends JsonParameters {
 
     /**
      * required
@@ -49,22 +49,23 @@ public class OpenRouteServiceParameters {
     private Boolean geometry;
     private Integer maximum_speed;
 
-    public OpenRouteServiceParameters(List<Coordinate> coordinates) {
+    /**
+     * Adds a coordinate to parameters.
+     * @param coordinate
+     */
+    public void addCoordinate(Coordinate coordinate) {
+        Double[] newCoordinate = new Double[]{coordinate.getLatitude(), coordinate.getLongitude()};
+        this.coordinates.add(newCoordinate);
+    }
+
+    /**
+     * Adds a list of coordinates as parameters.
+     * @param coordinates
+     */
+    public void addCoordinates(List<Coordinate> coordinates) {
         for (Coordinate coo : coordinates) {
             this.addCoordinate(coo);
         }
-    }
-
-    public String toJson() {
-        Gson gson = new Gson();
-        String json = gson.toJson(this);
-        System.out.println(json);
-        return json;
-    }
-
-    public void addCoordinate(Coordinate coordinate) {
-        Double[] newCoordinate = new Double[]{coordinate.getLatitude(), coordinate.getLongitude()};
-        coordinates.add(newCoordinate);
     }
 
     public List<Double[]> getCoordinates() {

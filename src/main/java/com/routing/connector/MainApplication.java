@@ -1,7 +1,9 @@
 package com.routing.connector;
 
+import com.google.gson.Gson;
 import com.routing.connector.models.Coordinate;
 import com.routing.connector.routingservices.adapters.OpenRouteService;
+import com.routing.connector.routingservices.parameters.JsonParameters;
 import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
 import com.routing.connector.routingservices.requests.OpenRouteServiceRequest;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +21,8 @@ public class MainApplication {
 		List<Coordinate> coordinates = new ArrayList<>();
 		coordinates.add(new Coordinate(8.681495, 49.41461));
 		coordinates.add(new Coordinate(8.686507, 49.41943));
-		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters(coordinates);
+		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
+		parameters.addCoordinates(coordinates);
 
 		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
 
@@ -28,7 +31,10 @@ public class MainApplication {
 		OpenRouteService routingService = new OpenRouteService();
 		routingService.receiveResponse(request);
 
-		parameters.toJson();
+		String json = parameters.toJson();
+		OpenRouteServiceParameters fromJson = JsonParameters.fromJson(json, OpenRouteServiceParameters.class);
+
+		System.out.println(fromJson.getOptions().getProfileParams().getWeightings().getSteepnessDifficulty());
 	}
 
 }
