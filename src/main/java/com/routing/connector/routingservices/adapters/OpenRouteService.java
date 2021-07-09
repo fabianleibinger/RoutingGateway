@@ -12,34 +12,34 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Optional;
 
-public class OpenRouteService implements IRoutingService {
+/**
+ * Adapter for Openrouteservice.
+ */
+public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequest> {
 
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions";
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
-    /**
-     * Adds a path variable to the URL specifying the mode.
-     * @param pathSegment
-     * @return URL including pathSegment
-     */
-    public String getURLWithPath(String pathSegment) {
-        return URL + "/" + pathSegment;
+    @Override
+    public Optional<RoutingResponse> computeRoute(MobilityPreferences preferences) {
+        return null;
     }
 
     /**
      * Sends POST request to Openrouteservice and tries to receive a HTTP response.
-     * @param parameters for Openrouteservice
+     * @param orsRequest for Openrouteservice
      * @return HTTP Response that includes a JSON route or empty object.
      */
-    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest parameters) {
+    @Override
+    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest orsRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create(getURLWithPath(parameters.getProfile())))
+                .uri(URI.create(getURLWithPath(orsRequest.getProfile())))
                 .header("Content-Type", "application/json")
-                .header("authorization", parameters.getAuthorization())
+                .header("authorization", orsRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(parameters.toCorrectFormat()))
+                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.toCorrectBodyFormat()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());
@@ -52,9 +52,13 @@ public class OpenRouteService implements IRoutingService {
         }
     }
 
-    @Override
-    public Optional<RoutingResponse> computeRoute(MobilityPreferences preferences) {
-        return null;
+    /**
+     * Adds a path variable to the URL specifying the mode.
+     * @param pathSegment
+     * @return URL including pathSegment
+     */
+    public String getURLWithPath(String pathSegment) {
+        return URL + "/" + pathSegment;
     }
 
     @Override

@@ -5,6 +5,9 @@ import com.routing.connector.routingservices.responses.RoutingResponse;
 
 import java.util.Optional;
 
+/**
+ * Interface for Routing Services.
+ */
 public interface IRoutingService {
 
     Optional<RoutingResponse> computeRoute(MobilityPreferences preferences);
