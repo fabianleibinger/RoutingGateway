@@ -20,15 +20,21 @@ public class OpenRouteServiceParameters {
     private OpenRouteServiceAlternativeRoutes alternative_routes;
     private List<String> attributes;
     private List<Float[]> bearings;
-    private Boolean continue_straight = false;
+    //default false
+    private Boolean continue_straight;
     private Boolean elevation;
     private List<String> extra_info;
-    private Boolean geometry_simplify = false;
+    //default false
+    private Boolean geometry_simplify;
     private String id;
-    private Boolean instructions = true;
-    private String instructions_format = "text";
-    private String language = "en";
-    private Boolean maneuvers = false;
+    //default true
+    private Boolean instructions;
+    //default "text"
+    private String instructions_format;
+    //default "en"
+    private String language;
+    //default false
+    private Boolean maneuvers;
     private String options;
         private String avoid_borders;
         private List<Integer> avoid_countries;
@@ -37,15 +43,21 @@ public class OpenRouteServiceParameters {
         private String profile_params;
             private String restrictions;
                 private Float axleload;
-                private Boolean hazmat = false;
+                //default false
+                private Boolean hazmat;
                 private Float height;
                 private Float length;
-                private Integer maximum_incline = 6;
-                private Float maximum_sloped_kerb = 0.6f;
+                //default 6
+                private Integer maximum_incline;
+                //default 0.6f
+                private Float maximum_sloped_kerb;
                 private Float minimum_width;
-                private String smoothness_type = "good";
-                private String surface_type = "cobblestone:flattened";
-                private String track_type = "grade1";
+                //default "good"
+                private String smoothness_type;
+                //default "cobblestone:flattened"
+                private String surface_type;
+                //default "grade1"
+                private String track_type;
                 private Float weight;
                 private Float width;
             private String weightings;
@@ -56,13 +68,18 @@ public class OpenRouteServiceParameters {
             //private Float length;
             private Integer points;
             private Integer seed;
-        private String vehicle_type = "hgv";
-    private String preference = "recommended";
-    private Boolean roundabout_exits = false;
+        //default "hgv"
+        private String vehicle_type;
+    //default "recommended"
+    private String preference;
+    //default false
+    private Boolean roundabout_exits;
     private List<Integer> skip_segments;
     private Boolean suppress_warnings;
-    private String units = "m";
-    private Boolean geometry = true;
+    //default "m"
+    private String units;
+    //default true
+    private Boolean geometry;
     private Integer maximum_speed;
 
     public OpenRouteServiceParameters(List<Coordinate> coordinates) {
