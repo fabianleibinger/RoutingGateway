@@ -6,16 +6,23 @@ import com.routing.connector.models.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Request Body Parameters for OpenRouteService.
+ * Default values included.
+ */
 public class OpenRouteServiceParameters {
 
-    //required
+    /**
+     * required
+     */
     private List<Double[]> coordinates = new ArrayList<>();
+
     private OpenRouteServiceAlternativeRoutes alternative_routes;
-    private List<String> attributes = new ArrayList<>();
-    private List<Float[]> bearings = new ArrayList<>();
+    private List<String> attributes;
+    private List<Float[]> bearings;
     private Boolean continue_straight = false;
-    private Boolean elevation = false;
-    private List<String> extra_info = new ArrayList<>();
+    private Boolean elevation;
+    private List<String> extra_info;
     private Boolean geometry_simplify = false;
     private String id;
     private Boolean instructions = true;
@@ -23,9 +30,9 @@ public class OpenRouteServiceParameters {
     private String language = "en";
     private Boolean maneuvers = false;
     private String options;
-        private String avoid_borders = "controlled";
-        private List<Integer> avoid_countries = new ArrayList<>();
-        private List<String> avoid_features = new ArrayList<>();
+        private String avoid_borders;
+        private List<Integer> avoid_countries;
+        private List<String> avoid_features;
         private String avoid_polygons;
         private String profile_params;
             private String restrictions;
@@ -52,8 +59,8 @@ public class OpenRouteServiceParameters {
         private String vehicle_type = "hgv";
     private String preference = "recommended";
     private Boolean roundabout_exits = false;
-    private List<Integer> skip_segments = new ArrayList<>();
-    private Boolean suppress_warnings = false;
+    private List<Integer> skip_segments;
+    private Boolean suppress_warnings;
     private String units = "m";
     private Boolean geometry = true;
     private Integer maximum_speed;
@@ -89,8 +96,8 @@ public class OpenRouteServiceParameters {
     }
 
     public OpenRouteServiceAlternativeRoutes getAlternativeRoutes() {
-        if (alternative_routes == null) {
-            alternative_routes = new OpenRouteServiceAlternativeRoutes();
+        if (this.alternative_routes == null) {
+            this.alternative_routes = new OpenRouteServiceAlternativeRoutes();
         }
         return alternative_routes;
     }
@@ -100,6 +107,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<String> getAttributes() {
+        if (this.attributes == null) {
+            attributes = new ArrayList<>();
+        }
         return attributes;
     }
 
@@ -108,6 +118,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<Float[]> getBearings() {
+        if (this.bearings == null) {
+            this.bearings = new ArrayList<>();
+        }
         return bearings;
     }
 
@@ -132,6 +145,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<String> getExtraInfo() {
+        if (this.extra_info == null) {
+            this.extra_info = new ArrayList<>();
+        }
         return extra_info;
     }
 
@@ -204,6 +220,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<Integer> getAvoidCountries() {
+        if (this.avoid_countries == null) {
+            this.avoid_countries = new ArrayList<>();
+        }
         return avoid_countries;
     }
 
@@ -212,6 +231,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<String> getAvoidFeatures() {
+        if (this.avoid_features == null) {
+            this.avoid_features = new ArrayList<>();
+        }
         return avoid_features;
     }
 
@@ -410,6 +432,9 @@ public class OpenRouteServiceParameters {
     }
 
     public List<Integer> getSkipSegments() {
+        if (this.skip_segments == null) {
+            this.skip_segments = new ArrayList<>();
+        }
         return skip_segments;
     }
 
