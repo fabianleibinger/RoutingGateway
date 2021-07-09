@@ -22,7 +22,7 @@ public class OpenRouteService implements IRoutingService {
     /**
      * Adds a path variable to the URL specifying the mode.
      * @param pathSegment
-     * @return URL
+     * @return URL including pathSegment
      */
     public String getURLWithPath(String pathSegment) {
         return URL + "/" + pathSegment;
@@ -31,7 +31,7 @@ public class OpenRouteService implements IRoutingService {
     /**
      * Sends POST request to Openrouteservice and tries to receive a HTTP response.
      * @param parameters for Openrouteservice
-     * @return HTTP Response that includes a JSON route.
+     * @return HTTP Response that includes a JSON route or empty object.
      */
     public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest parameters) {
         HttpRequest postRequest = HttpRequest.newBuilder()

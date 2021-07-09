@@ -1,5 +1,6 @@
 package com.routing.connector.routingservices.parameters;
 
+import com.google.gson.Gson;
 import com.routing.connector.models.Coordinate;
 
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ public class OpenRouteServiceParameters {
         private Integer target_count;
         private float weight_factor;
     private List<String> attributes = new ArrayList<>();
-
     private List<float[]> bearings = new ArrayList<>();
     private boolean continue_straight = false;
     private boolean elevation = false;
@@ -69,6 +69,13 @@ public class OpenRouteServiceParameters {
 
     public String toJson() {
         return "{\"coordinates\":[[8.681495,49.41461],[8.686507,49.41943],[8.687872,49.420318]]}";
+    }
+
+    public String toJSON() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        System.out.println(json);
+        return json;
     }
 
     public void addCoordinate(Coordinate coordinate) {
@@ -384,9 +391,7 @@ public class OpenRouteServiceParameters {
         return steepness_difficulty;
     }
 
-    public void setSteepnessDifficulty(Integer steepness_difficulty) {
-        this.steepness_difficulty = steepness_difficulty;
-    }
+    public void setSteepnessDifficulty(Integer steepness_difficulty) { this.steepness_difficulty = steepness_difficulty; }
 
     public String getRoundTrip() {
         return round_trip;

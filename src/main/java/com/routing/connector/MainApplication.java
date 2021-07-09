@@ -26,6 +26,8 @@ public class MainApplication {
 
 		OpenRouteService routingService = new OpenRouteService();
 		routingService.receiveResponse(request);
+
+		parameters.toJSON();
 	}
 
 }
