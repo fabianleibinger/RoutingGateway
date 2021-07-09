@@ -18,11 +18,6 @@ public abstract class JsonParameters {
     }
 
     /**
-     * Transforms Json file to JsonParameters subclass object
-     * @param json
-     * @return JsonParameters object
-     */
-    /**
      * Transforms Json file to JsonParameters subclass object.
      * @param json
      * @param type class type
