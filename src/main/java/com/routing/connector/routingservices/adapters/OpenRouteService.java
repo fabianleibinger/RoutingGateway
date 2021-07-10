@@ -23,7 +23,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
     private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingResponse> computeRoute(MobilityPreferences preferences) {
+    public Optional<RoutingResponse> computeRoute(OpenRouteServiceRequest request) {
         return null;
     }
 
