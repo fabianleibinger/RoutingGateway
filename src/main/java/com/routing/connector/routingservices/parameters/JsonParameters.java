@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 public abstract class JsonParameters {
     /**
      * Transforms JsonParameters object to Json file.
+     *
      * @return String json
      */
     public String toJson() {
@@ -19,12 +20,13 @@ public abstract class JsonParameters {
 
     /**
      * Transforms Json file to JsonParameters subclass object.
+     *
      * @param json
      * @param type class type
-     * @param <P> subclass of JsonParameters
+     * @param <Parameters>  subclass of JsonParameters
      * @return object of <P>
      */
-    public static <P extends JsonParameters> P fromJson(String json, Class<P> type) {
+    public static <Parameters extends JsonParameters> Parameters fromJson(String json, Class<Parameters> type) {
         return new Gson().fromJson(json, type);
     }
 }

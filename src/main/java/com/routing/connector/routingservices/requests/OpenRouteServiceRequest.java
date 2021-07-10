@@ -9,9 +9,7 @@ import com.routing.connector.routingservices.parameters.OpenRouteServiceParamete
 public class OpenRouteServiceRequest implements RoutingRequest {
 
     private static final String AUTHORIZATION = "5b3ce3597851110001cf6248540f077434854eeda3fb744c240bc46f";
-
     private String profile;
-
     private OpenRouteServiceParameters parameters;
 
     public OpenRouteServiceRequest(String profile,
@@ -21,7 +19,7 @@ public class OpenRouteServiceRequest implements RoutingRequest {
     }
 
     @Override
-    public String toCorrectBodyFormat() {
+    public String toCorrectFormat() {
         return parameters.toJson();
     }
 

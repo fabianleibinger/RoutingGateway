@@ -38,7 +38,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
                 .header("Content-Type", "application/json")
                 .header("authorization", orsRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.toCorrectBodyFormat()))
+                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.toCorrectFormat()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());
