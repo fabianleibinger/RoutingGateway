@@ -1,6 +1,5 @@
 package com.routing.connector;
 
-import com.google.gson.Gson;
 import com.routing.connector.models.Coordinate;
 import com.routing.connector.routingservices.adapters.OpenRouteService;
 import com.routing.connector.routingservices.parameters.JsonParameters;
