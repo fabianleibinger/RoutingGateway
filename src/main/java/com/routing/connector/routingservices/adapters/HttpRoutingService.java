@@ -10,9 +10,9 @@ import java.util.Optional;
  */
 public interface HttpRoutingService<RoutingRequest> {
 
-    Optional<HttpResponse<String>> receiveResponse(RoutingRequest request);
-
     Optional<RoutingResponse> computeRoute(RoutingRequest request);
+
+    Optional<HttpResponse<String>> receiveResponse(RoutingRequest request);
 
     String getName();
     String getURL();
