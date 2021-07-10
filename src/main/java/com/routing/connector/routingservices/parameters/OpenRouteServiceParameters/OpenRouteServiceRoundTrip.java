@@ -1,6 +1,8 @@
 package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
 
-public class OpenRouteServiceRoundTrip {
+import com.routing.connector.routingservices.parameters.JsonParameters;
+
+public class OpenRouteServiceRoundTrip extends JsonParameters {
     private Float length;
     private Integer points;
     private Integer seed;

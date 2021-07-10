@@ -1,6 +1,8 @@
 package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
 
-public class OpenRouteServiceAlternativeRoutes {
+import com.routing.connector.routingservices.parameters.JsonParameters;
+
+public class OpenRouteServiceAlternativeRoutes extends JsonParameters {
     private Float share_factor;
     private Integer target_count;
     private Float weight_factor;
