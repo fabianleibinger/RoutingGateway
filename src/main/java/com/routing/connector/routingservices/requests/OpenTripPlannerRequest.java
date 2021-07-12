@@ -4,13 +4,18 @@ import com.routing.connector.routingservices.parameters.OpenTripPlannerParameter
 
 import java.util.Map;
 
-public class OpenTripPlannerRequest implements RoutingRequest {
+public class OpenTripPlannerRequest implements RoutingRequest<Map<String, String>> {
 
     private String routerId = "default";
     private OpenTripPlannerParameters parameters;
 
     public OpenTripPlannerRequest(OpenTripPlannerParameters parameters) {
         this.parameters = parameters;
+    }
+
+    @Override
+    public Map<String, String> toCorrectFormat() {
+        return parameters.toStringKeyValueMap();
     }
 
     public String getRouterId() {
@@ -27,9 +32,5 @@ public class OpenTripPlannerRequest implements RoutingRequest {
 
     public void setParameters(OpenTripPlannerParameters parameters) {
         this.parameters = parameters;
-    }
-
-    public Map<String, String> toCorrectFormat() {
-        return parameters.toStringKeyValueMap();
     }
 }
