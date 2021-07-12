@@ -17,7 +17,7 @@ import java.util.Optional;
 public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequest> {
 
     private static final String NAME = "Openrouteservice";
-    private static final String URL = "https://api.openrouteservice.org/v2/directions";
+    private static final String URL = "https://api.openrouteservice.org/v2/directions/";
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
@@ -34,7 +34,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
     @Override
     public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest orsRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create(getURLWithPath(orsRequest.getProfile())))
+                .uri(URI.create(getCompleteURL(orsRequest.getProfile())))
                 .header("Content-Type", "application/json")
                 .header("authorization", orsRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
@@ -56,8 +56,8 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
      * @param pathSegment
      * @return URL including pathSegment
      */
-    public String getURLWithPath(String pathSegment) {
-        return URL + "/" + pathSegment;
+    public String getCompleteURL(String pathSegment) {
+        return URL + pathSegment;
     }
 
     @Override

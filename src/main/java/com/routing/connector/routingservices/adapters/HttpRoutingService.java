@@ -2,6 +2,7 @@ package com.routing.connector.routingservices.adapters;
 
 import com.routing.connector.routingservices.responses.RoutingResponse;
 
+import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ public interface HttpRoutingService<RoutingRequest> {
 
     Optional<RoutingResponse> computeRoute(RoutingRequest request);
 
-    Optional<HttpResponse<String>> receiveResponse(RoutingRequest request);
+    Optional<HttpResponse<String>> receiveResponse(RoutingRequest request) throws URISyntaxException;
 
     String getName();
     String getURL();
