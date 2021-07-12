@@ -4,6 +4,7 @@ import com.routing.connector.models.Coordinate;
 import com.routing.connector.routingservices.adapters.OpenRouteService;
 import com.routing.connector.routingservices.parameters.JsonParameters;
 import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
+import com.routing.connector.routingservices.parameters.OpenTripPlannerParameters.OpenTripPlannerParameters;
 import com.routing.connector.routingservices.requests.OpenRouteServiceRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,9 @@ public class MainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
 
+		/**
+		 * ORS
+		 *
 		List<Coordinate> coordinates = new ArrayList<>();
 		coordinates.add(new Coordinate(8.681495, 49.41461));
 		coordinates.add(new Coordinate(8.686507, 49.41943));
@@ -34,6 +38,14 @@ public class MainApplication {
 		OpenRouteServiceParameters fromJson = JsonParameters.fromJson(json, OpenRouteServiceParameters.class);
 
 		System.out.println(fromJson.getOptions().getProfileParams().getWeightings().getSteepnessDifficulty());
+		 /
+
+		/**
+		 * OTP
+		 */
+		OpenTripPlannerParameters parameters = new OpenTripPlannerParameters();
+		parameters.setBannedAgencies("Hallo");
+		System.out.println(parameters.toStringKeyValueMap());
 	}
 
 }
