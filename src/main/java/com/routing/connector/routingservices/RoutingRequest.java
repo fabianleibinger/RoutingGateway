@@ -1,6 +1,7 @@
-package com.routing.connector.routingservices.requests;
+package com.routing.connector.routingservices;
 
 import com.routing.connector.models.Coordinate;
+import com.routing.connector.routingservices.requests.RoutingServiceRequest;
 
 public class RoutingRequest {
     private Coordinate origin;

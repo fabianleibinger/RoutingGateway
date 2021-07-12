@@ -1,4 +1,4 @@
 package com.routing.connector.routingservices.responses;
 
-public interface RoutingResponse {
+public interface RoutingServiceResponse {
 }

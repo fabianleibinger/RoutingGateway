@@ -1,8 +1,8 @@
 package com.routing.connector.routingservices.adapters;
 
 import com.routing.connector.routingservices.requests.OpenTripPlannerServiceRequest;
-import com.routing.connector.routingservices.requests.RoutingRequest;
-import com.routing.connector.routingservices.responses.RoutingResponse;
+import com.routing.connector.routingservices.RoutingRequest;
+import com.routing.connector.routingservices.responses.RoutingServiceResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServic
     private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingResponse> computeRoute(RoutingRequest request) {
+    public Optional<RoutingServiceResponse> computeRoute(RoutingRequest request) {
         return Optional.empty();
     }
 
