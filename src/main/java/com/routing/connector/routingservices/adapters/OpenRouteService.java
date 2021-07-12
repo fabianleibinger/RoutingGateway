@@ -1,6 +1,7 @@
 package com.routing.connector.routingservices.adapters;
 
-import com.routing.connector.routingservices.requests.OpenRouteServiceRequest;
+import com.routing.connector.routingservices.requests.OpenRouteServiceServiceRequest;
+import com.routing.connector.routingservices.requests.RoutingRequest;
 import com.routing.connector.routingservices.responses.RoutingResponse;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.Optional;
 /**
  * Adapter for Openrouteservice.
  */
-public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequest> {
+public class OpenRouteService implements HttpRoutingService<OpenRouteServiceServiceRequest> {
 
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions/";
@@ -22,7 +23,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
     private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingResponse> computeRoute(OpenRouteServiceRequest orsRequest) {
+    public Optional<RoutingResponse> computeRoute(RoutingRequest request) {
         return null;
     }
 
@@ -32,7 +33,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequ
      * @return HTTP Response that includes a JSON route or empty object.
      */
     @Override
-    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceRequest orsRequest) {
+    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceServiceRequest orsRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getCompleteURL(orsRequest.getProfile())))
                 .header("Content-Type", "application/json")

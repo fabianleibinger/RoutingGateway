@@ -1,6 +1,7 @@
 package com.routing.connector.routingservices.adapters;
 
-import com.routing.connector.routingservices.requests.OpenTripPlannerRequest;
+import com.routing.connector.routingservices.requests.OpenTripPlannerServiceRequest;
+import com.routing.connector.routingservices.requests.RoutingRequest;
 import com.routing.connector.routingservices.responses.RoutingResponse;
 import org.apache.http.client.utils.URIBuilder;
 
@@ -16,7 +17,7 @@ import java.util.Optional;
 /**
  * Adapter for OpenTripPlanner.
  */
-public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerRequest> {
+public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServiceRequest> {
 
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
@@ -24,7 +25,7 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerReques
     private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingResponse> computeRoute(OpenTripPlannerRequest otpRequest) {
+    public Optional<RoutingResponse> computeRoute(RoutingRequest request) {
         return Optional.empty();
     }
 
@@ -34,7 +35,7 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerReques
      * @return HTTP Response that includes a XML route or empty object.
      */
     @Override
-    public Optional<HttpResponse<String>> receiveResponse(OpenTripPlannerRequest otpRequest) {
+    public Optional<HttpResponse<String>> receiveResponse(OpenTripPlannerServiceRequest otpRequest) {
         URIBuilder builder = new URIBuilder(URI.create(getCompleteURL(otpRequest.getRouterId())));
         //Add parameters to URI
         otpRequest.toCorrectFormat().entrySet().forEach(entry -> builder.addParameter(entry.getKey(), entry.getValue()));

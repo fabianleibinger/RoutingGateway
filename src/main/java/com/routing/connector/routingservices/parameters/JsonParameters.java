@@ -13,9 +13,7 @@ public abstract class JsonParameters {
      * @return String json
      */
     public String toJson() {
-        String json = new Gson().toJson(this);
-        System.out.println(json);
-        return json;
+        return new Gson().toJson(this);
     }
 
     /**
