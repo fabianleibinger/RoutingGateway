@@ -28,6 +28,11 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerReques
         return Optional.empty();
     }
 
+    /**
+     * Sends GET request to OpenTripPlanner and tries to receive a HTTP response.
+     * @param otpRequest for OpenTripPlanner
+     * @return HTTP Response that includes a XML route or empty object.
+     */
     @Override
     public Optional<HttpResponse<String>> receiveResponse(OpenTripPlannerRequest otpRequest) {
         URIBuilder builder = new URIBuilder(URI.create(getCompleteURL(otpRequest.getRouterId())));
