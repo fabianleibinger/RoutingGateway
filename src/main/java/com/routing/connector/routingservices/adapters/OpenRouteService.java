@@ -1,7 +1,7 @@
 package com.routing.connector.routingservices.adapters;
 
 import com.routing.connector.routingservices.RoutingResult;
-import com.routing.connector.routingservices.requests.OpenRouteServiceServiceRequest;
+import com.routing.connector.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.connector.routingservices.RoutingRequest;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Adapter for Openrouteservice.
  */
-public class OpenRouteService implements HttpRoutingService<OpenRouteServiceServiceRequest> {
+public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequest> {
 
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions/";
@@ -33,7 +33,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceServ
      * @return HTTP Response that includes a JSON route or empty object.
      */
     @Override
-    public Optional<HttpResponse<String>> receiveResponse(OpenRouteServiceServiceRequest orsRequest) {
+    public Optional<String> receiveResponse(OpenRouteServiceRequest orsRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create(getCompleteURL(orsRequest.getProfile())))
                 .header("Content-Type", "application/json")
@@ -45,7 +45,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceServ
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
             System.out.println(response.body());
-            return Optional.of(response);
+            return Optional.of(response.body());
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");
             return Optional.empty();

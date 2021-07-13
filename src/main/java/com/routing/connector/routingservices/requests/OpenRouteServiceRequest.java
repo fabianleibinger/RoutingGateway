@@ -6,14 +6,14 @@ import com.routing.connector.routingservices.parameters.OpenRouteServiceParamete
  * Request information for Openrouteservice.
  * Includes parameters.
  */
-public class OpenRouteServiceServiceRequest implements RoutingServiceRequest<String> {
+public class OpenRouteServiceRequest implements RoutingServiceRequest<String> {
 
     private static final String AUTHORIZATION = "5b3ce3597851110001cf6248540f077434854eeda3fb744c240bc46f";
     private String profile;
     private OpenRouteServiceParameters parameters;
 
-    public OpenRouteServiceServiceRequest(String profile,
-                                          OpenRouteServiceParameters parameters) {
+    public OpenRouteServiceRequest(String profile,
+                                   OpenRouteServiceParameters parameters) {
         this.profile = profile;
         this.parameters = parameters;
     }

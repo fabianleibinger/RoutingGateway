@@ -1,14 +1,13 @@
 package com.routing.connector.routingservices.adapters;
 
 import com.routing.connector.routingservices.RoutingResult;
-import com.routing.connector.routingservices.requests.OpenTripPlannerServiceRequest;
+import com.routing.connector.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.connector.routingservices.RoutingRequest;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -17,7 +16,7 @@ import java.util.Optional;
 /**
  * Adapter for OpenTripPlanner.
  */
-public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServiceRequest> {
+public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerRequest> {
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
@@ -32,15 +31,16 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServic
      * @return HTTP Response that includes a XML route or empty object.
      */
     @Override
-    public Optional<HttpResponse<String>> receiveResponse(OpenTripPlannerServiceRequest otpRequest) {
-        URIBuilder builder = new URIBuilder(URI.create(getCompleteURL(otpRequest.getRouterId())));
+    public Optional<String> receiveResponse(OpenTripPlannerRequest otpRequest) {
+        URI url = URI.create(getCompleteURL(otpRequest.getRouterId()));
+        URIBuilder builder = new URIBuilder(url);
         //Add parameters to URI
         otpRequest.toCorrectFormat().entrySet().forEach(entry -> builder.addParameter(entry.getKey(), entry.getValue()));
         URI uri;
         try {
             uri = builder.build();
         } catch (URISyntaxException e) {
-            uri = URI.create(getCompleteURL(otpRequest.getRouterId()));
+            uri = url;
         }
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(uri)
@@ -55,7 +55,7 @@ public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServic
             HttpResponse<String> response = HTTP_CLIENT.send(getRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
             System.out.println(response.body());
-            return Optional.of(response);
+            return Optional.of(response.body());
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");
             return Optional.empty();

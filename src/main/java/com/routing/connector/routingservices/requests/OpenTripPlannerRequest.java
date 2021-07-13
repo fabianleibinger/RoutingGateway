@@ -4,12 +4,12 @@ import com.routing.connector.routingservices.parameters.OpenTripPlannerParameter
 
 import java.util.Map;
 
-public class OpenTripPlannerServiceRequest implements RoutingServiceRequest<Map<String, String>> {
+public class OpenTripPlannerRequest implements RoutingServiceRequest<Map<String, String>> {
 
     private String routerId = "default";
     private OpenTripPlannerParameters parameters;
 
-    public OpenTripPlannerServiceRequest(OpenTripPlannerParameters parameters) {
+    public OpenTripPlannerRequest(OpenTripPlannerParameters parameters) {
         this.parameters = parameters;
     }
 

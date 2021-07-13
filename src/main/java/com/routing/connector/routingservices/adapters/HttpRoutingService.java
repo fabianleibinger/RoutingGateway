@@ -13,12 +13,12 @@ import java.util.Optional;
  */
 public interface HttpRoutingService<RoutingServiceRequest> {
 
-    static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
-    static final Integer OK_STATUS_CODE = 200;
+    HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
+    Integer OK_STATUS_CODE = 200;
 
     Optional<RoutingResult> computeRoute(RoutingRequest request);
 
-    Optional<HttpResponse<String>> receiveResponse(RoutingServiceRequest request) throws URISyntaxException;
+    Optional<String> receiveResponse(RoutingServiceRequest request);
 
     String getName();
     String getURL();
