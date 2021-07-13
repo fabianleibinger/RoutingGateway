@@ -1,9 +1,10 @@
 package com.routing.connector.routingservices.adapters;
 
 import com.routing.connector.routingservices.RoutingRequest;
-import com.routing.connector.routingservices.responses.RoutingServiceResponse;
+import com.routing.connector.routingservices.RoutingResult;
 
 import java.net.URISyntaxException;
+import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -12,7 +13,10 @@ import java.util.Optional;
  */
 public interface HttpRoutingService<RoutingServiceRequest> {
 
-    Optional<RoutingServiceResponse> computeRoute(RoutingRequest request);
+    static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
+    static final Integer OK_STATUS_CODE = 200;
+
+    Optional<RoutingResult> computeRoute(RoutingRequest request);
 
     Optional<HttpResponse<String>> receiveResponse(RoutingServiceRequest request) throws URISyntaxException;
 

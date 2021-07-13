@@ -1,8 +1,8 @@
 package com.routing.connector.routingservices.adapters;
 
+import com.routing.connector.routingservices.RoutingResult;
 import com.routing.connector.routingservices.requests.OpenRouteServiceServiceRequest;
 import com.routing.connector.routingservices.RoutingRequest;
-import com.routing.connector.routingservices.responses.RoutingServiceResponse;
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,7 +23,7 @@ public class OpenRouteService implements HttpRoutingService<OpenRouteServiceServ
     private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingServiceResponse> computeRoute(RoutingRequest request) {
+    public Optional<RoutingResult> computeRoute(RoutingRequest request) {
         return null;
     }
 

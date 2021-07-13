@@ -1,8 +1,8 @@
 package com.routing.connector.routingservices.adapters;
 
+import com.routing.connector.routingservices.RoutingResult;
 import com.routing.connector.routingservices.requests.OpenTripPlannerServiceRequest;
 import com.routing.connector.routingservices.RoutingRequest;
-import com.routing.connector.routingservices.responses.RoutingServiceResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
@@ -18,15 +18,12 @@ import java.util.Optional;
  * Adapter for OpenTripPlanner.
  */
 public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerServiceRequest> {
-
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
-    private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
-    private static final Integer OK_STATUS_CODE = 200;
 
     @Override
-    public Optional<RoutingServiceResponse> computeRoute(RoutingRequest request) {
-        return Optional.empty();
+    public Optional<RoutingResult> computeRoute(RoutingRequest request) {
+        return null;
     }
 
     /**
