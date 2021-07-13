@@ -52,6 +52,7 @@ public class Valhalla implements HttpRoutingService<ValhallaRequest> {
                     sb.append(line + "\n");
                 }
                 result = sb.toString();
+                br.close();
             } catch (IOException e) {
                 System.out.println("Failed to read response.");
             }
