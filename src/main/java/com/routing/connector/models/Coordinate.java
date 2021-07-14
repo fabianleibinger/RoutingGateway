@@ -1,5 +1,8 @@
 package com.routing.connector.models;
 
+/**
+ * Coordinate consists of latitude and longitude.
+ */
 public record Coordinate(double latitude, double longitude) {
 
     public double getLatitude() {
