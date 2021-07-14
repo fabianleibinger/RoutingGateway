@@ -1,8 +1,8 @@
-package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+package com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters;
 
-import com.routing.connector.routingservices.parameters.JsonParameters;
+import com.routing.connector.routingservices.requests.parameters.Parameters;
 
-public class OpenRouteServiceWeightings extends JsonParameters {
+public class OpenRouteServiceWeightings extends Parameters {
     private Float green;
     private Float quiet;
     private Integer steepness_difficulty;

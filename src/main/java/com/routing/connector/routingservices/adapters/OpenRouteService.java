@@ -39,7 +39,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
                 .header("Content-Type", "application/json")
                 .header("authorization", orsRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.toCorrectFormat()))
+                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.serialize()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());

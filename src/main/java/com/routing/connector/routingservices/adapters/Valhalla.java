@@ -30,7 +30,7 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
     public Optional<String> receiveResponse(ValhallaRequest valhallaRequest) {
         URIBuilder builder = new URIBuilder(URI.create(URL));
         //Add parameters to URI
-        builder.addParameter("json", valhallaRequest.toCorrectFormat());
+        builder.addParameter("json", valhallaRequest.serialize());
         URI uri;
         try {
             uri = builder.build();

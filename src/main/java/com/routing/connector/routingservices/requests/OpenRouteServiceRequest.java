@@ -1,12 +1,12 @@
 package com.routing.connector.routingservices.requests;
 
-import com.routing.connector.routingservices.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
+import com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
 
 /**
  * Request information for Openrouteservice.
  * Includes parameters.
  */
-public class OpenRouteServiceRequest implements RoutingServiceRequest<String> {
+public class OpenRouteServiceRequest implements RoutingServiceRequest {
 
     private static final String AUTHORIZATION = "5b3ce3597851110001cf6248540f077434854eeda3fb744c240bc46f";
     private String profile;
@@ -19,7 +19,7 @@ public class OpenRouteServiceRequest implements RoutingServiceRequest<String> {
     }
 
     @Override
-    public String toCorrectFormat() {
+    public String serialize() {
         return parameters.toJson();
     }
 

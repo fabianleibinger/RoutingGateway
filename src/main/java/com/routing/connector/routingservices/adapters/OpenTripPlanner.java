@@ -3,11 +3,9 @@ package com.routing.connector.routingservices.adapters;
 import com.routing.connector.routingservices.RoutingResult;
 import com.routing.connector.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.connector.routingservices.RoutingRequest;
-import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -32,16 +30,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
      */
     @Override
     public Optional<String> receiveResponse(OpenTripPlannerRequest otpRequest) {
-        URI url = URI.create(getCompleteURL(otpRequest.getRouterId()));
-        URIBuilder builder = new URIBuilder(url);
-        //Add parameters to URI
-        otpRequest.toCorrectFormat().entrySet().forEach(entry -> builder.addParameter(entry.getKey(), entry.getValue()));
-        URI uri;
-        try {
-            uri = builder.build();
-        } catch (URISyntaxException e) {
-            uri = url;
-        }
+        URI uri = URI.create(getCompleteURL(otpRequest.getRouterId(), otpRequest.serialize()));
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Content-Type", "application/json")
@@ -68,8 +57,8 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
      * @param pathSegment
      * @return URL including pathSegment and "plan" path
      */
-    public String getCompleteURL(String pathSegment) {
-        return URL + pathSegment + "/plan";
+    public String getCompleteURL(String pathSegment, String query) {
+        return URL + pathSegment + "/plan" + query;
     }
 
     @Override

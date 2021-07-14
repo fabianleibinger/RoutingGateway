@@ -1,8 +1,8 @@
-package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+package com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters;
 
-import com.routing.connector.routingservices.parameters.JsonParameters;
+import com.routing.connector.routingservices.requests.parameters.Parameters;
 
-public class OpenRouteServiceRestrictions extends JsonParameters {
+public class OpenRouteServiceRestrictions extends Parameters {
     private Float axleload;
     //default false
     private Boolean hazmat;

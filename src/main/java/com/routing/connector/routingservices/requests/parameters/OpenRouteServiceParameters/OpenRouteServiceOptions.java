@@ -1,11 +1,11 @@
-package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+package com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters;
 
-import com.routing.connector.routingservices.parameters.JsonParameters;
+import com.routing.connector.routingservices.requests.parameters.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenRouteServiceOptions extends JsonParameters {
+public class OpenRouteServiceOptions extends Parameters {
     private String avoid_borders;
     private List<Integer> avoid_countries;
     private List<String> avoid_features;

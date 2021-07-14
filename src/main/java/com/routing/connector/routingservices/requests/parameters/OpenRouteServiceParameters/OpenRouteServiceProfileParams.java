@@ -1,8 +1,8 @@
-package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+package com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters;
 
-import com.routing.connector.routingservices.parameters.JsonParameters;
+import com.routing.connector.routingservices.requests.parameters.Parameters;
 
-public class OpenRouteServiceProfileParams extends JsonParameters {
+public class OpenRouteServiceProfileParams extends Parameters {
     private OpenRouteServiceRestrictions restrictions;
     private OpenRouteServiceWeightings weightings;
 

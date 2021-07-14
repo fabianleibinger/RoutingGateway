@@ -1,7 +1,7 @@
-package com.routing.connector.routingservices.parameters.OpenRouteServiceParameters;
+package com.routing.connector.routingservices.requests.parameters.OpenRouteServiceParameters;
 
 import com.routing.connector.models.Coordinate;
-import com.routing.connector.routingservices.parameters.JsonParameters;
+import com.routing.connector.routingservices.requests.parameters.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Default values included.
  * Getters for complex types include instantiation if value equals null.
  */
-public class OpenRouteServiceParameters extends JsonParameters {
+public class OpenRouteServiceParameters extends Parameters {
 
     /**
      * required
