@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * Adapter for Valhalla.
  */
-public class Valhalla implements HttpRoutingService<ValhallaRequest> {
+public class Valhalla implements IRoutingService<ValhallaRequest> {
     private static final String NAME = "Valhalla";
     private static final String URL = "http://se-elsbeere:8002/route";
 

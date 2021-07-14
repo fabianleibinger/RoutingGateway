@@ -9,9 +9,9 @@ import java.net.http.HttpResponse;
 import java.util.Optional;
 
 /**
- * Interface for Routing Services that use Http. Must use RoutingRequest.
+ * Interface for Routing Services. Must use RoutingRequest.
  */
-public interface HttpRoutingService<RoutingServiceRequest> {
+public interface IRoutingService<RoutingServiceRequest> {
 
     HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     Integer OK_STATUS_CODE = 200;

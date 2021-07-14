@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Adapter for Openrouteservice.
  */
-public class OpenRouteService implements HttpRoutingService<OpenRouteServiceRequest> {
+public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest> {
 
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions/";

@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Adapter for OpenTripPlanner.
  */
-public class OpenTripPlanner implements HttpRoutingService<OpenTripPlannerRequest> {
+public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> {
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
