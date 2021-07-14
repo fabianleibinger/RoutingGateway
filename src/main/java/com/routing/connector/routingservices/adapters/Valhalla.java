@@ -45,6 +45,7 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
             System.out.println(connection.getResponseCode());
             String result = "";
             try {
+                //TODO make reading work
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
