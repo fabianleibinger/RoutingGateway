@@ -16,9 +16,12 @@ public class OpenTripPlannerParameters extends Parameters {
     private Boolean batch;
     private Integer bikeBoardCost;
     private Double bikeSpeed;
+    //default 0
     private Integer bikeSwitchCost;
+    //default 0
     private Integer bikeSwitchTime;
     private Integer boardSlack;
+    //default -1
     private Long clampInitialWait;
     private String date;
     private Boolean disableRemainingWeightHeuristic;
@@ -27,8 +30,10 @@ public class OpenTripPlannerParameters extends Parameters {
     private String intermediatePlaces;
     private String locale;
     private String maxHours;
+    //default unlimited
     private Integer maxPreTransitTime;
     private Integer maxTransfers;
+    //default unlimited
     private Double maxWalkDistance;
     private Integer minTransferTime;
     private String mode;
@@ -53,6 +58,7 @@ public class OpenTripPlannerParameters extends Parameters {
     private Double waitAtBeginningFactor;
     private Double waitReluctance;
     private Integer walkBoardCost;
+    //default 2
     private Double walkReluctance;
     private Double walkSpeed;
     private Double wheelchair;

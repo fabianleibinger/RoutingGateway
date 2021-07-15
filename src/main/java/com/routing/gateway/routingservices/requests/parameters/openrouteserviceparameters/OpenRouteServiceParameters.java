@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Request Body Parameters for OpenRouteService.
- * Default values included.
+ * Parameters for OpenRouteService.
  * Getters for complex types include instantiation if value equals null.
  */
 public class OpenRouteServiceParameters extends Parameters {
@@ -89,7 +88,7 @@ public class OpenRouteServiceParameters extends Parameters {
 
     public List<String> getAttributes() {
         if (this.attributes == null) {
-            attributes = new ArrayList<>();
+            this.attributes = new ArrayList<>();
         }
         return attributes;
     }

@@ -9,6 +9,7 @@ import com.routing.gateway.routingservices.requests.parameters.opentripplannerpa
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.gateway.routingservices.requests.ValhallaRequest;
+import com.routing.gateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -48,7 +49,8 @@ public class MainApplication {
 		/**
 		 * Valhalla
 		 */
-		ValhallaRequest valhallaRequest = new ValhallaRequest();
+		ValhallaParameters valhallaParameters = new ValhallaParameters();
+		ValhallaRequest valhallaRequest = new ValhallaRequest(valhallaParameters);
 		Valhalla valhalla = new Valhalla();
 		valhalla.receiveResponse(valhallaRequest);
 	}

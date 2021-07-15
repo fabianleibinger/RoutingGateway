@@ -1,8 +1,29 @@
 package com.routing.gateway.routingservices.requests;
 
+import com.routing.gateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
+
+/**
+ * Request information for Valhalla.
+ * Includes parameters.
+ */
 public class ValhallaRequest implements RoutingServiceRequest {
+
+    private ValhallaParameters parameters;
+
+    public ValhallaRequest(ValhallaParameters parameters) {
+        this.parameters = parameters;
+    }
+
     @Override
     public String serialize() {
-        return "{\"locations\":[{\"lat\":42.358528,\"lon\":-83.271400,\"street\":\"Appleton\"},{\"lat\":42.996613,\"lon\":-78.749855,\"street\":\"Ranch Trail\"}],\"costing\":\"auto\",\"costing_options\":{\"auto\":{\"country_crossing_penalty\":2000.0}},\"units\":\"miles\",\"id\":\"my_work_route\"}";
+        return parameters.toJson();
+    }
+
+    public ValhallaParameters getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(ValhallaParameters parameters) {
+        this.parameters = parameters;
     }
 }
