@@ -30,9 +30,8 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
      */
     @Override
     public Optional<String> receiveResponse(OpenTripPlannerRequest otpRequest) {
-        URI uri = URI.create(getCompleteURL(otpRequest.getRouterId(), otpRequest.serialize()));
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(uri)
+                .uri(buildURI(otpRequest.getRouterId(), otpRequest.serialize()))
                 .header("Content-Type", "application/json")
                 .header("User-Agent",
                         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36")
@@ -52,13 +51,14 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
     }
 
     /**
-     * Adds a path variable to the URL specifying the routing profile.
+     * Adds a path variable and a String query to the URL.
      *
      * @param pathSegment
-     * @return URL including pathSegment and "plan" path
+     * @return URI including pathSegment and "plan" path
      */
-    public String getCompleteURL(String pathSegment, String query) {
-        return URL + pathSegment + "/plan" + query;
+    public URI buildURI(String pathSegment, String query) {
+        String url = URL + pathSegment + "/plan" + query;
+        return URI.create(url);
     }
 
     @Override

@@ -28,24 +28,19 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
 
     @Override
     public Optional<String> receiveResponse(ValhallaRequest valhallaRequest) {
-        URIBuilder builder = new URIBuilder(URI.create(URL));
-        //Add parameters to URI
-        builder.addParameter("json", valhallaRequest.serialize());
-        URI uri;
         try {
-            uri = builder.build();
-        } catch (URISyntaxException e) {
-            uri = URI.create(URL);
-        }
-        try {
+            URI uri = buildURI(valhallaRequest.serialize());
             URL obj = new URL(uri.toString());
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
             System.out.println(connection.getResponseCode());
-            String result = "";
+            if (connection.getResponseCode() != OK_STATUS_CODE) {
+                System.out.println("Failed to receive response.");
+                return Optional.empty();
+            }
+            String result = null;
             try {
-                //TODO make reading work
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -58,13 +53,26 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
                 System.out.println("Failed to read response.");
             }
             connection.disconnect();
-            if (result != "") {
+            if (result != null) {
                 return Optional.of(result);
             }
         } catch (IOException e) {
-            System.out.println("Couldn't receive response.");
+            System.out.println("Failed to receive response.");
         }
         return Optional.empty();
+    }
+
+    public URI buildURI(String jsonQuery) {
+        URIBuilder builder = new URIBuilder(URI.create(URL));
+        builder.addParameter("json", jsonQuery);
+        URI uri;
+        try {
+            uri = builder.build();
+        } catch (URISyntaxException e) {
+            System.out.println("Failed to receive response.");
+            uri = URI.create(URL);
+        }
+        return uri;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     @Override
     public Optional<String> receiveResponse(OpenRouteServiceRequest orsRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create(getCompleteURL(orsRequest.getProfile())))
+                .uri(buildURI(orsRequest.getProfile()))
                 .header("Content-Type", "application/json")
                 .header("authorization", orsRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
@@ -53,12 +53,13 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     }
 
     /**
-     * Adds a path variable to the URL specifying the mode.
+     * Adds a path variable to the URL.
      * @param pathSegment
-     * @return URL including pathSegment
+     * @return URI including pathSegment
      */
-    public String getCompleteURL(String pathSegment) {
-        return URL + pathSegment;
+    public URI buildURI(String pathSegment) {
+        String url = URL + pathSegment;
+        return URI.create(url);
     }
 
     @Override
