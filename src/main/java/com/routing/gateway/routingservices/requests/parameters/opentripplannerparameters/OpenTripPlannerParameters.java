@@ -1,4 +1,4 @@
-package com.routing.gateway.routingservices.requests.parameters.OpenTripPlannerParameters;
+package com.routing.gateway.routingservices.requests.parameters.opentripplannerparameters;
 
 import com.routing.gateway.routingservices.requests.parameters.Parameters;
 

@@ -1,6 +1,6 @@
 package com.routing.gateway.routingservices.requests;
 
-import com.routing.gateway.routingservices.requests.parameters.OpenTripPlannerParameters.OpenTripPlannerParameters;
+import com.routing.gateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters;
 
 public class OpenTripPlannerRequest implements RoutingServiceRequest {
 

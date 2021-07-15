@@ -1,6 +1,6 @@
 package com.routing.gateway.routingservices.requests;
 
-import com.routing.gateway.routingservices.requests.parameters.OpenRouteServiceParameters.OpenRouteServiceParameters;
+import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 
 /**
  * Request information for Openrouteservice.

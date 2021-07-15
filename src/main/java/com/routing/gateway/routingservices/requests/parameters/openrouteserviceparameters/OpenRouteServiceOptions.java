@@ -1,4 +1,4 @@
-package com.routing.gateway.routingservices.requests.parameters.OpenRouteServiceParameters;
+package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
 import com.routing.gateway.routingservices.requests.parameters.Parameters;
 
