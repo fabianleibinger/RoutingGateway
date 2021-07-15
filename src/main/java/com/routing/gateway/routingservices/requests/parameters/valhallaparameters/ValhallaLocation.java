@@ -24,11 +24,6 @@ public class ValhallaLocation extends Parameters {
     private Double street_side_max_distance;
     private ValhallaSearchFilter search_filter;
 
-    public ValhallaLocation(Double lat, Double lon) {
-        this.lat = lat;
-        this.lon = lon;
-    }
-
     public Double getLat() {
         return lat;
     }
