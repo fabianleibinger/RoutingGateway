@@ -34,8 +34,9 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
-            System.out.println(connection.getResponseCode());
-            if (connection.getResponseCode() != OK_STATUS_CODE) {
+            int responseCode = connection.getResponseCode();
+            System.out.println(responseCode);
+            if (responseCode != OK_STATUS_CODE) {
                 System.out.println("Failed to receive response.");
                 return Optional.empty();
             }
