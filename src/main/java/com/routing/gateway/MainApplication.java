@@ -9,6 +9,7 @@ import com.routing.gateway.routingservices.requests.parameters.opentripplannerpa
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.gateway.routingservices.requests.ValhallaRequest;
+import com.routing.gateway.routingservices.requests.parameters.valhallaparameters.ValhallaLocation;
 import com.routing.gateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,6 +51,15 @@ public class MainApplication {
 		 * Valhalla
 		 */
 		ValhallaParameters valhallaParameters = new ValhallaParameters();
+		ValhallaLocation startLocation = new ValhallaLocation();
+		ValhallaLocation destination = new ValhallaLocation();
+		startLocation.setLat(8.681495);
+		startLocation.setLon(49.41461);
+		destination.setLat(8.686507);
+		destination.setLon(49.41943);
+		valhallaParameters.getLocations().add(startLocation);
+		valhallaParameters.getLocations().add(destination);
+		valhallaParameters.setCosting("auto");
 		ValhallaRequest valhallaRequest = new ValhallaRequest(valhallaParameters);
 		Valhalla valhalla = new Valhalla();
 		valhalla.receiveResponse(valhallaRequest);
