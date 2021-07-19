@@ -50,6 +50,9 @@ public class OpenRouteServiceMetadata {
     }
 
     public void setQuery(Object query) {
+        if (this.query == null) {
+            this.query = new Object();
+        }
         this.query = query;
     }
 
