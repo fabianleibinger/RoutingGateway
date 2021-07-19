@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class ValhallaFilter extends Parameters {
+public class ValhallaFilter {
     String ids;
     String action;
 

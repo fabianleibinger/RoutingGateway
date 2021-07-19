@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class OpenRouteServiceRoundTrip extends Parameters {
+public class OpenRouteServiceRoundTrip {
     private Float length;
     private Integer points;
     private Integer seed;

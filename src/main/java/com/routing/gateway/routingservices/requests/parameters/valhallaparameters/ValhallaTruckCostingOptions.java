@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class ValhallaTruckCostingOptions extends Parameters {
+public class ValhallaTruckCostingOptions {
     //default 15
     public Double toll_booth_cost;
     //default 300

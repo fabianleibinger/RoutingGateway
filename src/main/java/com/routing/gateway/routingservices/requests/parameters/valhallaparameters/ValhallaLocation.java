@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class ValhallaLocation extends Parameters {
+public class ValhallaLocation {
     private Double lat;
     private Double lon;
     private String type;

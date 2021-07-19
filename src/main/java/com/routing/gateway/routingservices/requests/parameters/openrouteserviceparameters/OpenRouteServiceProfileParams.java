@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class OpenRouteServiceProfileParams extends Parameters {
+public class OpenRouteServiceProfileParams {
     private OpenRouteServiceRestrictions restrictions;
     private OpenRouteServiceWeightings weightings;
 

@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class OpenRouteServiceWeightings extends Parameters {
+public class OpenRouteServiceWeightings {
     private Float green;
     private Float quiet;
     private Integer steepness_difficulty;

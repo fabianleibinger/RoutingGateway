@@ -1,11 +1,9 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpenRouteServiceOptions extends Parameters {
+public class OpenRouteServiceOptions{
     private String avoid_borders;
     private List<Integer> avoid_countries;
     private List<String> avoid_features;

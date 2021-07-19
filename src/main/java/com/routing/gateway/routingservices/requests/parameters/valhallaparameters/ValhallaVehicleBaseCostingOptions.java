@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public abstract class ValhallaVehicleBaseCostingOptions extends Parameters {
+public abstract class ValhallaVehicleBaseCostingOptions {
     //default 5
     private Double maneuver_penalty;
     //default 30

@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class ValhallaCostingOptions extends Parameters {
+public class ValhallaCostingOptions {
     private ValhallaAutomobileAndBusCostingOptions auto;
     private ValhallaTruckCostingOptions truck;
     private ValhallaMotorScooterCostingOptions motor_scooter;

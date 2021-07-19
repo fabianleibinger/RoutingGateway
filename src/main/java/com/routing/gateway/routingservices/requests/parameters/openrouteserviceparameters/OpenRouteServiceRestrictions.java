@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class OpenRouteServiceRestrictions extends Parameters {
+public class OpenRouteServiceRestrictions {
     private Float axleload;
     //default false
     private Boolean hazmat;

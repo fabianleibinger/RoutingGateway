@@ -4,7 +4,7 @@ import com.routing.gateway.routingservices.requests.parameters.Parameters;
 
 import java.util.Date;
 
-public class ValhallaRoutingDateTime extends Parameters {
+public class ValhallaRoutingDateTime {
     private Integer type;
     private Date value;
 

@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class OpenRouteServiceAlternativeRoutes extends Parameters {
+public class OpenRouteServiceAlternativeRoutes {
     private Float share_factor;
     private Integer target_count;
     private Float weight_factor;

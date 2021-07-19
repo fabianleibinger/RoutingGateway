@@ -1,8 +1,6 @@
 package com.routing.gateway.routingservices.requests.parameters.valhallaparameters;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
-
-public class ValhallaSearchFilter extends Parameters {
+public class ValhallaSearchFilter {
     //default false
     private Boolean exclude_tunnel;
     //default false
