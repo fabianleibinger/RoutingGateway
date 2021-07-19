@@ -18,7 +18,11 @@ public class User {
         this.password = password;
     }
 
-    public String toBodyFormat() {
+    public String toLogInBodyFormat() {
+        return "grant_type" + "password" + "&username=" + this.username + "&password=" + this.password;
+    }
+
+    public String toSignUpBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
     }
 
@@ -29,7 +33,7 @@ public class User {
                 .uri(URI.create("http://regiomove.fzi.de:8080/signup"))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(this.toBodyFormat()))
+                .POST(HttpRequest.BodyPublishers.ofString(this.toSignUpBodyFormat()))
                 .build();
         try {
             HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
