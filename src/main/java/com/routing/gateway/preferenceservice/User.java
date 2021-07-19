@@ -1,16 +1,45 @@
 package com.routing.gateway.preferenceservice;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 
-public class User extends Parameters {
+public class User {
     private String username;
-    private String fullname;
+    private String fullName;
     private String password;
 
-    public User(String username, String fullname, String password) {
+    public User(String username, String fullName, String password) {
         this.username = username;
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.password = password;
+    }
+
+    public String toBodyFormat() {
+        return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
+    }
+
+    public String signup() {
+        HttpService httpService = new HttpService();
+        HttpClient httpClient = httpService.getHttpClient();
+        HttpRequest postRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://regiomove.fzi.de:8080/signup"))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .timeout(Duration.ofSeconds(35))
+                .POST(HttpRequest.BodyPublishers.ofString(this.toBodyFormat()))
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.statusCode());
+            System.out.println(response.body());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Couldn't receive response.");
+            return "";
+        }
     }
 
     public String getUsername() {
@@ -21,12 +50,12 @@ public class User extends Parameters {
         this.username = username;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getPassword() {
