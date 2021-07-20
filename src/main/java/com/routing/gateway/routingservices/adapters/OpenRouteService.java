@@ -41,7 +41,6 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         }
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
-            System.out.println(response);
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
             System.out.println(responseObject.getBbox());
         }

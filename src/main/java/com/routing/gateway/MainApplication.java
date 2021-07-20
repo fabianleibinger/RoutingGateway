@@ -41,7 +41,6 @@ public class MainApplication {
 
 		OpenRouteService ors = new OpenRouteService();
 		ors.computeRoute(request);
-		ors.receiveResponse(orsRequest);
 
 		/**
 		 * OTP

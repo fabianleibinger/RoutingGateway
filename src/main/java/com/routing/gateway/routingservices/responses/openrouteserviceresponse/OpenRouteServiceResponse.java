@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Response information of a successful request to OpenRouteService.
  */
-public class OpenRouteServiceResponse extends Parameters {
+public class OpenRouteServiceResponse {
     private List<Double> bbox;
     private OpenRouteServiceMetadata metadata;
     private List<OpenRouteServiceRoute> routes;
