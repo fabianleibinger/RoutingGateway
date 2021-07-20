@@ -4,6 +4,9 @@ import com.routing.gateway.models.Coordinate;
 
 import java.util.List;
 
+/**
+ * A route expected by clients of this service.
+ */
 public class RoutingResult {
 
     List<Coordinate> polyline;

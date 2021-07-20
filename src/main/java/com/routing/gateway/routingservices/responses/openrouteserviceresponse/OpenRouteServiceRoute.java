@@ -10,6 +10,8 @@ public class OpenRouteServiceRoute {
     private List<Double> bbox;
     private String departure;
     private Map<String, OpenRouteServiceExtra> extras;
+
+    private String geometry;
     private List<OpenRouteServiceSegment> segments;
     private OpenRouteServiceSummary summary;
     private List<OpenRouteServiceWarning> warnings;
@@ -58,6 +60,14 @@ public class OpenRouteServiceRoute {
             this.segments = new ArrayList<>();
         }
         return segments;
+    }
+
+    public String getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(String geometry) {
+        this.geometry = geometry;
     }
 
     public void setSegments(List<OpenRouteServiceSegment> segments) {

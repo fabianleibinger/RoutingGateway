@@ -1,5 +1,7 @@
 package com.routing.gateway.routingservices.responses.openrouteserviceresponse;
 
+import com.routing.gateway.routingservices.RoutingResult;
+
 import java.util.ArrayList;
 import java.util.List;
 

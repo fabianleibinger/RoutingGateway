@@ -1,6 +1,8 @@
 package com.routing.gateway.routingservices.adapters;
 
 import com.google.gson.Gson;
+import com.google.maps.model.EncodedPolyline;
+import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
@@ -12,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -42,7 +45,10 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
-            System.out.println(responseObject.getBbox());
+            System.out.println(responseObject.getRoutes().get(0).getGeometry());
+            EncodedPolyline polyline = new EncodedPolyline(responseObject.getRoutes().get(0).getGeometry());
+            List<LatLng> coordinates = polyline.decodePath();
+            System.out.println(coordinates);
         }
         return Optional.empty();
     }

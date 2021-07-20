@@ -12,8 +12,7 @@ public class OpenRouteServiceRequest implements RoutingServiceRequest {
     private String profile;
     private OpenRouteServiceParameters parameters;
 
-    public OpenRouteServiceRequest(String profile,
-                                   OpenRouteServiceParameters parameters) {
+    public OpenRouteServiceRequest(String profile, OpenRouteServiceParameters parameters) {
         this.profile = profile;
         this.parameters = parameters;
     }
