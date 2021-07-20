@@ -67,6 +67,8 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             System.out.println(response.body());
             if (response.statusCode() == OK_STATUS_CODE) {
                 return Optional.of(response.body());
+            } else {
+                System.out.println("Status Code " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");

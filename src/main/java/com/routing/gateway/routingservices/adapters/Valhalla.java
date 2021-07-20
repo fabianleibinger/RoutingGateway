@@ -37,7 +37,7 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
             int responseCode = connection.getResponseCode();
             System.out.println(responseCode);
             if (responseCode != OK_STATUS_CODE) {
-                System.out.println("Failed to receive response.");
+                System.out.println("Status Code " + responseCode);
                 return Optional.empty();
             }
             String result = null;

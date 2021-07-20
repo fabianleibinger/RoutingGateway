@@ -45,6 +45,8 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
             System.out.println(response.body());
             if (response.statusCode() == OK_STATUS_CODE) {
                 return Optional.of(response.body());
+            } else {
+                System.out.println("Status Code " + response.statusCode());
             }
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");
