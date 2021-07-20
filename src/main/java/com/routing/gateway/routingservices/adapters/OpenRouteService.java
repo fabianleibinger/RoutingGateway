@@ -1,8 +1,10 @@
 package com.routing.gateway.routingservices.adapters;
 
+import com.google.gson.Gson;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
+import com.routing.gateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceResponse;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,9 +24,28 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
+    /**
+     * Returns a routing result for a routing request.
+     * @param request RoutingRequest
+     * @return Optional<RoutingResult>
+     */
     @Override
+    //TODO: Parse to RoutingResult
     public Optional<RoutingResult> computeRoute(RoutingRequest request) {
-        return null;
+        Optional<String> responseOptional;
+        if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
+            responseOptional = this.receiveResponse((OpenRouteServiceRequest) request.getRequest());
+        } else {
+            System.out.println("Wrong RoutingRequest type provided.");
+            return Optional.empty();
+        }
+        if (responseOptional.isPresent()) {
+            String response = responseOptional.get();
+            System.out.println(response);
+            OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
+            System.out.println(responseObject.getBbox());
+        }
+        return Optional.empty();
     }
 
     /**
@@ -45,11 +66,13 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
             System.out.println(response.body());
-            return Optional.of(response.body());
+            if (response.statusCode() == OK_STATUS_CODE) {
+                return Optional.of(response.body());
+            }
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     /**

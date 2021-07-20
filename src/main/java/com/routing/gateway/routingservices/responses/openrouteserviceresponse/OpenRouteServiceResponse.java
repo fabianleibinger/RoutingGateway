@@ -5,6 +5,9 @@ import com.routing.gateway.routingservices.requests.parameters.Parameters;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Response information of a successful request to OpenRouteService.
+ */
 public class OpenRouteServiceResponse extends Parameters {
     private List<Double> bbox;
     private OpenRouteServiceMetadata metadata;

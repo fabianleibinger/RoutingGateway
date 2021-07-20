@@ -1,13 +1,15 @@
 package com.routing.gateway.routingservices.responses.openrouteserviceresponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OpenRouteServiceRoute {
     private String arrival;
     private List<Double> bbox;
     private String departure;
-    private Object extras;
+    private Map<String, OpenRouteServiceExtra> extras;
     private List<OpenRouteServiceSegment> segments;
     private OpenRouteServiceSummary summary;
     private List<OpenRouteServiceWarning> warnings;
@@ -40,14 +42,14 @@ public class OpenRouteServiceRoute {
         this.departure = departure;
     }
 
-    public Object getExtras() {
+    public Map<String, OpenRouteServiceExtra> getExtras() {
         if (this.extras == null) {
-            this.extras = new Object();
+            this.extras = new HashMap<>();
         }
         return extras;
     }
 
-    public void setExtras(Object extras) {
+    public void setExtras(Map<String, OpenRouteServiceExtra> extras) {
         this.extras = extras;
     }
 

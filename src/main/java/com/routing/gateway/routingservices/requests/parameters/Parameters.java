@@ -27,18 +27,6 @@ public abstract class Parameters {
     }
 
     /**
-     * Transforms Json file to <RoutingServiceParameters> object.
-     *
-     * @param json
-     * @param type                       subclass type
-     * @param <RoutingServiceParameters> subclass object of Parameters
-     * @return object of <RoutingServiceParameters>
-     */
-    public static <RoutingServiceParameters extends Parameters> Parameters fromJson(String json, Class<Parameters> type) {
-        return new Gson().fromJson(json, type);
-    }
-
-    /**
      * Transforms <RoutingServiceParameters> object to XML.
      *
      * @return String XML
@@ -49,23 +37,6 @@ public abstract class Parameters {
         } catch (JsonProcessingException e) {
             System.out.println("Failed to serialize object to xml.");
             return "";
-        }
-    }
-
-    /**
-     * Transforms XML file to <RoutingServiceParameters> object.
-     *
-     * @param xml
-     * @param type                       subclass type
-     * @param <RoutingServiceParameters> subclass object of Parameters
-     * @return object of <RoutingServiceParameters>
-     */
-    public static <RoutingServiceParameters extends Parameters> Parameters fromXML(String xml, Class<Parameters> type) {
-        try {
-            return new XmlMapper().readValue(xml, type);
-        } catch (JsonProcessingException e) {
-            System.out.println("Failed to deserialize XML file.");
-            return null;
         }
     }
 

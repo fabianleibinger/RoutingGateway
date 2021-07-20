@@ -1,6 +1,7 @@
 package com.routing.gateway;
 
 import com.routing.gateway.models.Coordinate;
+import com.routing.gateway.routingservices.RoutingRequest;
 import com.routing.gateway.routingservices.adapters.OpenRouteService;
 import com.routing.gateway.routingservices.adapters.OpenTripPlanner;
 import com.routing.gateway.routingservices.adapters.Valhalla;
@@ -27,16 +28,19 @@ public class MainApplication {
 		 * ORS
 		 */
 		List<Coordinate> coordinates = new ArrayList<>();
-		coordinates.add(new Coordinate(8.681495, 49.41461));
-		coordinates.add(new Coordinate(8.686507, 49.41943));
+		Coordinate start = new Coordinate(8.681495, 49.41461);
+		Coordinate destination = new Coordinate(8.686507, 49.41943);
+		coordinates.add(start);
+		coordinates.add(destination);
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
 		parameters.addCoordinates(coordinates);
 
 		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
-
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);
+		RoutingRequest request = new RoutingRequest(start, destination, orsRequest);
 
 		OpenRouteService ors = new OpenRouteService();
+		ors.computeRoute(request);
 		ors.receiveResponse(orsRequest);
 
 		/**
@@ -52,13 +56,13 @@ public class MainApplication {
 		 */
 		ValhallaParameters valhallaParameters = new ValhallaParameters();
 		ValhallaLocation startLocation = new ValhallaLocation();
-		ValhallaLocation destination = new ValhallaLocation();
+		ValhallaLocation destinationLocation = new ValhallaLocation();
 		startLocation.setLat(8.681495);
 		startLocation.setLon(49.41461);
-		destination.setLat(8.686507);
-		destination.setLon(49.41943);
+		destinationLocation.setLat(8.686507);
+		destinationLocation.setLon(49.41943);
 		valhallaParameters.getLocations().add(startLocation);
-		valhallaParameters.getLocations().add(destination);
+		valhallaParameters.getLocations().add(destinationLocation);
 		valhallaParameters.setCosting("auto");
 		ValhallaRequest valhallaRequest = new ValhallaRequest(valhallaParameters);
 		Valhalla valhalla = new Valhalla();

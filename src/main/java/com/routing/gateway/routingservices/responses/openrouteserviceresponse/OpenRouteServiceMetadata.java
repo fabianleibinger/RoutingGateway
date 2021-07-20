@@ -5,10 +5,9 @@ public class OpenRouteServiceMetadata {
     private OpenRouteServiceEngine engine;
     private String id;
     private String osm_file_md5_hash;
-    private Object query;
     private String service;
     private String system_message;
-    private Integer timestamp;
+    private Long timestamp;
 
     public String getAttribution() {
         return attribution;
@@ -45,17 +44,6 @@ public class OpenRouteServiceMetadata {
         this.osm_file_md5_hash = osm_file_md5_hash;
     }
 
-    public Object getQuery() {
-        return query;
-    }
-
-    public void setQuery(Object query) {
-        if (this.query == null) {
-            this.query = new Object();
-        }
-        this.query = query;
-    }
-
     public String getService() {
         return service;
     }
@@ -72,11 +60,11 @@ public class OpenRouteServiceMetadata {
         this.system_message = system_message;
     }
 
-    public Integer getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 }
