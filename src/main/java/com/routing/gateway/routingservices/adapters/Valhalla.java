@@ -63,6 +63,11 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
         return Optional.empty();
     }
 
+    /**
+     * Adds a Json object to the URL as query parameter.
+     * @param jsonQuery Json object
+     * @return URI including jsonQuery
+     */
     public URI buildURI(String jsonQuery) {
         URIBuilder builder = new URIBuilder(URI.create(URL));
         builder.addParameter("json", jsonQuery);

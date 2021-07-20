@@ -43,11 +43,13 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
             HttpResponse<String> response = HTTP_CLIENT.send(getRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
             System.out.println(response.body());
-            return Optional.of(response.body());
+            if (response.statusCode() == OK_STATUS_CODE) {
+                return Optional.of(response.body());
+            }
         } catch (IOException | InterruptedException e) {
             System.out.println("Couldn't receive response.");
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     /**
