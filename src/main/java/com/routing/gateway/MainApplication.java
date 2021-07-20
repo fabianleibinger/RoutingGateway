@@ -37,10 +37,8 @@ public class MainApplication {
 
 		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);
-		RoutingRequest request = new RoutingRequest(start, destination, orsRequest);
-
-		OpenRouteService ors = new OpenRouteService();
-		ors.computeRoute(request);
+		RoutingRequest request = new RoutingRequest(start, destination, orsRequest, new OpenRouteService());
+		request.send();
 
 		/**
 		 * OTP
