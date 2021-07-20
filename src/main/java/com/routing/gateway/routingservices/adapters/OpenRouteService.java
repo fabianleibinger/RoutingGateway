@@ -6,7 +6,7 @@ import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
-import com.routing.gateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceResponse;
+import com.routing.gateway.routingservices.responses.openrouteserviceresponse.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,13 +14,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Adapter for Openrouteservice.
  */
-public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest> {
+public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest, OpenRouteServiceResponse> {
 
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions/";
@@ -30,11 +31,10 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     /**
      * Returns a routing result for a routing request.
      * @param request RoutingRequest
-     * @return Optional<RoutingResult>
+     * @return Optional<List<RoutingResult>>
      */
     @Override
-    //TODO: Parse to RoutingResult
-    public Optional<RoutingResult> computeRoute(RoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
         Optional<String> responseOptional;
         if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
             responseOptional = this.receiveResponse((OpenRouteServiceRequest) request.getRequest());
@@ -45,10 +45,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
-            System.out.println(responseObject.getRoutes().get(0).getGeometry());
-            EncodedPolyline polyline = new EncodedPolyline(responseObject.getRoutes().get(0).getGeometry());
-            List<LatLng> coordinates = polyline.decodePath();
-            System.out.println(coordinates);
+            return Optional.of(extractRoutingResult(responseObject));
         }
         return Optional.empty();
     }
@@ -80,6 +77,41 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             System.out.println("Couldn't receive response.");
         }
         return Optional.empty();
+    }
+
+    /**
+     * Returns a list of routes from the responseObject.
+     * @param openRouteServiceResponse
+     * @return routes List of RoutingResult
+     */
+    @Override
+    public List<RoutingResult> extractRoutingResult(OpenRouteServiceResponse openRouteServiceResponse) {
+        List<RoutingResult> routes = new ArrayList<>();
+        for (OpenRouteServiceRoute route : openRouteServiceResponse.getRoutes()) {
+            OpenRouteServiceSummary summary = route.getSummary();
+            EncodedPolyline encodedPolyline = new EncodedPolyline(route.getGeometry());
+            List<LatLng> polyline = encodedPolyline.decodePath();
+            Double durationInMinutes = summary.getDuration() / 60;
+            Double distanceInMeters = summary.getDistance();
+            List<String> instructions = new ArrayList<>();
+            for (OpenRouteServiceSegment segment : route.getSegments()) {
+                for (OpenRouteServiceStep step : segment.getSteps()) {
+                    instructions.add(step.getInstruction());
+                }
+            }
+            List<String> warnings = new ArrayList<>();
+            for (OpenRouteServiceWarning warning : route.getWarnings()) {
+                warnings.add(warning.getMessage());
+            }
+            Double ascent = summary.getAscent();
+            Double descent = summary.getDescent();
+            RoutingResult result = new RoutingResult(polyline, durationInMinutes, distanceInMeters,instructions);
+            result.setWarnings(warnings);
+            result.setAscent(ascent);
+            result.setDescent(descent);
+            routes.add(result);
+        }
+        return routes;
     }
 
     /**

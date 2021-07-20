@@ -1,6 +1,7 @@
 package com.routing.gateway.routingservices.responses.openrouteserviceresponse;
 
 import com.routing.gateway.routingservices.RoutingResult;
+import com.routing.gateway.routingservices.requests.parameters.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Response information of a successful request to OpenRouteService.
  */
-public class OpenRouteServiceResponse {
+public class OpenRouteServiceResponse extends Parameters {
     private List<Double> bbox;
     private OpenRouteServiceMetadata metadata;
     private List<OpenRouteServiceRoute> routes;

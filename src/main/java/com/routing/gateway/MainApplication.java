@@ -2,6 +2,7 @@ package com.routing.gateway;
 
 import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.RoutingRequest;
+import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.adapters.OpenRouteService;
 import com.routing.gateway.routingservices.adapters.OpenTripPlanner;
 import com.routing.gateway.routingservices.adapters.Valhalla;
@@ -17,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class MainApplication {
@@ -40,7 +42,8 @@ public class MainApplication {
 		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);
 		RoutingRequest request = new RoutingRequest(start, destination, orsRequest, new OpenRouteService());
-		request.send();
+		Optional<List<RoutingResult>> result = request.send();
+		System.out.println(result.get().get(0).getInstructions().get(0));
 
 		/**
 		 * OTP

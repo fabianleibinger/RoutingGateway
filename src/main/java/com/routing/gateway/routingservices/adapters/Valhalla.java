@@ -3,6 +3,7 @@ package com.routing.gateway.routingservices.adapters;
 import com.routing.gateway.routingservices.RoutingRequest;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.ValhallaRequest;
+import com.routing.gateway.routingservices.responses.valhallaresponse.ValhallaResponse;
 import org.apache.http.client.utils.URIBuilder;
 
 import java.io.BufferedReader;
@@ -13,16 +14,17 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
+import java.util.List;
 
 /**
  * Adapter for Valhalla.
  */
-public class Valhalla implements IRoutingService<ValhallaRequest> {
+public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaResponse> {
     private static final String NAME = "Valhalla";
     private static final String URL = "http://se-elsbeere:8002/route";
 
     @Override
-    public Optional<RoutingResult> computeRoute(RoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
         return Optional.empty();
     }
 
@@ -61,6 +63,11 @@ public class Valhalla implements IRoutingService<ValhallaRequest> {
             System.out.println("Failed to receive response.");
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<RoutingResult> extractRoutingResult(ValhallaResponse valhallaResponse) {
+        return null;
     }
 
     /**

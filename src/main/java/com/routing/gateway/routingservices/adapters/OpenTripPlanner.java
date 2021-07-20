@@ -3,6 +3,7 @@ package com.routing.gateway.routingservices.adapters;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
+import com.routing.gateway.routingservices.responses.opentripplannerresponse.OpenTripPlannerResponse;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,17 +11,18 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Optional;
+import java.util.List;
 
 /**
  * Adapter for OpenTripPlanner.
  */
-public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> {
+public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, OpenTripPlannerResponse> {
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
     @Override
-    public Optional<RoutingResult> computeRoute(RoutingRequest request) {
-        return null;
+    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
+        return Optional.empty();
     }
 
     /**
@@ -52,6 +54,11 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest> 
             System.out.println("Couldn't receive response.");
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
+        return null;
     }
 
     /**

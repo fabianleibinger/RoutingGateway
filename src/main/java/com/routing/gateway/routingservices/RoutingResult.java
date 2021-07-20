@@ -2,10 +2,11 @@ package com.routing.gateway.routingservices;
 
 import com.google.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A route expected by clients of this service.
+ * Route expected by clients of this service.
  */
 public class RoutingResult {
 
@@ -60,6 +61,9 @@ public class RoutingResult {
     }
 
     public List<String> getWarnings() {
+        if (this.warnings == null) {
+            this.warnings = new ArrayList<>();
+        }
         return warnings;
     }
 

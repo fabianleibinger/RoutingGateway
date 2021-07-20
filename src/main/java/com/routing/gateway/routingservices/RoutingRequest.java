@@ -4,9 +4,14 @@ import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.adapters.IRoutingService;
 import com.routing.gateway.routingservices.requests.RoutingServiceRequest;
 
+import java.util.List;
 import java.util.Optional;
 
+/**
+ * Request for clients of this service.
+ */
 public class RoutingRequest {
+
     private LatLng origin;
     private LatLng destination;
     RoutingServiceRequest request;
@@ -20,7 +25,7 @@ public class RoutingRequest {
         this.routingService = routingService;
     }
 
-    public Optional<RoutingResult> send() {
+    public Optional<List<RoutingResult>> send() {
         return this.routingService.computeRoute(this);
     }
 
