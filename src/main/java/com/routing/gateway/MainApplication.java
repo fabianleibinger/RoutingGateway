@@ -1,6 +1,6 @@
 package com.routing.gateway;
 
-import com.routing.gateway.models.Coordinate;
+import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.RoutingRequest;
 import com.routing.gateway.routingservices.adapters.OpenRouteService;
 import com.routing.gateway.routingservices.adapters.OpenTripPlanner;
@@ -27,13 +27,15 @@ public class MainApplication {
 		/**
 		 * ORS
 		 */
-		List<Coordinate> coordinates = new ArrayList<>();
-		Coordinate start = new Coordinate(8.681495, 49.41461);
-		Coordinate destination = new Coordinate(8.686507, 49.41943);
-		coordinates.add(start);
-		coordinates.add(destination);
+		LatLng start = new LatLng(8.681495, 49.41461);
+		LatLng destination = new LatLng(8.686507, 49.41943);
+		Double[] startCoord = {start.lat, start.lng};
+		Double[] destCoord = {destination.lat, destination.lng};
+		List<Double[]> coordList = new ArrayList<>();
+		coordList.add(startCoord);
+		coordList.add(destCoord);
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
-		parameters.addCoordinates(coordinates);
+		parameters.setCoordinates(coordList);
 
 		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);

@@ -1,6 +1,5 @@
 package com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters;
 
-import com.routing.gateway.models.Coordinate;
 import com.routing.gateway.routingservices.requests.parameters.Parameters;
 
 import java.util.ArrayList;
@@ -47,25 +46,6 @@ public class OpenRouteServiceParameters extends Parameters {
     //default true
     private Boolean geometry;
     private Integer maximum_speed;
-
-    /**
-     * Adds a coordinate to parameters.
-     * @param coordinate
-     */
-    public void addCoordinate(Coordinate coordinate) {
-        Double[] newCoordinate = new Double[]{coordinate.getLatitude(), coordinate.getLongitude()};
-        this.coordinates.add(newCoordinate);
-    }
-
-    /**
-     * Adds a list of coordinates as parameters.
-     * @param coordinates
-     */
-    public void addCoordinates(List<Coordinate> coordinates) {
-        for (Coordinate coo : coordinates) {
-            this.addCoordinate(coo);
-        }
-    }
 
     public List<Double[]> getCoordinates() {
         return coordinates;

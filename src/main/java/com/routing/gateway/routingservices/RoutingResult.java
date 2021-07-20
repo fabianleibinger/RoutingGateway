@@ -1,6 +1,6 @@
 package com.routing.gateway.routingservices;
 
-import com.routing.gateway.models.Coordinate;
+import com.google.maps.model.LatLng;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class RoutingResult {
 
-    List<Coordinate> polyline;
+    List<LatLng> polyline;
     Double durationInMinutes;
     Double distanceInMeters;
     List<String> instructions;
@@ -20,18 +20,18 @@ public class RoutingResult {
     Double descent;
 
     public RoutingResult
-            (List<Coordinate> polyline, Double durationInMinutes, Double distanceInMeters, List<String> instructions) {
+            (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters, List<String> instructions) {
         this.polyline = polyline;
         this.durationInMinutes = durationInMinutes;
         this.distanceInMeters = distanceInMeters;
         this.instructions = instructions;
     }
 
-    public List<Coordinate> getPolyline() {
+    public List<LatLng> getPolyline() {
         return polyline;
     }
 
-    public void setPolyline(List<Coordinate> polyline) {
+    public void setPolyline(List<LatLng> polyline) {
         this.polyline = polyline;
     }
 

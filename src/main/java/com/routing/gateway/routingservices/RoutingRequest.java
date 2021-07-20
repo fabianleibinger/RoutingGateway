@@ -1,19 +1,19 @@
 package com.routing.gateway.routingservices;
 
-import com.routing.gateway.models.Coordinate;
+import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.adapters.IRoutingService;
 import com.routing.gateway.routingservices.requests.RoutingServiceRequest;
 
 import java.util.Optional;
 
 public class RoutingRequest {
-    private Coordinate origin;
-    private Coordinate destination;
+    private LatLng origin;
+    private LatLng destination;
     RoutingServiceRequest request;
     IRoutingService routingService;
 
     public RoutingRequest
-            (Coordinate origin, Coordinate destination, RoutingServiceRequest request, IRoutingService routingService) {
+            (LatLng origin, LatLng destination, RoutingServiceRequest request, IRoutingService routingService) {
         this.origin = origin;
         this.destination = destination;
         this.request = request;
@@ -24,19 +24,19 @@ public class RoutingRequest {
         return this.routingService.computeRoute(this);
     }
 
-    public Coordinate getOrigin() {
+    public LatLng getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Coordinate origin) {
+    public void setOrigin(LatLng origin) {
         this.origin = origin;
     }
 
-    public Coordinate getDestination() {
+    public LatLng getDestination() {
         return destination;
     }
 
-    public void setDestination(Coordinate destination) {
+    public void setDestination(LatLng destination) {
         this.destination = destination;
     }
 
