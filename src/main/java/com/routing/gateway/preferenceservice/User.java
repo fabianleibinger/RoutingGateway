@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.*;
 
 public class User {
     private String username;
@@ -19,31 +20,55 @@ public class User {
     }
 
     public String toLogInBodyFormat() {
-        return "grant_type" + "password" + "&username=" + this.username + "&password=" + this.password;
+        return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
+    }
+
+    public String logIn() throws IOException, InterruptedException {
+        String clientId = this.username;
+        String clientSecret = this.password;
+        String toEncode = clientId + ":" + clientSecret;
+        String encoded = new String(Base64.getEncoder().encode(toEncode.getBytes()));
+        System.out.println("Basic " + encoded);
+
+        HttpClient client = HttpClient.newBuilder().build();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://regiomove.fzi.de/backend/oauth/tocken"))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Authorization", "Basic " + encoded)
+                .timeout(Duration.ofSeconds(35))
+                .POST(HttpRequest.BodyPublishers.ofString(this.toLogInBodyFormat()))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.statusCode());
+        System.out.println(response.body());
+        return response.body();
     }
 
     public String toSignUpBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
     }
 
-    public String signup() {
-        HttpService httpService = new HttpService();
-        HttpClient httpClient = httpService.getHttpClient();
+    public String signup() throws IOException, InterruptedException {
+        HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://regiomove.fzi.de:8080/signup"))
+                .uri(URI.create("https://regiomove.fzi.de/backend/signup"))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .timeout(Duration.ofSeconds(35))
                 .POST(HttpRequest.BodyPublishers.ofString(this.toSignUpBodyFormat()))
                 .build();
-        try {
-            HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
-            System.out.println(response.body());
-            return response.body();
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Couldn't receive response.");
-            return "";
-        }
+
+        HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.statusCode());
+        System.out.println(response.body());
+        return response.body();
+    }
+
+    public Optional<String> signUpToo() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        return httpService.postRequest("signup", headers, this.toSignUpBodyFormat());
     }
 
     public String getUsername() {
