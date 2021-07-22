@@ -19,8 +19,15 @@ public class HttpPreferenceService {
         this.httpClient = HttpClient.newBuilder().build();
     }
 
-    public Optional<String> getRequest() {
-        return null;
+    public Optional<String> getRequest(String path, Map<String, String> headers) {
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(this.getCompleteURL(path)))
+                .timeout(SECONDS_UNTIL_TIMEOUT)
+                .GET();
+        headers.forEach(requestBuilder::header);
+        HttpRequest request = requestBuilder.build();
+
+        return this.sendRequest(request);
     }
 
     public Optional<String> postRequest(String path, Map<String, String> headers, String body) {
@@ -31,6 +38,10 @@ public class HttpPreferenceService {
         headers.forEach(requestBuilder::header);
         HttpRequest request = requestBuilder.build();
 
+        return this.sendRequest(request);
+    }
+
+    private Optional<String> sendRequest(HttpRequest request) {
         try {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
