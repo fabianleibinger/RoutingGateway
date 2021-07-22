@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public class UserTest {
@@ -19,26 +18,26 @@ public class UserTest {
     }
 
     @Test
-    public void testToSignUpBodyFormat() {
-        String serialized = user.toSignUpBodyFormat();
+    public void testToSignupBodyFormat() {
+        String serialized = user.toSignupBodyFormat();
         String goal = "username=" + username + "&fullname=" + fullname + "&password=" + password;
         assertEquals(goal, serialized);
     }
 
     @Test
-    public void testToLogInBodyFormat() {
-        String serialized = user.toLogInBodyFormat();
+    public void testToLoginBodyFormat() {
+        String serialized = user.toLoginBodyFormat();
         String goal = "grant_type=" + "password" + "&username=" + username + "&password=" + password;
         assertEquals(goal, serialized);
     }
 
     @Test
-    public void testLogIn() throws IOException, InterruptedException {
-        String output = user.logIn();
+    public void testLogin() {
+        Optional<String> output = user.login();
     }
 
     @Test
-    public void testSignUp() {
+    public void testSignup() {
         Optional<String> output = user.signup();
     }
 }

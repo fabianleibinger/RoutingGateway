@@ -1,11 +1,5 @@
 package com.routing.gateway.preferenceservice;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.*;
 
 public class User {
@@ -19,33 +13,25 @@ public class User {
         this.password = password;
     }
 
-    public String toLogInBodyFormat() {
+    public String toLoginBodyFormat() {
         return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
     }
 
-    public String logIn() throws IOException, InterruptedException {
+    public Optional<String> login() {
         String clientId = this.username;
         String clientSecret = this.password;
         String toEncode = clientId + ":" + clientSecret;
         String encoded = new String(Base64.getEncoder().encode(toEncode.getBytes()));
         System.out.println("Basic " + encoded);
 
-        HttpClient client = HttpClient.newBuilder().build();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://regiomove.fzi.de/backend/oauth/tocken"))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("Authorization", "Basic " + encoded)
-                .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(this.toLogInBodyFormat()))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.statusCode());
-        System.out.println(response.body());
-        return response.body();
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        headers.put("Authorization", "Basic " + encoded);
+        return httpService.postRequest("oauth/tocken", headers, this.toLoginBodyFormat());
     }
 
-    public String toSignUpBodyFormat() {
+    public String toSignupBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
     }
 
@@ -53,7 +39,7 @@ public class User {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded");
-        return httpService.postRequest("signup", headers, this.toSignUpBodyFormat());
+        return httpService.postRequest("signup", headers, this.toSignupBodyFormat());
     }
 
     public String getUsername() {
