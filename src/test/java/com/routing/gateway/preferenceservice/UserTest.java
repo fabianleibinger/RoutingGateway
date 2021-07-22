@@ -38,7 +38,7 @@ public class UserTest {
     }
 
     @Test
-    public void testSignUp() throws IOException, InterruptedException {
+    public void testSignUp() {
         Optional<String> output = user.signUpToo();
     }
 }

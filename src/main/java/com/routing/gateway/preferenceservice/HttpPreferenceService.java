@@ -30,7 +30,7 @@ public class HttpPreferenceService {
                 .uri(URI.create(this.getCompleteURL(path)))
                 .timeout(SECONDS_UNTIL_TIMEOUT)
                 .POST(HttpRequest.BodyPublishers.ofString(body));
-        headers.entrySet().forEach(entry -> requestBuilder.header(entry.getKey(), entry.getValue()));
+        headers.forEach(requestBuilder::header);
         HttpRequest request = requestBuilder.build();
 
         try {
