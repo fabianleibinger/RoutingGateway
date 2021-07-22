@@ -17,6 +17,7 @@ public class User {
         return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
     }
 
+    //TODO: fix clientid and clientsecret encoding
     public Optional<String> login() {
         String clientId = this.username;
         String clientSecret = this.password;
