@@ -39,6 +39,6 @@ public class UserTest {
 
     @Test
     public void testSignUp() {
-        Optional<String> output = user.signUpToo();
+        Optional<String> output = user.signup();
     }
 }

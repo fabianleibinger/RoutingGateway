@@ -49,22 +49,7 @@ public class User {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
     }
 
-    public String signup() throws IOException, InterruptedException {
-        HttpClient httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
-        HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("https://regiomove.fzi.de/backend/signup"))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(this.toSignUpBodyFormat()))
-                .build();
-
-        HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.statusCode());
-        System.out.println(response.body());
-        return response.body();
-    }
-
-    public Optional<String> signUpToo() {
+    public Optional<String> signup() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded");
