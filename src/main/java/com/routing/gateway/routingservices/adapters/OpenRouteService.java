@@ -80,7 +80,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     }
 
     /**
-     * Returns a list of routes from the responseObject.
+     * Returns a list of routes from the openRouteServiceResponse.
      * @param openRouteServiceResponse
      * @return routes List of RoutingResult
      */
@@ -105,6 +105,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             }
             Double ascent = summary.getAscent();
             Double descent = summary.getDescent();
+
             RoutingResult result = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
             result.setInstructions(instructions);
             result.setWarnings(warnings);

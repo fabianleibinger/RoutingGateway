@@ -1,5 +1,6 @@
 package com.routing.gateway.routingservices.adapters;
 
+import com.google.gson.Gson;
 import com.routing.gateway.routingservices.RoutingResult;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
@@ -10,6 +11,7 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -22,6 +24,18 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     @Override
     public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
+        Optional<String> responseOptional;
+        if (request.getRequest().getClass() == OpenTripPlannerRequest.class) {
+            responseOptional = this.receiveResponse((OpenTripPlannerRequest) request.getRequest());
+        } else {
+            System.out.println("Wrong RoutingRequest type provided.");
+            return Optional.empty();
+        }
+        if (responseOptional.isPresent()) {
+            String response = responseOptional.get();
+            OpenTripPlannerResponse responseObject = new Gson().fromJson(response, OpenTripPlannerResponse.class);
+            return Optional.of(extractRoutingResult(responseObject));
+        }
         return Optional.empty();
     }
 
@@ -56,9 +70,20 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         return Optional.empty();
     }
 
+    /**
+     * Returns a list of routes from the openTripPlannerResponse.
+     * @param openTripPlannerResponse
+     * @return routes List of RoutingResult
+     */
     @Override
     public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
-        return null;
+        List<RoutingResult> routes = new ArrayList<>();
+
+        Double durationInMinutes;
+        Double distanceInMeters;
+        String date = Integer.toString(openTripPlannerResponse.getPlan().getDate());
+
+        return routes;
     }
 
     /**

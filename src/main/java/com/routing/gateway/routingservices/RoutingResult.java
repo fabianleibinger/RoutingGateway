@@ -10,15 +10,17 @@ import java.util.List;
  */
 public class RoutingResult {
 
-    List<LatLng> polyline;
-    Double durationInMinutes;
-    Double distanceInMeters;
-    List<String> instructions;
-    List<String> warnings;
-    String arrivalTime;
-    String departureTime;
-    Double ascent;
-    Double descent;
+    private List<LatLng> polyline;
+    private Double durationInMinutes;
+    private Double distanceInMeters;
+    private List<String> instructions;
+    private List<String> warnings;
+    private String date;
+    private String arrivalTime;
+    private String departureTime;
+    private Integer numberOfChanges;
+    private Double ascent;
+    private Double descent;
 
     public RoutingResult
             (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters) {
@@ -73,6 +75,14 @@ public class RoutingResult {
         this.warnings = warnings;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getArrivalTime() {
         return arrivalTime;
     }
@@ -87,6 +97,14 @@ public class RoutingResult {
 
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
+    }
+
+    public Integer getNumberOfChanges() {
+        return numberOfChanges;
+    }
+
+    public void setNumberOfChanges(Integer numberOfChanges) {
+        this.numberOfChanges = numberOfChanges;
     }
 
     public Double getAscent() {
