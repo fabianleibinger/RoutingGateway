@@ -5,6 +5,19 @@ public class OpenRouteServiceMetadata {
     private OpenRouteServiceEngine engine;
     private String id;
     private String osm_file_md5_hash;
+
+    public Object getQuery() {
+        if (this.query == null) {
+            this.query = new Object();
+        }
+        return query;
+    }
+
+    public void setQuery(Object query) {
+        this.query = query;
+    }
+
+    private Object query;
     private String service;
     private String system_message;
     private Long timestamp;
