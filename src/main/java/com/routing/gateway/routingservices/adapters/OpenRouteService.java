@@ -105,7 +105,8 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             }
             Double ascent = summary.getAscent();
             Double descent = summary.getDescent();
-            RoutingResult result = new RoutingResult(polyline, durationInMinutes, distanceInMeters,instructions);
+            RoutingResult result = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
+            result.setInstructions(instructions);
             result.setWarnings(warnings);
             result.setAscent(ascent);
             result.setDescent(descent);

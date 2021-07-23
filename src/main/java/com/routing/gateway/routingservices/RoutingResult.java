@@ -21,11 +21,10 @@ public class RoutingResult {
     Double descent;
 
     public RoutingResult
-            (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters, List<String> instructions) {
+            (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters) {
         this.polyline = polyline;
         this.durationInMinutes = durationInMinutes;
         this.distanceInMeters = distanceInMeters;
-        this.instructions = instructions;
     }
 
     public List<LatLng> getPolyline() {
@@ -53,6 +52,9 @@ public class RoutingResult {
     }
 
     public List<String> getInstructions() {
+        if (this.instructions == null) {
+            this.instructions = new ArrayList<>();
+        }
         return instructions;
     }
 

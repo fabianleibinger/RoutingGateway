@@ -19,8 +19,8 @@ public class User {
 
     //TODO: fix clientid and clientsecret encoding
     public Optional<String> login() {
-        String clientId = this.username;
-        String clientSecret = this.password;
+        String clientId = "client";
+        String clientSecret = "secret";
         String toEncode = clientId + ":" + clientSecret;
         String encoded = new String(Base64.getEncoder().encode(toEncode.getBytes()));
         System.out.println("Basic " + encoded);

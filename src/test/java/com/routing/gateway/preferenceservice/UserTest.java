@@ -18,16 +18,16 @@ public class UserTest {
     }
 
     @Test
-    public void testToSignupBodyFormat() {
-        String serialized = user.toSignupBodyFormat();
-        String goal = "username=" + username + "&fullname=" + fullname + "&password=" + password;
+    public void testToLoginBodyFormat() {
+        String serialized = user.toLoginBodyFormat();
+        String goal = "grant_type=" + "password" + "&username=" + username + "&password=" + password;
         assertEquals(goal, serialized);
     }
 
     @Test
-    public void testToLoginBodyFormat() {
-        String serialized = user.toLoginBodyFormat();
-        String goal = "grant_type=" + "password" + "&username=" + username + "&password=" + password;
+    public void testToSignupBodyFormat() {
+        String serialized = user.toSignupBodyFormat();
+        String goal = "username=" + username + "&fullname=" + fullname + "&password=" + password;
         assertEquals(goal, serialized);
     }
 
