@@ -51,8 +51,9 @@ public class MainApplication {
 		OpenTripPlannerParameters otpParameters = new OpenTripPlannerParameters();
 
 		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest(otpParameters);
-		OpenTripPlanner otp = new OpenTripPlanner();
-		otp.receiveResponse(otpRequest);
+		request = new RoutingRequest(start, destination, otpRequest, new OpenTripPlanner());
+		result = request.send();
+		System.out.println(result.get().toString());
 
 		/**
 		 * Valhalla
