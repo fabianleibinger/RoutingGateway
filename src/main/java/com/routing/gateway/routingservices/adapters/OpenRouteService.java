@@ -35,13 +35,14 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      */
     @Override
     public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
-        Optional<String> responseOptional;
+        OpenRouteServiceRequest orsRequest;
         if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
-            responseOptional = this.receiveResponse((OpenRouteServiceRequest) request.getRequest());
+            orsRequest = (OpenRouteServiceRequest) request.getRequest();
         } else {
             System.out.println("Wrong RoutingRequest type provided.");
             return Optional.empty();
         }
+        Optional<String> responseOptional = this.receiveResponse(orsRequest);
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);

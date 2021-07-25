@@ -49,6 +49,7 @@ public class MainApplication {
 		 * OTP
 		 */
 		OpenTripPlannerParameters otpParameters = new OpenTripPlannerParameters();
+
 		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest(otpParameters);
 		OpenTripPlanner otp = new OpenTripPlanner();
 		otp.receiveResponse(otpRequest);

@@ -12,6 +12,7 @@ import java.util.Optional;
  */
 public class RoutingRequest {
 
+    //TODO: Add origin and destination to request in Adapter classes
     private LatLng origin;
     private LatLng destination;
     RoutingServiceRequest request;
