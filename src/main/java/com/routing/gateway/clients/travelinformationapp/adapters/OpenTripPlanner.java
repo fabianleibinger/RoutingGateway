@@ -25,6 +25,11 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
+    /**
+     * Returns a routing result for a OpenTripPlanner request.
+     * @param request RoutingRequest
+     * @return Optional List RoutingResult
+     */
     @Override
     public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
         Optional<String> responseOptional;
@@ -37,7 +42,12 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenTripPlannerResponse responseObject = new Gson().fromJson(response, OpenTripPlannerResponse.class);
-            return Optional.of(extractRoutingResult(responseObject));
+            List<RoutingResult> routingResults = extractRoutingResult(responseObject);
+            if (!routingResults.isEmpty()) {
+                return Optional.of(routingResults);
+            } else {
+                System.out.println("No routes found for the given request");
+            }
         }
         return Optional.empty();
     }
@@ -45,7 +55,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     /**
      * Sends GET request to OpenTripPlanner and tries to receive a HTTP response.
      * @param otpRequest for OpenTripPlanner
-     * @return HTTP Response that includes a XML route or empty object.
+     * @return Optional String: response body that includes a route.
      */
     @Override
     public Optional<String> receiveResponse(OpenTripPlannerRequest otpRequest) {
@@ -74,7 +84,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     }
 
     /**
-     * Returns a list of routes from the openTripPlannerResponse.
+     * Returns a list of routes from the openTripPlannerResponse. List might be empty.
      * @param openTripPlannerResponse
      * @return routes List of RoutingResult
      */

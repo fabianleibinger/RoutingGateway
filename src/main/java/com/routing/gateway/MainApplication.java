@@ -43,7 +43,9 @@ public class MainApplication {
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);
 		RoutingRequest request = new RoutingRequest(start, destination, orsRequest, new OpenRouteService());
 		Optional<List<RoutingResult>> result = request.send();
-		System.out.println(result.get().get(0).getInstructions().get(0));
+		if (result.isPresent()) {
+			System.out.println(result.get().get(0).getDistanceInMeters());
+		}
 
 		/**
 		 * OTP
@@ -53,7 +55,9 @@ public class MainApplication {
 		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest(otpParameters);
 		request = new RoutingRequest(start, destination, otpRequest, new OpenTripPlanner());
 		result = request.send();
-		System.out.println(result.get().toString());
+		if (result.isPresent()) {
+			System.out.println(result.get().get(0).getDistanceInMeters());
+		}
 
 		/**
 		 * Valhalla

@@ -29,9 +29,9 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     private static final Integer OK_STATUS_CODE = 200;
 
     /**
-     * Returns a routing result for a routing request.
+     * Returns a routing result for a Openrouteservice request.
      * @param request RoutingRequest
-     * @return Optional<List<RoutingResult>>
+     * @return Optional List RoutingResult
      */
     @Override
     public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
@@ -46,7 +46,12 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
-            return Optional.of(extractRoutingResult(responseObject));
+            List<RoutingResult> routingResults = extractRoutingResult(responseObject);
+            if (!routingResults.isEmpty()) {
+                return Optional.of(routingResults);
+            } else {
+                System.out.println("No routes found for the given request");
+            }
         }
         return Optional.empty();
     }
@@ -54,7 +59,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     /**
      * Sends POST request to Openrouteservice and tries to receive a HTTP response.
      * @param orsRequest for Openrouteservice
-     * @return HTTP Response that includes a JSON route or empty object.
+     * @return Optional String: response body that includes a route.
      */
     @Override
     public Optional<String> receiveResponse(OpenRouteServiceRequest orsRequest) {
@@ -81,7 +86,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     }
 
     /**
-     * Returns a list of routes from the openRouteServiceResponse.
+     * Returns a list of routes from the openRouteServiceResponse. List might be empty.
      * @param openRouteServiceResponse
      * @return routes List of RoutingResult
      */
