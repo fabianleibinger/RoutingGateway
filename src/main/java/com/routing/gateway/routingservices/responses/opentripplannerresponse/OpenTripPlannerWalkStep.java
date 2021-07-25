@@ -1,6 +1,5 @@
 package com.routing.gateway.routingservices.responses.opentripplannerresponse;
 
-import javax.crypto.BadPaddingException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -10,7 +10,6 @@ public class OpenRouteServiceRoute {
     private List<Double> bbox;
     private String departure;
     private Map<String, OpenRouteServiceExtra> extras;
-
     private String geometry;
     private List<OpenRouteServiceSegment> segments;
     private OpenRouteServiceSummary summary;

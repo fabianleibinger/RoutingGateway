@@ -1,10 +1,13 @@
 package com.routing.gateway.routingservices.adapters;
 
 import com.google.gson.Gson;
+import com.google.maps.model.EncodedPolyline;
+import com.google.maps.model.LatLng;
 import com.routing.gateway.routingservices.RoutingResult;
+import com.routing.gateway.routingservices.RoutingResultSegment;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
 import com.routing.gateway.routingservices.RoutingRequest;
-import com.routing.gateway.routingservices.responses.opentripplannerresponse.OpenTripPlannerResponse;
+import com.routing.gateway.routingservices.responses.opentripplannerresponse.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -79,11 +82,60 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
         List<RoutingResult> routes = new ArrayList<>();
 
-        Double durationInMinutes;
-        Double distanceInMeters;
-        String date = Integer.toString(openTripPlannerResponse.getPlan().getDate());
+        for (OpenTripPlannerItinerary itinerary : openTripPlannerResponse.getPlan().getItineraries()) {
+            List<LatLng> polyline = new ArrayList<>();
+            Double durationInMinutes = (double) itinerary.getDuration() / 60;
+            Double distanceInMeters = 0.0;
+            List<String> instructions = new ArrayList<>();
+            List<String> warnings = new ArrayList<>();
+            String departureTime = String.valueOf(itinerary.getStartTime());
+            String arrivalTime = String.valueOf(itinerary.getEndTime());
+            Integer numberOfTransfers = itinerary.getTransfers();
+            Double ascent = (double) itinerary.getElevationGained();
+            Double descent = (double) itinerary.getElevationLost();
+            List<RoutingResultSegment> segments = new ArrayList<>();
+            for (OpenTripPlannerLeg leg : itinerary.getLeg()) {
+                for (OpenTripPlannerWalkStep step : leg.getSteps()) {
+                    instructions.add
+                            (step.getRelativeDirection() + " on " + step.getStreetName() + " for " + step.getDistance());
+                }
+                for (OpenTripPlannerLocalizedAlert alert : leg.getAlerts()) {
+                    warnings.add(alert.getAlertHeaderText());
+                }
+                RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
+                segments.add(segment);
+                distanceInMeters += segment.getDistanceInMeters();
+                for (LatLng latLng : segment.getPolyline()) {
+                    polyline.add(latLng);
+                }
+            }
+            RoutingResult route = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
+            route.setInstructions(instructions);
+            route.setWarnings(warnings);
+            route.setDepartureTime(departureTime);
+            route.setArrivalTime(arrivalTime);
+            route.setNumberOfTransfers(numberOfTransfers);
+            route.setAscent(ascent);
+            route.setDescent(descent);
+            route.setSegments(segments);
+        }
 
         return routes;
+    }
+
+    public RoutingResultSegment extractRoutingResultSegment(OpenTripPlannerLeg leg) {
+        EncodedPolyline encodedPolyline = new EncodedPolyline(leg.getLegGeometry().getPoints());
+        List<LatLng> polyline = encodedPolyline.decodePath();
+        Double durationInMinutes = (double) leg.getDuration() / 60;
+        Double distanceInMeters = (double) leg.getDistance();
+        String modeOfTransport = leg.getMode();
+        String departureTime = String.valueOf(leg.getStartTime());
+        String arrivalTime = String.valueOf(leg.getEndTime());
+        RoutingResultSegment segment = new RoutingResultSegment
+                (polyline, durationInMinutes, distanceInMeters, modeOfTransport);
+        segment.setDepartureTime(departureTime);
+        segment.setArrivalTime(arrivalTime);
+        return segment;
     }
 
     /**
