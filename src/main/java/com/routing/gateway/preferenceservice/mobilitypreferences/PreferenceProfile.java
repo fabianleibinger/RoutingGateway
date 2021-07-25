@@ -1,6 +1,6 @@
 package com.routing.gateway.preferenceservice.mobilitypreferences;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
+import com.routing.gateway.routingservices.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;

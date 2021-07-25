@@ -1,12 +1,12 @@
-package com.routing.gateway.routingservices.adapters;
+package com.routing.gateway.clients.travelinformationapp.adapters;
 
 import com.google.gson.Gson;
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
-import com.routing.gateway.routingservices.RoutingResult;
-import com.routing.gateway.routingservices.RoutingResultSegment;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingResultSegment;
 import com.routing.gateway.routingservices.requests.OpenTripPlannerRequest;
-import com.routing.gateway.routingservices.RoutingRequest;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
 import com.routing.gateway.routingservices.responses.opentripplannerresponse.*;
 
 import java.io.IOException;

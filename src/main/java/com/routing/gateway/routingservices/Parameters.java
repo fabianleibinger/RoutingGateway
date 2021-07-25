@@ -1,4 +1,4 @@
-package com.routing.gateway.routingservices.requests.parameters;
+package com.routing.gateway.routingservices;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

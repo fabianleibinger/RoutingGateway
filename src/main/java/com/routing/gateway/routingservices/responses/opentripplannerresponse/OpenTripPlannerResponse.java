@@ -1,6 +1,6 @@
 package com.routing.gateway.routingservices.responses.opentripplannerresponse;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
+import com.routing.gateway.routingservices.Parameters;
 
 /**
  * Response information of a request to OpenTripPlanner.

@@ -1,6 +1,6 @@
 package com.routing.gateway.preferenceservice.mobilitypreferences;
 
-import com.routing.gateway.routingservices.requests.parameters.Parameters;
+import com.routing.gateway.routingservices.Parameters;
 
 public class Link extends Parameters {
     private String deprecation;

@@ -1,11 +1,11 @@
 package com.routing.gateway;
 
 import com.google.maps.model.LatLng;
-import com.routing.gateway.routingservices.RoutingRequest;
-import com.routing.gateway.routingservices.RoutingResult;
-import com.routing.gateway.routingservices.adapters.OpenRouteService;
-import com.routing.gateway.routingservices.adapters.OpenTripPlanner;
-import com.routing.gateway.routingservices.adapters.Valhalla;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
+import com.routing.gateway.clients.travelinformationapp.adapters.OpenRouteService;
+import com.routing.gateway.clients.travelinformationapp.adapters.OpenTripPlanner;
+import com.routing.gateway.clients.travelinformationapp.adapters.Valhalla;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import com.routing.gateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
