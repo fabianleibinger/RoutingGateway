@@ -26,9 +26,6 @@ public class MainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
 
-		/**
-		 * ORS
-		 */
 		LatLng start = new LatLng(8.681495, 49.41461);
 		LatLng destination = new LatLng(8.686507, 49.41943);
 		Double[] startCoord = {start.lat, start.lng};
@@ -36,6 +33,10 @@ public class MainApplication {
 		List<Double[]> coordList = new ArrayList<>();
 		coordList.add(startCoord);
 		coordList.add(destCoord);
+
+		/**
+		 * ORS
+		 */
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
 		parameters.setCoordinates(coordList);
 
