@@ -42,7 +42,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenTripPlannerResponse responseObject = new Gson().fromJson(response, OpenTripPlannerResponse.class);
-            List<RoutingResult> routingResults = extractRoutingResult(responseObject);
+            List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
             if (!routingResults.isEmpty()) {
                 return Optional.of(routingResults);
             } else {
@@ -91,7 +91,6 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     @Override
     public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
         List<RoutingResult> routes = new ArrayList<>();
-
         for (OpenTripPlannerItinerary itinerary : openTripPlannerResponse.getPlan().getItineraries()) {
             List<LatLng> polyline = new ArrayList<>();
             Double durationInMinutes = (double) itinerary.getDuration() / 60;
@@ -105,18 +104,17 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
             Double descent = (double) itinerary.getElevationLost();
             List<RoutingResultSegment> segments = new ArrayList<>();
             for (OpenTripPlannerLeg leg : itinerary.getLeg()) {
-                for (OpenTripPlannerWalkStep step : leg.getSteps()) {
-                    instructions.add
-                            (step.getRelativeDirection() + " on " + step.getStreetName() + " for " + step.getDistance());
-                }
-                for (OpenTripPlannerLocalizedAlert alert : leg.getAlerts()) {
-                    warnings.add(alert.getAlertHeaderText());
-                }
                 RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
                 segments.add(segment);
                 distanceInMeters += segment.getDistanceInMeters();
                 for (LatLng latLng : segment.getPolyline()) {
                     polyline.add(latLng);
+                }
+                for (String instruction : segment.getInstructions()) {
+                    instructions.add(instruction);
+                }
+                for (String warning : segment.getWarnings()) {
+                    warnings.add(warning);
                 }
             }
             RoutingResult route = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
@@ -129,20 +127,35 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
             route.setDescent(descent);
             route.setSegments(segments);
         }
-
         return routes;
     }
 
+    /**
+     * Returns a route segment from the openTripPlannerLeg.
+     * @param leg openTripPlannerLeg
+     * @return RoutingResultSegment
+     */
     public RoutingResultSegment extractRoutingResultSegment(OpenTripPlannerLeg leg) {
         EncodedPolyline encodedPolyline = new EncodedPolyline(leg.getLegGeometry().getPoints());
         List<LatLng> polyline = encodedPolyline.decodePath();
         Double durationInMinutes = (double) leg.getDuration() / 60;
         Double distanceInMeters = (double) leg.getDistance();
         String modeOfTransport = leg.getMode();
+        List<String> instructions = new ArrayList<>();
+        for (OpenTripPlannerWalkStep step : leg.getSteps()) {
+            instructions.add
+                    (step.getRelativeDirection() + " on " + step.getStreetName() + " for " + step.getDistance());
+        }
+        List<String> warnings = new ArrayList<>();
+        for (OpenTripPlannerLocalizedAlert alert : leg.getAlerts()) {
+            warnings.add(alert.getAlertHeaderText());
+        }
         String departureTime = String.valueOf(leg.getStartTime());
         String arrivalTime = String.valueOf(leg.getEndTime());
         RoutingResultSegment segment = new RoutingResultSegment
                 (polyline, durationInMinutes, distanceInMeters, modeOfTransport);
+        segment.setInstructions(instructions);
+        segment.setWarnings(warnings);
         segment.setDepartureTime(departureTime);
         segment.setArrivalTime(arrivalTime);
         return segment;

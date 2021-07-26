@@ -46,7 +46,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
-            List<RoutingResult> routingResults = extractRoutingResult(responseObject);
+            List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
             if (!routingResults.isEmpty()) {
                 return Optional.of(routingResults);
             } else {

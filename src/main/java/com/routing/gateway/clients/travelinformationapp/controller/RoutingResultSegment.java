@@ -12,6 +12,8 @@ public class RoutingResultSegment {
     private Double durationInMinutes;
     private Double distanceInMeters;
     private String modeOfTransport;
+    private List<String> instructions;
+    private List<String> warnings;
     private String departureTime;
     private String arrivalTime;
     private Double ascent;
@@ -55,6 +57,22 @@ public class RoutingResultSegment {
 
     public void setModeOfTransport(String modeOfTransport) {
         this.modeOfTransport = modeOfTransport;
+    }
+
+    public List<String> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<String> instructions) {
+        this.instructions = instructions;
+    }
+
+    public List<String> getWarnings() {
+        return warnings;
+    }
+
+    public void setWarnings(List<String> warnings) {
+        this.warnings = warnings;
     }
 
     public String getDepartureTime() {
