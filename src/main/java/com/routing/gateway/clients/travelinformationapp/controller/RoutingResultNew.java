@@ -1,13 +1,11 @@
 package com.routing.gateway.clients.travelinformationapp.controller;
 
-import com.google.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoutingResultNew {
     //Covers the hole trip.
-    private List<LatLng> polyline;
+    private String encodedPolyline;
     private Double durationInMinutes;
     private Double distanceInMeters;
     private String departureTime;
@@ -16,15 +14,12 @@ public class RoutingResultNew {
     //Covers segments of the trip.
     private List<RoutingResultSegmentNew> segments;
 
-    public List<LatLng> getPolyline() {
-        if (this.polyline == null) {
-            this.polyline = new ArrayList<>();
-        }
-        return polyline;
+    public String getEncodedPolyline() {
+        return encodedPolyline;
     }
 
-    public void setPolyline(List<LatLng> polyline) {
-        this.polyline = polyline;
+    public void setEncodedPolyline(String encodedPolyline) {
+        this.encodedPolyline = encodedPolyline;
     }
 
     public Double getDurationInMinutes() {
