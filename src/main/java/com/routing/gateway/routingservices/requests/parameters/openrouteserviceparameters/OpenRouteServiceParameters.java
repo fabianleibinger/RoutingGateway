@@ -11,11 +11,7 @@ import java.util.List;
  */
 public class OpenRouteServiceParameters extends Parameters {
 
-    /**
-     * required
-     */
-    private List<Double[]> coordinates = new ArrayList<>();
-
+    private List<Double[]> coordinates;
     private OpenRouteServiceAlternativeRoutes alternative_routes;
     private List<String> attributes;
     private List<Float[]> bearings;
@@ -48,6 +44,9 @@ public class OpenRouteServiceParameters extends Parameters {
     private Integer maximum_speed;
 
     public List<Double[]> getCoordinates() {
+        if (this.coordinates == null) {
+            this.coordinates = new ArrayList<>();
+        }
         return coordinates;
     }
 
