@@ -5,16 +5,17 @@ import com.google.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutingResultNew {
-    //Covers the hole trip.
+public class RoutingResultSegmentNew {
     private List<LatLng> polyline;
     private Double durationInMinutes;
     private Double distanceInMeters;
+    private String modeOfTransport;
+    private List<String> instructions;
+    private List<String> warnings;
     private String departureTime;
     private String arrivalTime;
-    private Integer numberOfTransfers;
-    //Covers segments of the trip.
-    private List<RoutingResultSegmentNew> segments;
+    private Double ascent;
+    private Double descent;
 
     public List<LatLng> getPolyline() {
         if (this.polyline == null) {
@@ -43,6 +44,30 @@ public class RoutingResultNew {
         this.distanceInMeters = distanceInMeters;
     }
 
+    public String getModeOfTransport() {
+        return modeOfTransport;
+    }
+
+    public void setModeOfTransport(String modeOfTransport) {
+        this.modeOfTransport = modeOfTransport;
+    }
+
+    public List<String> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<String> instructions) {
+        this.instructions = instructions;
+    }
+
+    public List<String> getWarnings() {
+        return warnings;
+    }
+
+    public void setWarnings(List<String> warnings) {
+        this.warnings = warnings;
+    }
+
     public String getDepartureTime() {
         return departureTime;
     }
@@ -59,22 +84,19 @@ public class RoutingResultNew {
         this.arrivalTime = arrivalTime;
     }
 
-    public Integer getNumberOfTransfers() {
-        return numberOfTransfers;
+    public Double getAscent() {
+        return ascent;
     }
 
-    public void setNumberOfTransfers(Integer numberOfTransfers) {
-        this.numberOfTransfers = numberOfTransfers;
+    public void setAscent(Double ascent) {
+        this.ascent = ascent;
     }
 
-    public List<RoutingResultSegmentNew> getSegments() {
-        if (this.segments == null) {
-            this.segments = new ArrayList<>();
-        }
-        return segments;
+    public Double getDescent() {
+        return descent;
     }
 
-    public void setSegments(List<RoutingResultSegmentNew> segments) {
-        this.segments = segments;
+    public void setDescent(Double descent) {
+        this.descent = descent;
     }
 }
