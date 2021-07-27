@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>net.sf.nomin</groupId>
 			<artifactId>nomin</artifactId>
-			<version>1.1.1</version>
+			<version>1.2</version>
 		</dependency>
     </dependencies>
 
