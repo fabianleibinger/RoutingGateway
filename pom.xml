@@ -64,6 +64,11 @@
 			<artifactId>nomin</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>fr.xebia.extras</groupId>
+			<artifactId>selma-processor</artifactId>
+			<version>1.0</version>
+		</dependency>
     </dependencies>
 
 	<build>
