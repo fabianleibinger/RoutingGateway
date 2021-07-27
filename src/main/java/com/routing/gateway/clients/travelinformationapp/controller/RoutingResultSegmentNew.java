@@ -48,6 +48,9 @@ public class RoutingResultSegmentNew {
     }
 
     public List<String> getInstructions() {
+        if (this.instructions == null) {
+            this.instructions = new ArrayList<>();
+        }
         return instructions;
     }
 
@@ -56,6 +59,9 @@ public class RoutingResultSegmentNew {
     }
 
     public List<String> getWarnings() {
+        if (this.warnings == null) {
+            this.warnings = new ArrayList<>();
+        }
         return warnings;
     }
 
