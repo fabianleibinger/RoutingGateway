@@ -46,6 +46,7 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
         assertEquals(2, parameters.getOptions().getProfileParams().getWeightings().getSteepnessDifficulty());
         assertEquals(null, parameters.getPreference());
         assertEquals(1, parameters.getOptions().getProfileParams().getWeightings().getGreen());
+        assertEquals(0.75f, parameters.getOptions().getProfileParams().getWeightings().getQuiet());
     }
 
     @Test
