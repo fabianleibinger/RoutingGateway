@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmapper>
+    <class name="com.routing.gateway.routingservices.requests.parameters.
+        openrouteserviceparameters.OpenRouteServiceParameters">
+        <conversion name="comfortToQuiet" from="comfort" to="quiet">
+            return ${source.get} / 100;
+        </conversion>
+    </class>
+</jmapper>
