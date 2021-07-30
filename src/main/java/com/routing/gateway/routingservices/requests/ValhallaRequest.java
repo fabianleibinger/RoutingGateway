@@ -10,16 +10,15 @@ public class ValhallaRequest implements RoutingServiceRequest {
 
     private ValhallaParameters parameters;
 
-    public ValhallaRequest(ValhallaParameters parameters) {
-        this.parameters = parameters;
-    }
-
     @Override
     public String serialize() {
         return parameters.toJson();
     }
 
     public ValhallaParameters getParameters() {
+        if (this.parameters == null) {
+            this.parameters = new ValhallaParameters();
+        }
         return parameters;
     }
 

@@ -40,8 +40,10 @@ public class MainApplication {
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
 		parameters.setCoordinates(coordList);
 
-		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
-		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest("cycling-regular", parameters);
+		parameters.getOptions().getProfile_params().getWeightings().setSteepnessDifficulty(2);
+		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest();
+		orsRequest.setProfile("cycling-regular");
+		orsRequest.setParameters(parameters);
 		RoutingRequest request = new RoutingRequest(start, destination, orsRequest, new OpenRouteService());
 		Optional<List<RoutingResult>> result = request.send();
 		if (result.isPresent()) {
@@ -53,7 +55,8 @@ public class MainApplication {
 		 */
 		OpenTripPlannerParameters otpParameters = new OpenTripPlannerParameters();
 
-		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest(otpParameters);
+		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest();
+		otpRequest.setParameters(otpParameters);
 		request = new RoutingRequest(start, destination, otpRequest, new OpenTripPlanner());
 		result = request.send();
 		if (result.isPresent()) {
@@ -73,7 +76,8 @@ public class MainApplication {
 		valhallaParameters.getLocations().add(startLocation);
 		valhallaParameters.getLocations().add(destinationLocation);
 		valhallaParameters.setCosting("auto");
-		ValhallaRequest valhallaRequest = new ValhallaRequest(valhallaParameters);
+		ValhallaRequest valhallaRequest = new ValhallaRequest();
+		valhallaRequest.setParameters(valhallaParameters);
 		Valhalla valhalla = new Valhalla();
 		valhalla.receiveResponse(valhallaRequest);
 	}

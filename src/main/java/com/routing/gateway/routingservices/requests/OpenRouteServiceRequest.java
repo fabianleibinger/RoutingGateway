@@ -12,11 +12,6 @@ public class OpenRouteServiceRequest implements RoutingServiceRequest {
     private String profile;
     private OpenRouteServiceParameters parameters;
 
-    public OpenRouteServiceRequest(String profile, OpenRouteServiceParameters parameters) {
-        this.profile = profile;
-        this.parameters = parameters;
-    }
-
     @Override
     public String serialize() {
         return parameters.toJson();
@@ -35,6 +30,9 @@ public class OpenRouteServiceRequest implements RoutingServiceRequest {
     }
 
     public OpenRouteServiceParameters getParameters() {
+        if (this.parameters == null) {
+            this.parameters = new OpenRouteServiceParameters();
+        }
         return parameters;
     }
 

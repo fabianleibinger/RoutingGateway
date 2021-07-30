@@ -21,16 +21,21 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
     @Test
     public void testJMapper() {
         JMapper<OpenRouteServiceParameters, PreferenceProfile> jMapper;
-        jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class);
-        /*jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class,
-                "PreferenceProfileToOpenRouteServiceParametersMapper.xml");*/
+        /*jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class);*/
+
+        jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class,
+                "PreferenceProfileToOpenRouteServiceParametersMapper.xml");
 
         PreferenceProfile profile = new PreferenceProfile();
         profile.setProfileName("Jeff");
-        //profile.getWeighting().setComfort(75f);
+        profile.getWeighting().setComfort(75f);
+        profile.setWalkingPace(3);
 
         OpenRouteServiceParameters parameters = jMapper.getDestination(profile);
-        assertEquals("Jeff", parameters.getPreference());
+
+        assertEquals("3", parameters.getPreference());
+        assertEquals("Jeff", parameters.getOptions().getAvoidBorders());
+        assertEquals("0.75f", parameters.getOptions().getProfileParams().getWeightings().getQuiet());
     }
 
     @Test

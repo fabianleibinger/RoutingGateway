@@ -7,10 +7,6 @@ public class OpenTripPlannerRequest implements RoutingServiceRequest {
     private String routerId = "default";
     private OpenTripPlannerParameters parameters;
 
-    public OpenTripPlannerRequest(OpenTripPlannerParameters parameters) {
-        this.parameters = parameters;
-    }
-
     @Override
     public String serialize() {
         return parameters.toQueryString();
@@ -25,6 +21,9 @@ public class OpenTripPlannerRequest implements RoutingServiceRequest {
     }
 
     public OpenTripPlannerParameters getParameters() {
+        if (this.parameters == null) {
+            this.parameters = new OpenTripPlannerParameters();
+        }
         return parameters;
     }
 

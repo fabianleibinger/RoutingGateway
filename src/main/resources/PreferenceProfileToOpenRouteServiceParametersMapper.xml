@@ -1,9 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <jmapper>
-    <class name="com.routing.gateway.routingservices.requests.parameters.
-        openrouteserviceparameters.OpenRouteServiceParameters">
-        <conversion name="comfortToQuiet" from="comfort" to="quiet">
-            return ${source.get} / 100;
+    <class name="com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile">
+        <attribute name="profileName">
+            <value name="${options.avoid_borders}"/>
+        </attribute>
+        <conversion name="p2ab" from="profileName" to="avoid_borders">
+            return ${source};
+        </conversion>
+        <attribute name="walkingPace">
+            <value name="preference"/>
+        </attribute>
+        <conversion name="conversion" from="walkingPace" to="preference">
+            return ${source}.toString();
+        </conversion>
+        <attribute name="${weighting.comfort}">
+            <value name="${options.profile_params.weightings.quiet}"/>
+        </attribute>
+        <conversion name="c2q" from="comfort" to="quiet">
+            return ${source} / 100;
         </conversion>
     </class>
 </jmapper>
