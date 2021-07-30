@@ -3,6 +3,7 @@ package com.routing.gateway.mappers;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.googlecode.jmapper.JMapper;
+import com.routing.gateway.mappers.request.PreferenceProfileToOpenRouteServiceParameters;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import fr.xebia.extras.selma.Selma;
@@ -11,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
 
-    private PreferenceProfileToOpenRouteServiceParametersMapper mapper;
+    private PreferenceProfileToOpenRouteServiceParameters mapper;
 
     @BeforeEach
     public void setUp() {
-        mapper = Selma.builder(PreferenceProfileToOpenRouteServiceParametersMapper.class).build();
+        mapper = Selma.builder(PreferenceProfileToOpenRouteServiceParameters.class).build();
     }
 
     @Test

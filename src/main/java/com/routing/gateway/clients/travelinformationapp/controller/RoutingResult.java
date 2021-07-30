@@ -1,6 +1,7 @@
 package com.routing.gateway.clients.travelinformationapp.controller;
 
 import com.google.maps.model.LatLng;
+import com.routing.gateway.routingservices.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;

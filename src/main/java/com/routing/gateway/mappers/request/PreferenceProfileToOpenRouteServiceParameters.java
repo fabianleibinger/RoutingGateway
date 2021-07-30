@@ -1,4 +1,4 @@
-package com.routing.gateway.mappers;
+package com.routing.gateway.mappers.request;
 
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
@@ -6,7 +6,7 @@ import fr.xebia.extras.selma.Mapper;
 import fr.xebia.extras.selma.Maps;
 
 @Mapper
-public interface PreferenceProfileToOpenRouteServiceParametersMapper {
+public interface PreferenceProfileToOpenRouteServiceParameters {
     @Maps(withCustom = OpenRouteServiceMapper.class)
     OpenRouteServiceParameters asOpenRouteServiceParameters(PreferenceProfile profile);
 

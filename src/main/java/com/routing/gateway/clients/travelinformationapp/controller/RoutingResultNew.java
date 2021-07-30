@@ -1,9 +1,11 @@
 package com.routing.gateway.clients.travelinformationapp.controller;
 
+import com.routing.gateway.routingservices.Parameters;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutingResultNew {
+public class RoutingResultNew extends Parameters {
     //Covers the hole trip.
     private String encodedPolyline;
     private Double durationInMinutes;

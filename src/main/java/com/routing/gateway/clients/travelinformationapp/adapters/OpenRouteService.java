@@ -4,9 +4,12 @@ import com.google.gson.Gson;
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingResultNew;
+import com.routing.gateway.mappers.response.OpenRouteServiceRouteToRoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
 import com.routing.gateway.routingservices.responses.openrouteserviceresponse.*;
+import fr.xebia.extras.selma.Selma;
 
 import java.io.IOException;
 import java.net.URI;
@@ -94,7 +97,10 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     public List<RoutingResult> extractRoutingResult(OpenRouteServiceResponse openRouteServiceResponse) {
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenRouteServiceRoute route : openRouteServiceResponse.getRoutes()) {
-            OpenRouteServiceSummary summary = route.getSummary();
+            OpenRouteServiceRouteToRoutingResult mapper = Selma.builder(OpenRouteServiceRouteToRoutingResult.class).build();
+            RoutingResultNew result = mapper.asRoutingResult(route);
+            System.out.println(result.toJson());
+            /*OpenRouteServiceSummary summary = route.getSummary();
             EncodedPolyline encodedPolyline = new EncodedPolyline(route.getGeometry());
             List<LatLng> polyline = encodedPolyline.decodePath();
             Double durationInMinutes = summary.getDuration() / 60;
@@ -117,7 +123,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             result.setWarnings(warnings);
             result.setAscent(ascent);
             result.setDescent(descent);
-            routes.add(result);
+            routes.add(result);*/
         }
         return routes;
     }
