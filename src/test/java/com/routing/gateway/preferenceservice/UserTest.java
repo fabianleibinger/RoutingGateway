@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class UserTest {
     private User user;
     private String username = "maria.ziegler@online.de";
@@ -14,12 +12,15 @@ public class UserTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User(username,fullname,password);
+        user = new User();
+        user.setUsername(username);
+        user.setFullName(fullname);
+        user.setPassword(password);
     }
 
     @Test
-    public void testToLoginBodyFormat() {
-        String serialized = user.toLoginBodyFormat();
+    public void testToReceiveTokenBodyFormat() {
+        String serialized = user.toReceiveTokenBodyFormat();
         String goal = "grant_type=" + "password" + "&username=" + username + "&password=" + password;
         assertEquals(goal, serialized);
     }
@@ -33,11 +34,11 @@ public class UserTest {
 
     @Test
     public void testLogin() {
-        Optional<String> output = user.login();
+        user.login();
     }
 
     @Test
     public void testSignup() {
-        Optional<String> output = user.signup();
+        user.signup();
     }
 }

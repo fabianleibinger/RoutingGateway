@@ -1,46 +1,58 @@
 package com.routing.gateway.preferenceservice;
 
+import com.google.gson.Gson;
+import com.routing.gateway.preferenceservice.mobilitypreferences.AccessToken;
+
 import java.util.*;
 
 public class User {
+    private static final String CLIENT_ID = "hspf";
+    private static final String CLIENT_SECRET = "regio_move_hspf";
+
     private String username;
     private String fullName;
     private String password;
+    private AccessToken accessToken;
 
-    public User(String username, String fullName, String password) {
-        this.username = username;
-        this.fullName = fullName;
-        this.password = password;
+    public void login() {
+        Optional<String> responseBody = this.receiveToken();
+        if (responseBody.isPresent()) {
+            this.accessToken = new Gson().fromJson(responseBody.get(), AccessToken.class);
+            System.out.println("User " + this.username + " logged in.");
+        } else {
+            System.out.println("Login failed for user " + this.username + ".");
+        }
     }
 
-    public String toLoginBodyFormat() {
-        return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
-    }
-
-    //TODO: fix clientid and clientsecret encoding
-    public Optional<String> login() {
-        String clientId = "client";
-        String clientSecret = "secret";
-        String toEncode = clientId + ":" + clientSecret;
+    public Optional<String> receiveToken() {
+        String toEncode = CLIENT_ID + ":" + CLIENT_SECRET;
         String encoded = new String(Base64.getEncoder().encode(toEncode.getBytes()));
-        System.out.println("Basic " + encoded);
 
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/x-www-form-urlencoded");
         headers.put("Authorization", "Basic " + encoded);
-        return httpService.postRequest("oauth/tocken", headers, this.toLoginBodyFormat());
+        return httpService.postRequest("oauth/token", headers, this.toReceiveTokenBodyFormat());
+    }
+
+    public String toReceiveTokenBodyFormat() {
+        return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
+    }
+
+    public void signup() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        Optional<String> responseBody = httpService.postRequest("signup", headers, this.toSignupBodyFormat());
+        if (responseBody.isPresent()) {
+            System.out.println("User " + this.username + " is registered.");
+        } else {
+            System.out.println("User " + this.username + " could not be registered.");
+        }
     }
 
     public String toSignupBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
-    }
-
-    public Optional<String> signup() {
-        HttpPreferenceService httpService = new HttpPreferenceService();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
-        return httpService.postRequest("signup", headers, this.toSignupBodyFormat());
     }
 
     public String getUsername() {
@@ -65,5 +77,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public AccessToken getAccessToken() {
+        if (this.accessToken == null) {
+            this.accessToken = new AccessToken();
+        }
+        return accessToken;
+    }
+
+    public void setAccessToken(AccessToken accessToken) {
+        this.accessToken = accessToken;
     }
 }

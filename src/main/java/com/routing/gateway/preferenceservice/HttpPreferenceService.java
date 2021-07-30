@@ -44,13 +44,14 @@ public class HttpPreferenceService {
     private Optional<String> sendRequest(HttpRequest request) {
         try {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
-            System.out.println(response.body());
-            return Optional.of(response.body());
+            System.out.println("Response status code: " + response.statusCode());
+            if (response.statusCode() == OK_STATUS_CODE) {
+                return Optional.of(response.body());
+            }
         } catch (IOException | InterruptedException e) {
             System.out.println("Failed to reach preference service.");
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     public String getCompleteURL(String path) {
