@@ -5,7 +5,7 @@ import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkList
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ComfortControllerTest {
+public class ModesOfTransportControllerTest {
     private User user;
     private String username = "maria.ziegler@online.de";
     private String fullname = "Maria Ziegler";
@@ -22,9 +22,9 @@ public class ComfortControllerTest {
     }
 
     @Test
-    public void testGetUpdatedComfortFactors() {
-        HateoasLinkListWithNames comfortFactors = ComfortController.getUpdatedComfortFactors(user);
-        for (String name : comfortFactors.getNames()) {
+    public void testGetUpdatedModesOfTransport() {
+        HateoasLinkListWithNames modesOfTransport = ModesOfTransportController.getUpdatedModesOfTransport(user);
+        for (String name : modesOfTransport.getNames()) {
             System.out.println(name);
         }
     }

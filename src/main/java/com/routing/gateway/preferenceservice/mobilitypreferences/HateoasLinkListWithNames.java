@@ -2,7 +2,7 @@ package com.routing.gateway.preferenceservice.mobilitypreferences;
 
 import java.util.List;
 
-public class ComfortFactors {
+public class HateoasLinkListWithNames {
     private List<Link> links;
     private List<String> names;
 

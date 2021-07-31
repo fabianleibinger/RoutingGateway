@@ -9,25 +9,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class ComfortController {
-    private static final String PATH_SEGMENT = "comfortFactors";
-    private static HateoasLinkListWithNames comfortFactors;
+public class ModesOfTransportController {
+    private static final String PATH_SEGMENT = "modesOfTransport";
+    private static HateoasLinkListWithNames modesOfTransport;
 
-    public static HateoasLinkListWithNames getUpdatedComfortFactors(User user) {
-        updateComfortFactors(user);
-        return comfortFactors;
+    public static HateoasLinkListWithNames getUpdatedModesOfTransport(User user) {
+        updateModesOfTransport(user);
+        return modesOfTransport;
     }
 
-    public static void updateComfortFactors(User user) {
+    public static void updateModesOfTransport(User user) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", user.getAuthorizationHeaderValue());
         Optional<String> responseBody = httpService.getRequest(PATH_SEGMENT, headers);
         if (responseBody.isPresent()) {
-            comfortFactors = new Gson().fromJson(responseBody.get(), HateoasLinkListWithNames.class);
-            System.out.println("Updated comfort factors successfully.");
+            modesOfTransport = new Gson().fromJson(responseBody.get(), HateoasLinkListWithNames.class);
+            System.out.println("Updated modes of transport successfully.");
         } else  {
-            System.out.println("Failed to update comfort factors.");
+            System.out.println("Failed to update modes of transport.");
         }
     }
 }

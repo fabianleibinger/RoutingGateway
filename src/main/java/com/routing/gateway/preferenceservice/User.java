@@ -1,7 +1,7 @@
 package com.routing.gateway.preferenceservice;
 
 import com.google.gson.Gson;
-import com.routing.gateway.preferenceservice.mobilitypreferences.ComfortFactors;
+import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 
 import java.util.*;
@@ -14,7 +14,6 @@ public class User {
     private String fullName;
     private String password;
     private AccessToken accessToken;
-    private ComfortFactors comfortFactors;
     private PreferenceProfile preferenceProfile;
 
     public void login() {
