@@ -70,7 +70,17 @@ public class User {
     }
 
     public PreferenceProfile getPreferenceProfile() {
-        return preferenceProfile;
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.getRequest("user/preferenceProfiles", headers);
+        if (responseBody.isPresent()) {
+            this.preferenceProfile = new Gson().fromJson(responseBody.get(), PreferenceProfile.class);
+            System.out.println("Received preference profile successfully.");
+        } else  {
+            System.out.println("Failed to receive preference profile.");
+        }
+        return this.preferenceProfile;
     }
 
     public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
