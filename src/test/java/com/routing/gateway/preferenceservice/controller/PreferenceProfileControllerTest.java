@@ -28,4 +28,9 @@ public class PreferenceProfileControllerTest {
             System.out.println(name);
         }
     }
+
+    @Test
+    public void testDeletePreferenceProfile() {
+        PreferenceProfileController.deletePreferenceProfile(user, "testForTIA");
+    }
 }

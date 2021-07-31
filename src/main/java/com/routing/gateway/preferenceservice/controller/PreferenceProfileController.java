@@ -30,4 +30,16 @@ public class PreferenceProfileController {
             System.out.println("Failed to update preference profiles.");
         }
     }
+
+    public static void deletePreferenceProfile(User user, String name) {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", user.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.deleteRequest(PATH_SEGMENT + "/" + name, headers);
+        if (responseBody.isPresent()) {
+            System.out.println("Deleted preference profile successfully.");
+        } else {
+            System.out.println("Failed to delete preference profile.");
+        }
+    }
 }

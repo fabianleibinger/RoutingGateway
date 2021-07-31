@@ -13,6 +13,7 @@ public class HttpPreferenceService {
     private static final String BASE_URL = "https://regiomove.fzi.de/backend/";
     private final Integer OK_STATUS_CODE = 200;
     private final Integer OK_STATUS_CODE_POST = 201;
+    private final Integer OK_STATUS_CODE_DELETE = 204;
     private final Duration SECONDS_UNTIL_TIMEOUT = Duration.ofSeconds(35);
     private HttpClient httpClient;
 
@@ -58,6 +59,25 @@ public class HttpPreferenceService {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("Response status code: " + response.statusCode());
             if (response.statusCode() == OK_STATUS_CODE || response.statusCode() == OK_STATUS_CODE_POST) {
+                return Optional.of(response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Failed to reach preference service.");
+        }
+        return Optional.empty();
+    }
+
+    public Optional<String> deleteRequest(String path, Map<String, String> headers) {
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(this.getCompleteURL(path)))
+                .timeout(SECONDS_UNTIL_TIMEOUT)
+                .DELETE();
+        headers.forEach(requestBuilder::header);
+        HttpRequest request = requestBuilder.build();
+        try {
+            HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("Response status code: " + response.statusCode());
+            if (response.statusCode() == OK_STATUS_CODE_DELETE) {
                 return Optional.of(response.body());
             }
         } catch (IOException | InterruptedException e) {
