@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mobility preferences profile.
+ * Mobility preferences profile of a user.
  */
 public class PreferenceProfile extends Parameters {
     private ConnectionPreferences connectionPreferences;

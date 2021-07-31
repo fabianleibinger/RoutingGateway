@@ -1,6 +1,8 @@
 package com.routing.gateway.preferenceservice;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,5 +42,17 @@ public class UserTest {
     @Test
     public void testSignup() {
         user.signup();
+    }
+
+    @Test
+    public void testSetAndGetProfile() {
+        user.login();
+        UserProfile profile = user.getProfile();
+        System.out.println(profile.getAccessibility());
+        System.out.println(profile.getCanRideABike());
+        System.out.println(profile.getGrantGPS());
+        System.out.println(profile.getHasDriversLicense());
+        System.out.println(profile.getPrivateBicycleAvailable());
+        System.out.println(profile.getPrivateCarAvailable());
     }
 }

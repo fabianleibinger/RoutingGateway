@@ -3,6 +3,7 @@ package com.routing.gateway.preferenceservice;
 import com.google.gson.Gson;
 import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
+import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
 import java.util.*;
 
@@ -15,6 +16,7 @@ public class User {
     private String password;
     private AccessToken accessToken;
     private PreferenceProfile preferenceProfile;
+    private UserProfile profile;
 
     public void login() {
         Optional<String> responseBody = this.receiveToken();
@@ -58,7 +60,39 @@ public class User {
     }
 
     public String getAuthorizationHeaderValue() {
-        return this.accessToken.getToken_type() + " " + this.accessToken.getAccess_token();
+        try {
+            return this.accessToken.getToken_type() + " " + this.accessToken.getAccess_token();
+        } catch (NullPointerException e) {
+            System.out.println("Login first to receive token.");
+            return "";
+        }
+
+    }
+
+    public PreferenceProfile getPreferenceProfile() {
+        return preferenceProfile;
+    }
+
+    public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
+        this.preferenceProfile = preferenceProfile;
+    }
+
+    public UserProfile getProfile() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.getRequest("user", headers);
+        if (responseBody.isPresent()) {
+            this.profile = new Gson().fromJson(responseBody.get(), UserProfile.class);
+            System.out.println("Received user profile successfully.");
+        } else  {
+            System.out.println("Failed to receive user profile.");
+        }
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 
     public String getUsername() {
