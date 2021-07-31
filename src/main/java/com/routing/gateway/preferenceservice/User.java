@@ -89,7 +89,6 @@ public class User {
 
     public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
         HateoasLinkListWithNames allPreferenceProfiles = PreferenceProfileController.getUpdatedPreferenceProfiles(this);
-
         Boolean needToAddPreferenceProfile = true;
         for (String name : allPreferenceProfiles.getNames()) {
             if (name.equals(preferenceProfile.getProfileName())) {
@@ -97,20 +96,8 @@ public class User {
                 needToAddPreferenceProfile = false;
             }
         }
-
         if (needToAddPreferenceProfile) {
-            HttpPreferenceService httpService = new HttpPreferenceService();
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json");
-            headers.put("Authorization", this.getAuthorizationHeaderValue());
-            Optional<String> responseBody
-                    = httpService.postRequest("user/preferenceProfiles", headers, preferenceProfile.toJson());
-            if (responseBody.isPresent()) {
-                this.preferenceProfile = preferenceProfile;
-                System.out.println("Added preference profile successfully.");
-            } else {
-                System.out.println("Failed to add preference profile.");
-            }
+            this.addPreferenceProfile(preferenceProfile);
         }
     }
 
@@ -127,6 +114,21 @@ public class User {
             System.out.println("Updated preference profile successfully.");
         } else {
             System.out.println("Failed to update preference profile.");
+        }
+    }
+
+    public void addPreferenceProfile(PreferenceProfile preferenceProfile) {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody
+                = httpService.postRequest("user/preferenceProfiles", headers, preferenceProfile.toJson());
+        if (responseBody.isPresent()) {
+            this.preferenceProfile = preferenceProfile;
+            System.out.println("Added preference profile successfully.");
+        } else {
+            System.out.println("Failed to add preference profile.");
         }
     }
 
