@@ -2,10 +2,15 @@ package com.routing.gateway.preferenceservice;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.routing.gateway.preferenceservice.mobilitypreferences.ConnectionPreferences;
+import com.routing.gateway.preferenceservice.mobilitypreferences.ModePreferences;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserTest {
     private User user;
@@ -72,11 +77,12 @@ public class UserTest {
     public void testSetAndGetPreferenceProfile() {
         user.login();
 
-        PreferenceProfile newPreferenceProfile = new PreferenceProfile();
+        PreferenceProfile newPreferenceProfile = user.getPreferenceProfileByName("Test");
+        newPreferenceProfile.setProfileName("testForTIA");
 
-        //user.setPreferenceProfile(newPreferenceProfile);
-        PreferenceProfile preferenceProfile = user.getPreferenceProfile();
+        user.setPreferenceProfile(newPreferenceProfile);
+        PreferenceProfile preferenceProfile = user.getPreferenceProfileByName("testForTIA");
 
-        System.out.println(preferenceProfile.getCyclingPace());
+        System.out.println(preferenceProfile.getProfileName());
     }
 }

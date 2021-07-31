@@ -1,12 +1,16 @@
 package com.routing.gateway.preferenceservice;
 
 import com.google.gson.Gson;
+import com.routing.gateway.preferenceservice.controller.PreferenceProfileController;
 import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
 import java.util.*;
 
+/**
+ * User of the preference service.
+ */
 public class User {
     private static final String CLIENT_ID = "hspf";
     private static final String CLIENT_SECRET = "regio_move_hspf";
@@ -69,11 +73,11 @@ public class User {
 
     }
 
-    public PreferenceProfile getPreferenceProfile() {
+    public PreferenceProfile getPreferenceProfileByName(String name) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", this.getAuthorizationHeaderValue());
-        Optional<String> responseBody = httpService.getRequest("user/preferenceProfiles", headers);
+        Optional<String> responseBody = httpService.getRequest("user/preferenceProfiles/" + name, headers);
         if (responseBody.isPresent()) {
             this.preferenceProfile = new Gson().fromJson(responseBody.get(), PreferenceProfile.class);
             System.out.println("Received preference profile successfully.");
@@ -84,7 +88,46 @@ public class User {
     }
 
     public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
-        this.preferenceProfile = preferenceProfile;
+        HateoasLinkListWithNames allPreferenceProfiles = PreferenceProfileController.getUpdatedPreferenceProfiles(this);
+
+        Boolean needToAddPreferenceProfile = true;
+        for (String name : allPreferenceProfiles.getNames()) {
+            if (name.equals(preferenceProfile.getProfileName())) {
+                this.updatePreferenceProfile(preferenceProfile);
+                needToAddPreferenceProfile = false;
+            }
+        }
+
+        if (needToAddPreferenceProfile) {
+            HttpPreferenceService httpService = new HttpPreferenceService();
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Content-Type", "application/json");
+            headers.put("Authorization", this.getAuthorizationHeaderValue());
+            Optional<String> responseBody
+                    = httpService.postRequest("user/preferenceProfiles", headers, preferenceProfile.toJson());
+            if (responseBody.isPresent()) {
+                this.preferenceProfile = preferenceProfile;
+                System.out.println("Added preference profile successfully.");
+            } else {
+                System.out.println("Failed to add preference profile.");
+            }
+        }
+    }
+
+    public void updatePreferenceProfile(PreferenceProfile preferenceProfile) {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody
+                = httpService.putRequest("user/preferenceProfiles/" + preferenceProfile.getProfileName(),
+                headers, preferenceProfile.toJson());
+        if (responseBody.isPresent()) {
+            this.preferenceProfile = preferenceProfile;
+            System.out.println("Updated preference profile successfully.");
+        } else {
+            System.out.println("Failed to update preference profile.");
+        }
     }
 
     public UserProfile getProfile() {

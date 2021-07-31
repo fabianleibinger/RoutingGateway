@@ -12,6 +12,7 @@ import java.util.Optional;
 public class HttpPreferenceService {
     private static final String BASE_URL = "https://regiomove.fzi.de/backend/";
     private final Integer OK_STATUS_CODE = 200;
+    private final Integer OK_STATUS_CODE_POST = 201;
     private final Duration SECONDS_UNTIL_TIMEOUT = Duration.ofSeconds(35);
     private HttpClient httpClient;
 
@@ -56,7 +57,7 @@ public class HttpPreferenceService {
         try {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("Response status code: " + response.statusCode());
-            if (response.statusCode() == OK_STATUS_CODE) {
+            if (response.statusCode() == OK_STATUS_CODE || response.statusCode() == OK_STATUS_CODE_POST) {
                 return Optional.of(response.body());
             }
         } catch (IOException | InterruptedException e) {
