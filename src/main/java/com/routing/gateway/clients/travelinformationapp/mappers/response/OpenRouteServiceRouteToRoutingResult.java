@@ -1,4 +1,4 @@
-package com.routing.gateway.mappers.response;
+package com.routing.gateway.clients.travelinformationapp.mappers.response;
 
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;

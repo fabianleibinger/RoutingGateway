@@ -1,7 +1,8 @@
 package com.routing.gateway.preferenceservice;
 
 import com.google.gson.Gson;
-import com.routing.gateway.preferenceservice.mobilitypreferences.AccessToken;
+import com.routing.gateway.preferenceservice.mobilitypreferences.ComfortFactors;
+import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 
 import java.util.*;
 
@@ -13,6 +14,8 @@ public class User {
     private String fullName;
     private String password;
     private AccessToken accessToken;
+    private ComfortFactors comfortFactors;
+    private PreferenceProfile preferenceProfile;
 
     public void login() {
         Optional<String> responseBody = this.receiveToken();
@@ -53,6 +56,10 @@ public class User {
 
     public String toSignupBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
+    }
+
+    public String getAuthorizationHeaderValue() {
+        return this.accessToken.getToken_type() + " " + this.accessToken.getAccess_token();
     }
 
     public String getUsername() {

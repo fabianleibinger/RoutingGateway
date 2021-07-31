@@ -1,11 +1,9 @@
 package com.routing.gateway.clients.travelinformationapp.adapters;
 
 import com.google.gson.Gson;
-import com.google.maps.model.EncodedPolyline;
-import com.google.maps.model.LatLng;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResultNew;
-import com.routing.gateway.mappers.response.OpenRouteServiceRouteToRoutingResult;
+import com.routing.gateway.clients.travelinformationapp.mappers.response.OpenRouteServiceRouteToRoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
 import com.routing.gateway.routingservices.responses.openrouteserviceresponse.*;

@@ -1,4 +1,4 @@
-package com.routing.gateway.mappers.request;
+package com.routing.gateway.clients.travelinformationapp.mappers.request;
 
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;

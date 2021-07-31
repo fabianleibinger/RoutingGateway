@@ -1,9 +1,9 @@
-package com.routing.gateway.mappers;
+package com.routing.gateway.clients.travelinformationapp.mappers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.googlecode.jmapper.JMapper;
-import com.routing.gateway.mappers.request.PreferenceProfileToOpenRouteServiceParameters;
+import com.routing.gateway.clients.travelinformationapp.mappers.request.PreferenceProfileToOpenRouteServiceParameters;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import fr.xebia.extras.selma.Selma;
