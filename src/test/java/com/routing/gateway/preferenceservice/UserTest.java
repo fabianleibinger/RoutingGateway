@@ -47,12 +47,30 @@ public class UserTest {
     @Test
     public void testSetAndGetProfile() {
         user.login();
+
+        UserProfile newProfile = new UserProfile();
+        newProfile.setAccessibility(false);
+        newProfile.setCanRideABike(true);
+        newProfile.setGrantGPS(false);
+        newProfile.setHasDriversLicence(true);
+        newProfile.setPrivateBicycleAvailable(true);
+        newProfile.setPrivateCarAvailable(false);
+
+        user.setProfile(newProfile);
         UserProfile profile = user.getProfile();
+
         System.out.println(profile.getAccessibility());
         System.out.println(profile.getCanRideABike());
         System.out.println(profile.getGrantGPS());
-        System.out.println(profile.getHasDriversLicense());
+        System.out.println(profile.getHasDriversLicence());
         System.out.println(profile.getPrivateBicycleAvailable());
         System.out.println(profile.getPrivateCarAvailable());
+
+        assertEquals(newProfile.getAccessibility(), profile.getAccessibility());
+        assertEquals(newProfile.getCanRideABike(), profile.getCanRideABike());
+        assertEquals(newProfile.getGrantGPS(), profile.getGrantGPS());
+        assertEquals(newProfile.getHasDriversLicence(), profile.getHasDriversLicence());
+        assertEquals(newProfile.getPrivateBicycleAvailable(), profile.getPrivateBicycleAvailable());
+        assertEquals(newProfile.getPrivateCarAvailable(), profile.getPrivateCarAvailable());
     }
 }

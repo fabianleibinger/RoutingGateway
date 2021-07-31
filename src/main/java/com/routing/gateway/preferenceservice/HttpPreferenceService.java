@@ -41,6 +41,17 @@ public class HttpPreferenceService {
         return this.sendRequest(request);
     }
 
+    public Optional<String> putRequest(String path, Map<String, String> headers, String body) {
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                .uri(URI.create(this.getCompleteURL(path)))
+                .timeout(SECONDS_UNTIL_TIMEOUT)
+                .PUT(HttpRequest.BodyPublishers.ofString(body));
+        headers.forEach(requestBuilder::header);
+        HttpRequest request = requestBuilder.build();
+
+        return this.sendRequest(request);
+    }
+
     private Optional<String> sendRequest(HttpRequest request) {
         try {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());

@@ -88,11 +88,21 @@ public class User {
         } else  {
             System.out.println("Failed to receive user profile.");
         }
-        return profile;
+        return this.profile;
     }
 
     public void setProfile(UserProfile profile) {
-        this.profile = profile;
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.putRequest("user", headers, profile.toJson());
+        if (responseBody.isPresent()) {
+            this.profile = profile;
+            System.out.println("Updated user profile successfully.");
+        } else {
+            System.out.println("Failed to update user profile.");
+        }
     }
 
     public String getUsername() {

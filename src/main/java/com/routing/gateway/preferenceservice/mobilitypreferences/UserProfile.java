@@ -12,7 +12,7 @@ public class UserProfile extends Parameters {
     private Boolean accessibility;
     private Boolean canRideABike;
     private Boolean grantGPS;
-    private Boolean hasDriversLicense;
+    private Boolean hasDriversLicence;
     private List<Link> links;
     private Boolean privateBicycleAvailable;
     private Boolean privateCarAvailable;
@@ -41,12 +41,12 @@ public class UserProfile extends Parameters {
         this.grantGPS = grantGPS;
     }
 
-    public Boolean getHasDriversLicense() {
-        return hasDriversLicense;
+    public Boolean getHasDriversLicence() {
+        return hasDriversLicence;
     }
 
-    public void setHasDriversLicense(Boolean hasDriversLicense) {
-        this.hasDriversLicense = hasDriversLicense;
+    public void setHasDriversLicence(Boolean hasDriversLicence) {
+        this.hasDriversLicence = hasDriversLicence;
     }
 
     public List<Link> getLinks() {
