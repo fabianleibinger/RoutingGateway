@@ -2,15 +2,10 @@ package com.routing.gateway.preferenceservice;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.routing.gateway.preferenceservice.mobilitypreferences.ConnectionPreferences;
-import com.routing.gateway.preferenceservice.mobilitypreferences.ModePreferences;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserTest {
     private User user;
