@@ -69,6 +69,7 @@ public class UserTest {
     }
 
     @Test
+    //TODO: remove
     public void testSetAndGetPreferenceProfile() {
         user.login();
 

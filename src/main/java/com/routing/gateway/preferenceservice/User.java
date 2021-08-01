@@ -1,8 +1,6 @@
 package com.routing.gateway.preferenceservice;
 
 import com.google.gson.Gson;
-import com.routing.gateway.preferenceservice.controller.PreferenceProfileController;
-import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
@@ -88,17 +86,7 @@ public class User {
     }
 
     public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
-        HateoasLinkListWithNames allPreferenceProfiles = PreferenceProfileController.getUpdatedPreferenceProfiles(this);
-        Boolean needToAddPreferenceProfile = true;
-        for (String name : allPreferenceProfiles.getNames()) {
-            if (name.equals(preferenceProfile.getProfileName())) {
-                this.updatePreferenceProfile(preferenceProfile);
-                needToAddPreferenceProfile = false;
-            }
-        }
-        if (needToAddPreferenceProfile) {
-            this.addPreferenceProfile(preferenceProfile);
-        }
+        this.preferenceProfile = preferenceProfile;
     }
 
     public void updatePreferenceProfile(PreferenceProfile preferenceProfile) {
