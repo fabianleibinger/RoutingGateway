@@ -17,7 +17,7 @@ public class UserTest {
     public void setUp() {
         user = new User();
         user.setUsername(username);
-        user.setFullName(fullname);
+        user.setFullname(fullname);
         user.setPassword(password);
     }
 
@@ -79,5 +79,21 @@ public class UserTest {
         PreferenceProfile preferenceProfile = user.getPreferenceProfileByName("testForTIA");
 
         System.out.println(preferenceProfile.getProfileName());
+    }
+
+    @Test
+    public void testUpdateFullname() {
+        user.login();
+        String newName = "Maria Ziegler";
+        user.updateFullname(newName);
+        assertEquals(newName, user.getFullname());
+    }
+
+    @Test
+    public void testUpdatePassword() {
+        user.login();
+        String newPassword = "1234";
+        user.updatePassword(newPassword);
+        assertEquals(newPassword, user.getPassword());
     }
 }

@@ -15,7 +15,7 @@ public class ComfortControllerTest {
     public void setup() {
         user = new User();
         user.setUsername(username);
-        user.setFullName(fullname);
+        user.setFullname(fullname);
         user.setPassword(password);
 
         user.login();

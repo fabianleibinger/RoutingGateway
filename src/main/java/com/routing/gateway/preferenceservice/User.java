@@ -16,7 +16,7 @@ public class User {
     private static final String CLIENT_SECRET = "regio_move_hspf";
 
     private String username;
-    private String fullName;
+    private String fullname;
     private String password;
     private AccessToken accessToken;
     private PreferenceProfile preferenceProfile;
@@ -60,7 +60,7 @@ public class User {
     }
 
     public String toSignupBodyFormat() {
-        return "username=" + this.username + "&fullname=" + this.fullName + "&password=" + this.password;
+        return "username=" + this.username + "&fullname=" + this.fullname + "&password=" + this.password;
     }
 
     public String getAuthorizationHeaderValue() {
@@ -160,6 +160,22 @@ public class User {
         }
     }
 
+    public void updateFullnameAndPassword(String fullname, String password) {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        String jsonBody = "{\"fullname\": \"" + fullname + "\", \"password\": \"" + password + "\"}";
+        Optional<String> responseBody = httpService.putRequest("account", headers, jsonBody);
+        if (responseBody.isPresent()) {
+            this.fullname = fullname;
+            this.password = password;
+            System.out.println("Updated user account successfully.");
+        } else {
+            System.out.println("Failed to update user account.");
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -168,12 +184,16 @@ public class User {
         this.username = username;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void updateFullname(String fullname) {
+        this.updateFullnameAndPassword(fullname, this.password);
     }
 
     public String getPassword() {
@@ -182,6 +202,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void updatePassword(String password) {
+        this.updateFullnameAndPassword(this.fullname, password);
     }
 
     public AccessToken getAccessToken() {
