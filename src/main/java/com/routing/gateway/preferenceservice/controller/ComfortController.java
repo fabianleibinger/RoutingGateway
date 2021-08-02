@@ -23,11 +23,7 @@ public class ComfortController {
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedComfortFactors(@RequestBody User user) {
         Optional<HateoasLinkListWithNames> comfortFactors = updateComfortFactors(user);
-        if (comfortFactors.isPresent()) {
-            return comfortFactors.get();
-        } else {
-            return new HateoasLinkListWithNames();
-        }
+        return comfortFactors.orElseGet(HateoasLinkListWithNames::new);
     }
 
     public static Optional<HateoasLinkListWithNames> updateComfortFactors(User user) {

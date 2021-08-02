@@ -23,11 +23,7 @@ public class PreferenceProfileController {
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedPreferenceProfiles(@RequestBody User user) {
         Optional<HateoasLinkListWithNames> preferenceProfiles = updatePreferenceProfiles(user);
-        if (preferenceProfiles.isPresent()) {
-            return preferenceProfiles.get();
-        } else {
-            return new HateoasLinkListWithNames();
-        }
+        return preferenceProfiles.orElseGet(HateoasLinkListWithNames::new);
     }
 
     public static Optional<HateoasLinkListWithNames> updatePreferenceProfiles(User user) {

@@ -2,10 +2,11 @@ package com.routing.gateway.preferenceservice;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 public class UserTest {
     private User user;
@@ -57,8 +58,12 @@ public class UserTest {
         newProfile.setPrivateBicycleAvailable(true);
         newProfile.setPrivateCarAvailable(false);
 
-        user.setProfile(newProfile);
-        UserProfile profile = user.getProfile();
+        user.updateProfile(newProfile);
+        Optional<UserProfile> optProfile = user.receiveProfile();
+        UserProfile profile = null;
+        if(optProfile.isPresent()) {
+            profile = optProfile.get();
+        }
 
         assertEquals(newProfile.getAccessibility(), profile.getAccessibility());
         assertEquals(newProfile.getCanRideABike(), profile.getCanRideABike());
@@ -73,7 +78,7 @@ public class UserTest {
         user.login();
         String newName = "Maria Ziegler";
         user.updateFullname(newName);
-        assertEquals(newName, user.getFullname());
+        assertEquals(newName, user.receiveAccountInfo());
     }
 
     @Test

@@ -23,11 +23,7 @@ public class ModesOfTransportController {
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedModesOfTransport(@RequestBody User user) {
         Optional<HateoasLinkListWithNames> modesOfTransport = updateModesOfTransport(user);
-        if (modesOfTransport.isPresent()) {
-            return modesOfTransport.get();
-        } else {
-            return new HateoasLinkListWithNames();
-        }
+        return modesOfTransport.orElseGet(HateoasLinkListWithNames::new);
     }
 
     public static Optional<HateoasLinkListWithNames> updateModesOfTransport(User user) {

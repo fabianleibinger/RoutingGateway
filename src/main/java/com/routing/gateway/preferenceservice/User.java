@@ -20,13 +20,33 @@ public class User {
     private PreferenceProfile preferenceProfile;
     private UserProfile profile;
 
-    public void login() {
+    public Boolean signup() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        Optional<String> responseBody = httpService.postRequest("signup", headers, this.toSignupBodyFormat());
+        if (responseBody.isPresent()) {
+            System.out.println("User " + this.username + " is registered.");
+            return true;
+        } else {
+            System.out.println("User " + this.username + " could not be registered.");
+            return false;
+        }
+    }
+
+    public String toSignupBodyFormat() {
+        return "username=" + this.username + "&fullname=" + this.fullname + "&password=" + this.password;
+    }
+
+    public Boolean login() {
         Optional<String> responseBody = this.receiveToken();
         if (responseBody.isPresent()) {
             this.accessToken = new Gson().fromJson(responseBody.get(), AccessToken.class);
             System.out.println("User " + this.username + " logged in.");
+            return true;
         } else {
             System.out.println("Login failed for user " + this.username + ".");
+            return false;
         }
     }
 
@@ -45,22 +65,6 @@ public class User {
         return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
     }
 
-    public void signup() {
-        HttpPreferenceService httpService = new HttpPreferenceService();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
-        Optional<String> responseBody = httpService.postRequest("signup", headers, this.toSignupBodyFormat());
-        if (responseBody.isPresent()) {
-            System.out.println("User " + this.username + " is registered.");
-        } else {
-            System.out.println("User " + this.username + " could not be registered.");
-        }
-    }
-
-    public String toSignupBodyFormat() {
-        return "username=" + this.username + "&fullname=" + this.fullname + "&password=" + this.password;
-    }
-
     public String getAuthorizationHeaderValue() {
         try {
             return this.accessToken.getToken_type() + " " + this.accessToken.getAccess_token();
@@ -71,7 +75,24 @@ public class User {
 
     }
 
-    public PreferenceProfile getPreferenceProfileByName(String name) {
+    public Boolean addPreferenceProfileToService(PreferenceProfile preferenceProfile) {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody
+                = httpService.postRequest("user/preferenceProfiles", headers, preferenceProfile.toJson());
+        if (responseBody.isPresent()) {
+            this.preferenceProfile = preferenceProfile;
+            System.out.println("Added preference profile successfully.");
+            return true;
+        } else {
+            System.out.println("Failed to add preference profile.");
+            return false;
+        }
+    }
+
+    public Optional<PreferenceProfile> receivePreferenceProfileByName(String name) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", this.getAuthorizationHeaderValue());
@@ -79,13 +100,14 @@ public class User {
         if (responseBody.isPresent()) {
             this.preferenceProfile = new Gson().fromJson(responseBody.get(), PreferenceProfile.class);
             System.out.println("Received preference profile successfully.");
+            return Optional.of(this.preferenceProfile);
         } else  {
             System.out.println("Failed to receive preference profile.");
         }
-        return this.preferenceProfile;
+        return Optional.empty();
     }
 
-    public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
+    public Boolean updatePreferenceProfile(PreferenceProfile preferenceProfile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -96,34 +118,14 @@ public class User {
         if (responseBody.isPresent()) {
             this.preferenceProfile = preferenceProfile;
             System.out.println("Updated preference profile successfully.");
+            return true;
         } else {
             System.out.println("Failed to update preference profile.");
+            return false;
         }
     }
 
-    public PreferenceProfile getPreferenceProfile() {
-        if (this.preferenceProfile == null) {
-            this.preferenceProfile = new PreferenceProfile();
-        }
-        return this.preferenceProfile;
-    }
-
-    public void addPreferenceProfile(PreferenceProfile preferenceProfile) {
-        HttpPreferenceService httpService = new HttpPreferenceService();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/json");
-        headers.put("Authorization", this.getAuthorizationHeaderValue());
-        Optional<String> responseBody
-                = httpService.postRequest("user/preferenceProfiles", headers, preferenceProfile.toJson());
-        if (responseBody.isPresent()) {
-            this.preferenceProfile = preferenceProfile;
-            System.out.println("Added preference profile successfully.");
-        } else {
-            System.out.println("Failed to add preference profile.");
-        }
-    }
-
-    public UserProfile getProfile() {
+    public Optional<UserProfile> receiveProfile() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", this.getAuthorizationHeaderValue());
@@ -131,13 +133,14 @@ public class User {
         if (responseBody.isPresent()) {
             this.profile = new Gson().fromJson(responseBody.get(), UserProfile.class);
             System.out.println("Received user profile successfully.");
+            return Optional.of(this.profile);
         } else  {
             System.out.println("Failed to receive user profile.");
         }
-        return this.profile;
+        return Optional.empty();
     }
 
-    public void setProfile(UserProfile profile) {
+    public Boolean updateProfile(UserProfile profile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -146,12 +149,30 @@ public class User {
         if (responseBody.isPresent()) {
             this.profile = profile;
             System.out.println("Updated user profile successfully.");
+            return true;
         } else {
             System.out.println("Failed to update user profile.");
+            return false;
         }
     }
 
-    public void updateFullnameAndPassword(String fullname, String password) {
+    public Optional<String> receiveAccountInfo() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.getRequest("account", headers);
+        if (responseBody.isPresent()) {
+            Account info = new Gson().fromJson(responseBody.get(), Account.class);
+            this.fullname = info.getFullname();
+            System.out.println("Received fullname successfully.");
+            return Optional.of(this.fullname);
+        } else  {
+            System.out.println("Failed to receive fullname.");
+        }
+        return Optional.empty();
+    }
+
+    public Boolean updateAccountInfo(String fullname, String password) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -162,8 +183,10 @@ public class User {
             this.fullname = fullname;
             this.password = password;
             System.out.println("Updated user account successfully.");
+            return true;
         } else {
             System.out.println("Failed to update user account.");
+            return false;
         }
     }
 
@@ -176,17 +199,6 @@ public class User {
     }
 
     public String getFullname() {
-        HttpPreferenceService httpService = new HttpPreferenceService();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", this.getAuthorizationHeaderValue());
-        Optional<String> responseBody = httpService.getRequest("account", headers);
-        if (responseBody.isPresent()) {
-            Account info = new Gson().fromJson(responseBody.get(), Account.class);
-            this.fullname = info.getFullname();
-            System.out.println("Received fullname successfully.");
-        } else  {
-            System.out.println("Failed to receive fullname.");
-        }
         return fullname;
     }
 
@@ -195,7 +207,7 @@ public class User {
     }
 
     public void updateFullname(String fullname) {
-        this.updateFullnameAndPassword(fullname, this.password);
+        this.updateAccountInfo(fullname, this.password);
     }
 
     public String getPassword() {
@@ -207,7 +219,7 @@ public class User {
     }
 
     public void updatePassword(String password) {
-        this.updateFullnameAndPassword(this.fullname, password);
+        this.updateAccountInfo(this.fullname, password);
     }
 
     public AccessToken getAccessToken() {
@@ -219,5 +231,27 @@ public class User {
 
     public void setAccessToken(AccessToken accessToken) {
         this.accessToken = accessToken;
+    }
+
+    public PreferenceProfile getPreferenceProfile() {
+        if (this.preferenceProfile == null) {
+            this.preferenceProfile = new PreferenceProfile();
+        }
+        return this.preferenceProfile;
+    }
+
+    public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
+        this.preferenceProfile = preferenceProfile;
+    }
+
+    public UserProfile getProfile() {
+        if (this.profile == null) {
+            this.profile = new UserProfile();
+        }
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 }
