@@ -86,10 +86,6 @@ public class User {
     }
 
     public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
-        this.preferenceProfile = preferenceProfile;
-    }
-
-    public void updatePreferenceProfile(PreferenceProfile preferenceProfile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -103,6 +99,13 @@ public class User {
         } else {
             System.out.println("Failed to update preference profile.");
         }
+    }
+
+    public PreferenceProfile getPreferenceProfile() {
+        if (this.preferenceProfile == null) {
+            this.preferenceProfile = new PreferenceProfile();
+        }
+        return this.preferenceProfile;
     }
 
     public void addPreferenceProfile(PreferenceProfile preferenceProfile) {
@@ -173,6 +176,17 @@ public class User {
     }
 
     public String getFullname() {
+        HttpPreferenceService httpService = new HttpPreferenceService();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", this.getAuthorizationHeaderValue());
+        Optional<String> responseBody = httpService.getRequest("account", headers);
+        if (responseBody.isPresent()) {
+            Account info = new Gson().fromJson(responseBody.get(), Account.class);
+            this.fullname = info.getFullname();
+            System.out.println("Received fullname successfully.");
+        } else  {
+            System.out.println("Failed to receive fullname.");
+        }
         return fullname;
     }
 

@@ -19,10 +19,9 @@ public class PreferenceProfileController {
     @PostMapping(path = "user/preferenceProfiles",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedPreferenceProfiles(@RequestBody User user) {
-        user.login();
         Optional<HateoasLinkListWithNames> preferenceProfiles = updatePreferenceProfiles(user);
         if (preferenceProfiles.isPresent()) {
             return preferenceProfiles.get();
@@ -46,6 +45,7 @@ public class PreferenceProfileController {
     }
 
     @DeleteMapping("user/preferenceProfiles/{name}")
+    @ResponseStatus(HttpStatus.OK)
     public static void deletePreferenceProfile(User user, @PathVariable String name) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();

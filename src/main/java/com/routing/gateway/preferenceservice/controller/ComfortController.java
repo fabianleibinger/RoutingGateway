@@ -19,10 +19,9 @@ public class ComfortController {
     @PostMapping(path = "comfortFactors",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedComfortFactors(@RequestBody User user) {
-        user.login();
         Optional<HateoasLinkListWithNames> comfortFactors = updateComfortFactors(user);
         if (comfortFactors.isPresent()) {
             return comfortFactors.get();

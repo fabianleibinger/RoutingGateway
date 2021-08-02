@@ -19,10 +19,9 @@ public class ModesOfTransportController {
     @PostMapping(path = "modes",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public static HateoasLinkListWithNames getUpdatedModesOfTransport(@RequestBody User user) {
-        user.login();
         Optional<HateoasLinkListWithNames> modesOfTransport = updateModesOfTransport(user);
         if (modesOfTransport.isPresent()) {
             return modesOfTransport.get();

@@ -69,20 +69,6 @@ public class UserTest {
     }
 
     @Test
-    //TODO: remove
-    public void testSetAndGetPreferenceProfile() {
-        user.login();
-
-        PreferenceProfile newPreferenceProfile = user.getPreferenceProfileByName("Test");
-        newPreferenceProfile.setProfileName("testForTIA");
-
-        user.setPreferenceProfile(newPreferenceProfile);
-        PreferenceProfile preferenceProfile = user.getPreferenceProfileByName("testForTIA");
-
-        System.out.println(preferenceProfile.getProfileName());
-    }
-
-    @Test
     public void testUpdateFullname() {
         user.login();
         String newName = "Maria Ziegler";
