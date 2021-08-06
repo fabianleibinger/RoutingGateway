@@ -1,7 +1,7 @@
 package com.routing.gateway.preferenceservice.controller;
 
 import com.routing.gateway.preferenceservice.User;
-import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
+import com.routing.gateway.preferenceservice.controller.exceptions.BadGatewayException;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controller that handles all requests related users. Preference profiles are handled separately.
+ */
 @RestController
+@RequestMapping("user")
 public class UserController {
 
     //TODO correct request response types
 
-    @PostMapping(path = "user/signup",
+    @PostMapping(path = "signup",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -23,11 +27,11 @@ public class UserController {
         if (user.signup()) {
             return user;
         } else {
-            return new User();
+            throw new BadGatewayException("User could not be registered.");
         }
     }
 
-    @PostMapping(path = "user/login",
+    @PostMapping(path = "login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -36,57 +40,25 @@ public class UserController {
         if (user.login()) {
             return user;
         } else {
-            return new User();
+            throw new BadGatewayException("Failed to login.");
         }
     }
 
-    @PostMapping(path = "user/preferenceProfiles/add",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public static PreferenceProfile addPreferenceProfile(@RequestBody User user) {
-        if (user.addPreferenceProfileToService(user.getPreferenceProfile())) {
-            return user.getPreferenceProfile();
-        } else {
-            return new PreferenceProfile();
-        }
-    }
-
-    @PostMapping(path = "user/preferenceProfiles/{name}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public static PreferenceProfile getSpecificPreferenceProfile(@RequestBody User user, @PathVariable String name) {
-        Optional<PreferenceProfile> preferenceProfile = user.receivePreferenceProfileByName(name);
-        return preferenceProfile.orElseGet(PreferenceProfile::new);
-    }
-
-    @PutMapping(path = "user/preferenceProfiles/{name}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public static PreferenceProfile updateSpecificPreferenceProfile(@RequestBody User user, @PathVariable String name) {
-        if (user.updatePreferenceProfile(user.getPreferenceProfile())) {
-            return user.getPreferenceProfile();
-        } else {
-            return new PreferenceProfile();
-        }
-    }
-
-    @PostMapping(path = "user/profile",
+    @PostMapping(path = "profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public static UserProfile getProfile(@RequestBody User user) {
         Optional<UserProfile> userProfile = user.receiveProfile();
-        return userProfile.orElseGet(UserProfile::new);
+        if (userProfile.isPresent()) {
+            return userProfile.get();
+        } else {
+            throw new BadGatewayException("Failed to receive user profile.");
+        }
     }
 
-    @PutMapping(path = "user/profile",
+    @PutMapping(path = "profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -95,11 +67,11 @@ public class UserController {
         if (user.updateProfile(user.getProfile())) {
             return user.getProfile();
         } else {
-            return new UserProfile();
+            throw new BadGatewayException("Failed to update user profile.");
         }
     }
 
-    @PostMapping(path = "user/account",
+    @PostMapping(path = "account",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -109,11 +81,11 @@ public class UserController {
         if (accountInfo.isPresent()) {
             return user;
         } else {
-            return new User();
+            throw new BadGatewayException("Failed to receive account info.");
         }
     }
 
-    @PutMapping(path = "user/account",
+    @PutMapping(path = "account",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
@@ -122,7 +94,7 @@ public class UserController {
         if (user.updateAccountInfo(user.getFullname(), user.getPassword())) {
             return user;
         } else {
-            return new User();
+            throw new BadGatewayException("Failed to update user account.");
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.routing.gateway.preferenceservice;
+package com.routing.gateway.preferenceservice.mobilitypreferences;
 
 public class AccessToken {
     private String access_token;

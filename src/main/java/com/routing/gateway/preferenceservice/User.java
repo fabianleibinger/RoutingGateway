@@ -1,6 +1,8 @@
 package com.routing.gateway.preferenceservice;
 
 import com.google.gson.Gson;
+import com.routing.gateway.preferenceservice.mobilitypreferences.AccessToken;
+import com.routing.gateway.preferenceservice.mobilitypreferences.Account;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
