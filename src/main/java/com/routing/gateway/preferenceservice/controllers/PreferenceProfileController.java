@@ -1,9 +1,9 @@
-package com.routing.gateway.preferenceservice.controller;
+package com.routing.gateway.preferenceservice.controllers;
 
 import com.google.gson.Gson;
 import com.routing.gateway.preferenceservice.HttpPreferenceService;
 import com.routing.gateway.preferenceservice.User;
-import com.routing.gateway.preferenceservice.controller.exceptions.BadGatewayException;
+import com.routing.gateway.preferenceservice.controllers.exceptions.BadGatewayException;
 import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class PreferenceProfileController {
     /**
      * Returns available preference profiles of a user or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @return preference profiles HateoasLinkListWithNames
      */
     @PostMapping(
@@ -46,7 +46,7 @@ public class PreferenceProfileController {
     /**
      * Updates available preference profiles of user from the upstream preference service.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @return preference profiles Optional HateoasLinkListWithNames
      */
     public static Optional<HateoasLinkListWithNames> updatePreferenceProfiles(User user) {
@@ -66,7 +66,7 @@ public class PreferenceProfileController {
     /**
      * Adds preference profile for user or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken and preferenceProfile required
      * @return preference profile
      */
     @PostMapping(path = "add",
@@ -85,7 +85,7 @@ public class PreferenceProfileController {
     /**
      * Returns specific preference profile for user or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @param name String name of the preference profile
      * @return preference profile
      */
@@ -106,7 +106,7 @@ public class PreferenceProfileController {
     /**
      * Updates specific preference profile for user or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken and preferenceProfile required
      * @param name String name of the preference profile to be updated
      * @return preference profile
      */
@@ -126,7 +126,7 @@ public class PreferenceProfileController {
     /**
      * Deletes specific preference profile for user or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @param name String name of the preference profile
      */
     @DeleteMapping("{name}")

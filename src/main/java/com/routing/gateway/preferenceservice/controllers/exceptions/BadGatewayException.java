@@ -1,4 +1,4 @@
-package com.routing.gateway.preferenceservice.controller.exceptions;
+package com.routing.gateway.preferenceservice.controllers.exceptions;
 
 /**
  * Exception that is thrown if this server received an error from an upstream server.

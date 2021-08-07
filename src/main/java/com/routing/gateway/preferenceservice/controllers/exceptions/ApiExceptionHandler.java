@@ -1,4 +1,4 @@
-package com.routing.gateway.preferenceservice.controller.exceptions;
+package com.routing.gateway.preferenceservice.controllers.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

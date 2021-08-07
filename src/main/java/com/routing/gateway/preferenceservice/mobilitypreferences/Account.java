@@ -1,7 +1,5 @@
 package com.routing.gateway.preferenceservice.mobilitypreferences;
 
-import com.routing.gateway.preferenceservice.mobilitypreferences.Link;
-
 import java.util.ArrayList;
 import java.util.List;
 

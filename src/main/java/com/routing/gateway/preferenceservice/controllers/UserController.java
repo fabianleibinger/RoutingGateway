@@ -1,7 +1,8 @@
-package com.routing.gateway.preferenceservice.controller;
+package com.routing.gateway.preferenceservice.controllers;
 
 import com.routing.gateway.preferenceservice.User;
-import com.routing.gateway.preferenceservice.controller.exceptions.BadGatewayException;
+import com.routing.gateway.preferenceservice.controllers.exceptions.BadGatewayException;
+import com.routing.gateway.preferenceservice.mobilitypreferences.Account;
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,8 +17,12 @@ import java.util.Optional;
 @RequestMapping("user")
 public class UserController {
 
-    //TODO correct request response types
-
+    /**
+     * Signs up user or throws BadGatewayException.
+     *
+     * @param user User; username and password required
+     * @return user
+     */
     @PostMapping(path = "signup",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,6 +36,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Logs user in or throws BadGatewayException.
+     *
+     * @param user User; username and password required
+     * @return user including accessToken
+     */
     @PostMapping(path = "login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,6 +55,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Returns user profile or throws BadGatewayException.
+     *
+     * @param user User; accessToken required
+     * @return user profile
+     */
     @PostMapping(path = "profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,6 +75,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Updates user profile or throws BadGatewayException.
+     *
+     * @param user User; accessToken and userProfile required
+     * @return user profile
+     */
     @PutMapping(path = "profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,26 +94,38 @@ public class UserController {
         }
     }
 
+    /**
+     * Returns accountInfo or throws BadGatewayException.
+     *
+     * @param user User; accessToken required
+     * @return account
+     */
     @PostMapping(path = "account",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public static User getAccount(@RequestBody User user) {
-        Optional<String> accountInfo = user.receiveAccountInfo();
+    public static Account getAccountInfo(@RequestBody User user) {
+        Optional<Account> accountInfo = user.receiveAccountInfo();
         if (accountInfo.isPresent()) {
-            return user;
+            return accountInfo.get();
         } else {
             throw new BadGatewayException("Failed to receive account info.");
         }
     }
 
+    /**
+     * Updates accountInfo or throws BadGatewayException.
+     *
+     * @param user User; fullname, password and accessToken required
+     * @return account
+     */
     @PutMapping(path = "account",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public static User updateAccount(@RequestBody User user) {
+    public static User updateAccountInfo(@RequestBody User user) {
         if (user.updateAccountInfo(user.getFullname(), user.getPassword())) {
             return user;
         } else {

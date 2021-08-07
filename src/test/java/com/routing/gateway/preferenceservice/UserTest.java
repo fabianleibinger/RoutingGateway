@@ -78,7 +78,7 @@ public class UserTest {
         user.login();
         String newName = "Maria Ziegler";
         user.updateFullname(newName);
-        assertEquals(newName, user.receiveAccountInfo());
+        assertEquals(newName, user.getFullname());
     }
 
     @Test

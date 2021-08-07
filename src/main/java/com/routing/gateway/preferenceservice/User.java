@@ -158,7 +158,7 @@ public class User {
         }
     }
 
-    public Optional<String> receiveAccountInfo() {
+    public Optional<Account> receiveAccountInfo() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", this.getAuthorizationHeaderValue());
@@ -166,8 +166,9 @@ public class User {
         if (responseBody.isPresent()) {
             Account info = new Gson().fromJson(responseBody.get(), Account.class);
             this.fullname = info.getFullname();
+            this.username = info.getUsername();
             System.out.println("Received fullname successfully.");
-            return Optional.of(this.fullname);
+            return Optional.of(info);
         } else  {
             System.out.println("Failed to receive fullname.");
         }
@@ -182,7 +183,8 @@ public class User {
         String jsonBody = "{\"fullname\": \"" + fullname + "\", \"password\": \"" + password + "\"}";
         Optional<String> responseBody = httpService.putRequest("account", headers, jsonBody);
         if (responseBody.isPresent()) {
-            this.fullname = fullname;
+            Account info = new Gson().fromJson(responseBody.get(), Account.class);
+            this.fullname = info.getFullname();
             this.password = password;
             System.out.println("Updated user account successfully.");
             return true;

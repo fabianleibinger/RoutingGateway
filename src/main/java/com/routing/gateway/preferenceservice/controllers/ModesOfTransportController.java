@@ -1,9 +1,9 @@
-package com.routing.gateway.preferenceservice.controller;
+package com.routing.gateway.preferenceservice.controllers;
 
 import com.google.gson.Gson;
 import com.routing.gateway.preferenceservice.HttpPreferenceService;
 import com.routing.gateway.preferenceservice.User;
-import com.routing.gateway.preferenceservice.controller.exceptions.BadGatewayException;
+import com.routing.gateway.preferenceservice.controllers.exceptions.BadGatewayException;
 import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +24,7 @@ public class ModesOfTransportController {
     /**
      * Returns available modes of transport or throws BadGatewayException.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @return modes of transport HateoasLinkListWithNames
      */
     @PostMapping(path = "modes",
@@ -44,7 +44,7 @@ public class ModesOfTransportController {
     /**
      * Updates available modes of transport from the upstream preference service.
      *
-     * @param user User; username, password and accessToken required
+     * @param user User; accessToken required
      * @return modes of transport Optional HateoasLinkListWithNames
      */
     public static Optional<HateoasLinkListWithNames> updateModesOfTransport(User user) {

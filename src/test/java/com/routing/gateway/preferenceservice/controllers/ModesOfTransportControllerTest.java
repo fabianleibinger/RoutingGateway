@@ -1,4 +1,4 @@
-package com.routing.gateway.preferenceservice.controller;
+package com.routing.gateway.preferenceservice.controllers;
 
 import com.routing.gateway.preferenceservice.User;
 import com.routing.gateway.preferenceservice.mobilitypreferences.HateoasLinkListWithNames;
