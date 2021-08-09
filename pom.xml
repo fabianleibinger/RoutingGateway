@@ -69,6 +69,11 @@
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.nomin</groupId>
+			<artifactId>nomin</artifactId>
+			<version>1.2</version>
+		</dependency>
     </dependencies>
 
 	<build>
