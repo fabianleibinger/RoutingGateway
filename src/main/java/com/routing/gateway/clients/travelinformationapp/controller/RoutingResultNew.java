@@ -5,6 +5,9 @@ import com.routing.gateway.routingservices.Parameters;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Route expected by travel information app client.
+ */
 public class RoutingResultNew extends Parameters {
     //Covers the hole trip.
     private String encodedPolyline;

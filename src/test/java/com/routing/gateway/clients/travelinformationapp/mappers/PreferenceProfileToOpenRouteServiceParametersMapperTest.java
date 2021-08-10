@@ -2,6 +2,8 @@ package com.routing.gateway.clients.travelinformationapp.mappers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.google.maps.model.LatLng;
+import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
 import com.routing.gateway.clients.travelinformationapp.mappers.request.PreferenceProfileToOpenRouteServiceParameters;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
@@ -22,14 +24,17 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
 
     @Test
     public void testNomin() {
-        NominMapper nomin = new Nomin("ppToOrs.groovy");
-        PreferenceProfile profile = new PreferenceProfile();
-        profile.getWeighting().setComfort(50f);
-        profile.getWeighting().setDuration(75f);
-        profile.getWeighting().setEnvironment(30f);
-        profile.setCyclingPace(3);
+        NominMapper nomin = new Nomin("RoutingRequestToOpenRouteServiceParameters.groovy");
+        RoutingRequest request = new RoutingRequest();
+        request.setOrigin(new LatLng(0, 1));
+        request.setDestination(new LatLng(2, 3));
+        request.getPreferenceProfile().getWeighting().setComfort(50f);
+        request.getPreferenceProfile().getWeighting().setDuration(75f);
+        request.getPreferenceProfile().getWeighting().setEnvironment(30f);
+        request.getPreferenceProfile().setCyclingPace(3);
 
-        OpenRouteServiceParameters parameters = nomin.map(profile, OpenRouteServiceParameters.class);
+        OpenRouteServiceParameters parameters = nomin.map(request, OpenRouteServiceParameters.class);
+        assertEquals(1d, parameters.getCoordinates().get(0)[0]);
         assertEquals(0.5f, parameters.getOptions().getProfile_params().getWeightings().getQuiet());
         assertEquals("fastest", parameters.getPreference());
         assertEquals(0.3f, parameters.getOptions().getProfile_params().getWeightings().getGreen());

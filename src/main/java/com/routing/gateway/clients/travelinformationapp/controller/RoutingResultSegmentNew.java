@@ -3,6 +3,9 @@ package com.routing.gateway.clients.travelinformationapp.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A segment of a route.
+ */
 public class RoutingResultSegmentNew {
     private String encodedPolyline;
     private Double durationInMinutes;

@@ -1,7 +1,7 @@
 package com.routing.gateway;
 
 import com.google.maps.model.LatLng;
-import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
+import com.routing.gateway.routingservices.requests.RoutingRequest;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
 import com.routing.gateway.clients.travelinformationapp.adapters.OpenRouteService;
 import com.routing.gateway.clients.travelinformationapp.adapters.OpenTripPlanner;

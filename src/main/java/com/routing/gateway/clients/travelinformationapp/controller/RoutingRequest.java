@@ -1,34 +1,17 @@
 package com.routing.gateway.clients.travelinformationapp.controller;
 
 import com.google.maps.model.LatLng;
-import com.routing.gateway.clients.travelinformationapp.adapters.IRoutingService;
-import com.routing.gateway.routingservices.requests.RoutingServiceRequest;
-
-import java.util.List;
-import java.util.Optional;
+import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
+import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
 /**
- * Request for clients of this service.
+ * Routing request body for the travel information app client.
  */
 public class RoutingRequest {
-
-    //TODO: Add origin and destination to request in Adapter classes
     private LatLng origin;
     private LatLng destination;
-    RoutingServiceRequest request;
-    IRoutingService routingService;
-
-    public RoutingRequest
-            (LatLng origin, LatLng destination, RoutingServiceRequest request, IRoutingService routingService) {
-        this.origin = origin;
-        this.destination = destination;
-        this.request = request;
-        this.routingService = routingService;
-    }
-
-    public Optional<List<RoutingResult>> send() {
-        return this.routingService.computeRoute(this);
-    }
+    private PreferenceProfile preferenceProfile;
+    private UserProfile userProfile;
 
     public LatLng getOrigin() {
         return origin;
@@ -46,11 +29,25 @@ public class RoutingRequest {
         this.destination = destination;
     }
 
-    public RoutingServiceRequest getRequest() {
-        return request;
+    public PreferenceProfile getPreferenceProfile() {
+        if (this.preferenceProfile == null) {
+            this.preferenceProfile = new PreferenceProfile();
+        }
+        return preferenceProfile;
     }
 
-    public void setRequest(RoutingServiceRequest request) {
-        this.request = request;
+    public void setPreferenceProfile(PreferenceProfile preferenceProfile) {
+        this.preferenceProfile = preferenceProfile;
+    }
+
+    public UserProfile getUserProfile() {
+        if (this.userProfile == null) {
+            this.userProfile = new UserProfile();
+        }
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }

@@ -5,7 +5,7 @@ import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResultNew;
 import com.routing.gateway.clients.travelinformationapp.mappers.response.OpenRouteServiceRouteToRoutingResult;
 import com.routing.gateway.routingservices.requests.OpenRouteServiceRequest;
-import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
+import com.routing.gateway.routingservices.requests.RoutingRequest;
 import com.routing.gateway.routingservices.responses.openrouteserviceresponse.*;
 import fr.xebia.extras.selma.Selma;
 

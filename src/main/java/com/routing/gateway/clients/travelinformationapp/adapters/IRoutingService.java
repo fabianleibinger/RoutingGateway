@@ -1,6 +1,6 @@
 package com.routing.gateway.clients.travelinformationapp.adapters;
 
-import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest;
+import com.routing.gateway.routingservices.requests.RoutingRequest;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingResult;
 
 import java.net.http.HttpClient;
