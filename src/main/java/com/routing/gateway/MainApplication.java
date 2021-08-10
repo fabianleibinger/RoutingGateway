@@ -40,7 +40,7 @@ public class MainApplication {
 		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
 		parameters.setCoordinates(coordList);
 
-		parameters.getOptions().getProfileParams().getWeightings().setSteepnessDifficulty(2);
+		parameters.getOptions().getProfile_params().getWeightings().setSteepness_difficulty(2);
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest();
 		orsRequest.setProfile("cycling-regular");
 		orsRequest.setParameters(parameters);

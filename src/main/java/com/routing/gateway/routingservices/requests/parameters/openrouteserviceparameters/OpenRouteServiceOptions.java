@@ -51,7 +51,7 @@ public class OpenRouteServiceOptions{
         this.avoid_polygons = avoid_polygons;
     }
 
-    public OpenRouteServiceProfileParams getProfileParams() {
+    public OpenRouteServiceProfileParams getProfile_params() {
         if (this.profile_params == null) {
             this.profile_params = new OpenRouteServiceProfileParams();
         }

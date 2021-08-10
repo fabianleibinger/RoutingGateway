@@ -2,13 +2,14 @@ package com.routing.gateway.clients.travelinformationapp.mappers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.googlecode.jmapper.JMapper;
 import com.routing.gateway.clients.travelinformationapp.mappers.request.PreferenceProfileToOpenRouteServiceParameters;
 import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfile;
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import fr.xebia.extras.selma.Selma;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.nomin.NominMapper;
+import org.nomin.core.Nomin;
 
 public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
 
@@ -20,23 +21,19 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
     }
 
     @Test
-    public void testJMapper() {
-        JMapper<OpenRouteServiceParameters, PreferenceProfile> jMapper;
-        /*jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class);*/
-
-        jMapper = new JMapper<>(OpenRouteServiceParameters.class, PreferenceProfile.class,
-                "PreferenceProfileToOpenRouteServiceParametersMapper.xml");
-
+    public void testNomin() {
+        NominMapper nomin = new Nomin("ppToOrs.groovy");
         PreferenceProfile profile = new PreferenceProfile();
-        profile.setProfileName("Jeff");
-        profile.getWeighting().setComfort(75f);
-        profile.setWalkingPace(3);
+        profile.getWeighting().setComfort(50f);
+        profile.getWeighting().setDuration(75f);
+        profile.getWeighting().setEnvironment(30f);
+        profile.setCyclingPace(3);
 
-        OpenRouteServiceParameters parameters = jMapper.getDestination(profile);
-
-        assertEquals("3", parameters.getPreference());
-        assertEquals("Jeff", parameters.getOptions().getAvoidBorders());
-        assertEquals("0.75f", parameters.getOptions().getProfileParams().getWeightings().getQuiet());
+        OpenRouteServiceParameters parameters = nomin.map(profile, OpenRouteServiceParameters.class);
+        assertEquals(0.5f, parameters.getOptions().getProfile_params().getWeightings().getQuiet());
+        assertEquals("fastest", parameters.getPreference());
+        assertEquals(0.3f, parameters.getOptions().getProfile_params().getWeightings().getGreen());
+        assertEquals(2, parameters.getOptions().getProfile_params().getWeightings().getSteepness_difficulty());
     }
 
     @Test
@@ -49,10 +46,10 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
 
         OpenRouteServiceParameters parameters = mapper.asOpenRouteServiceParameters(profile);
 
-        assertEquals(2, parameters.getOptions().getProfileParams().getWeightings().getSteepnessDifficulty());
+        assertEquals(2, parameters.getOptions().getProfile_params().getWeightings().getSteepness_difficulty());
         assertEquals(null, parameters.getPreference());
-        assertEquals(1, parameters.getOptions().getProfileParams().getWeightings().getGreen());
-        assertEquals(0.75f, parameters.getOptions().getProfileParams().getWeightings().getQuiet());
+        assertEquals(1, parameters.getOptions().getProfile_params().getWeightings().getGreen());
+        assertEquals(0.75f, parameters.getOptions().getProfile_params().getWeightings().getQuiet());
     }
 
     @Test

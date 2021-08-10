@@ -21,11 +21,11 @@ public class OpenRouteServiceWeightings {
         this.quiet = quiet;
     }
 
-    public Integer getSteepnessDifficulty() {
+    public Integer getSteepness_difficulty() {
         return steepness_difficulty;
     }
 
-    public void setSteepnessDifficulty(Integer steepness_difficulty) {
+    public void setSteepness_difficulty(Integer steepness_difficulty) {
         this.steepness_difficulty = steepness_difficulty;
     }
 }

@@ -17,12 +17,12 @@ public interface PreferenceProfileToOpenRouteServiceParameters {
             if (profile.getWeighting().getDuration() > profile.getWeighting().getComfort()) {
                 parameters.setPreference("fastest");
             }
-            parameters.getOptions().getProfileParams().getWeightings()
+            parameters.getOptions().getProfile_params().getWeightings()
                     .setQuiet(profile.getWeighting().getComfort() / 100);
-            parameters.getOptions().getProfileParams().getWeightings()
+            parameters.getOptions().getProfile_params().getWeightings()
                     .setGreen(profile.getWeighting().getEnvironment() / 100);
-            parameters.getOptions().getProfileParams().getWeightings()
-                    .setSteepnessDifficulty(profile.getCyclingPace() - 1);
+            parameters.getOptions().getProfile_params().getWeightings()
+                    .setSteepness_difficulty(profile.getCyclingPace() - 1);
 
             return parameters;
         }
