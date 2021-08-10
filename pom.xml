@@ -74,6 +74,12 @@
 			<artifactId>nomin</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>3.0.8</version>
+			<type>pom</type>
+		</dependency>
     </dependencies>
 
 	<build>
