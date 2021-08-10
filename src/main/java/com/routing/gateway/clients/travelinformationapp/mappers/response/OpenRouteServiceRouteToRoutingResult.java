@@ -58,6 +58,7 @@ public interface OpenRouteServiceRouteToRoutingResult {
 
                 result.getSegments().add(resultSegment);
             }
+
             return result;
         }
     }

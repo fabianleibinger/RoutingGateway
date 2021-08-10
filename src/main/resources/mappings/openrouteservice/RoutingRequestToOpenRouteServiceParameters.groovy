@@ -1,3 +1,5 @@
+package mappings.openrouteservice
+
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest
 import com.routing.gateway.clients.travelinformationapp.mappers.request.RoutingRequestToOpenRouteServiceParametersHelper
 import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters

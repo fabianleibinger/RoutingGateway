@@ -23,8 +23,8 @@ public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
     }
 
     @Test
-    public void testNomin() {
-        NominMapper nomin = new Nomin("RoutingRequestToOpenRouteServiceParameters.groovy");
+    public void testNominRRToORSParams() {
+        NominMapper nomin = new Nomin("mappings/openrouteservice/RoutingRequestToOpenRouteServiceParameters.groovy");
         RoutingRequest request = new RoutingRequest();
         request.setOrigin(new LatLng(0, 1));
         request.setDestination(new LatLng(2, 3));
