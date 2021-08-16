@@ -20,7 +20,7 @@ public class UserController {
     /**
      * Signs up user or throws BadGatewayException.
      *
-     * @param user User; username and password required
+     * @param user User; username, fullname and password required
      * @return user
      */
     @PostMapping(path = "signup",
