@@ -12,6 +12,7 @@ import java.util.*;
  * User of the preference service.
  */
 public class User {
+    //Needed for login.
     private static final String CLIENT_ID = "hspf";
     private static final String CLIENT_SECRET = "regio_move_hspf";
 
