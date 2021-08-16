@@ -125,9 +125,10 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public static User updateAccountInfo(@RequestBody User user) {
-        if (user.updateAccountInfo(user.getFullname(), user.getPassword())) {
-            return user;
+    public static Account updateAccountInfo(@RequestBody User user) {
+        Optional<Account> accountInfo = user.updateAccountInfo(user.getFullname(), user.getPassword());
+        if (accountInfo.isPresent()) {
+            return accountInfo.get();
         } else {
             throw new BadGatewayException("Failed to update user account.");
         }

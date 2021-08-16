@@ -22,6 +22,11 @@ public class User {
     private PreferenceProfile preferenceProfile;
     private UserProfile profile;
 
+    /**
+     * Tries to signup user.
+     *
+     * @return isSignedUp
+     */
     public Boolean signup() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -36,10 +41,20 @@ public class User {
         }
     }
 
+    /**
+     * Returns the request body format for signup.
+     *
+     * @return request body format
+     */
     public String toSignupBodyFormat() {
         return "username=" + this.username + "&fullname=" + this.fullname + "&password=" + this.password;
     }
 
+    /**
+     * Tries to login user.
+     *
+     * @return isLoggedIn
+     */
     public Boolean login() {
         Optional<String> responseBody = this.receiveToken();
         if (responseBody.isPresent()) {
@@ -52,6 +67,11 @@ public class User {
         }
     }
 
+    /**
+     * Tries to receive an access token for login.
+     *
+     * @return Optional response body
+     */
     public Optional<String> receiveToken() {
         String toEncode = CLIENT_ID + ":" + CLIENT_SECRET;
         String encoded = new String(Base64.getEncoder().encode(toEncode.getBytes()));
@@ -63,10 +83,20 @@ public class User {
         return httpService.postRequest("oauth/token", headers, this.toReceiveTokenBodyFormat());
     }
 
+    /**
+     * Returns the request body format for receive token.
+     *
+     * @return request body format
+     */
     public String toReceiveTokenBodyFormat() {
         return "grant_type=" + "password" + "&username=" + this.username + "&password=" + this.password;
     }
 
+    /**
+     * Returns the authorization header value, that is needed for most requests.
+     *
+     * @return authorization header value
+     */
     public String getAuthorizationHeaderValue() {
         try {
             return this.accessToken.getToken_type() + " " + this.accessToken.getAccess_token();
@@ -77,6 +107,12 @@ public class User {
 
     }
 
+    /**
+     * Tries to add a new preference profile to the user.
+     *
+     * @param preferenceProfile
+     * @return isAdded
+     */
     public Boolean addPreferenceProfileToService(PreferenceProfile preferenceProfile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -94,6 +130,12 @@ public class User {
         }
     }
 
+    /**
+     * Tries to receive a preference profile of the user.
+     *
+     * @param name of the preference profile
+     * @return Optional preference profile
+     */
     public Optional<PreferenceProfile> receivePreferenceProfileByName(String name) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -103,12 +145,18 @@ public class User {
             this.preferenceProfile = new Gson().fromJson(responseBody.get(), PreferenceProfile.class);
             System.out.println("Received preference profile successfully.");
             return Optional.of(this.preferenceProfile);
-        } else  {
+        } else {
             System.out.println("Failed to receive preference profile.");
         }
         return Optional.empty();
     }
 
+    /**
+     * Tries to update a preference profile of the user.
+     *
+     * @param preferenceProfile
+     * @return isUpdated
+     */
     public Boolean updatePreferenceProfile(PreferenceProfile preferenceProfile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -127,6 +175,11 @@ public class User {
         }
     }
 
+    /**
+     * Tries to receive the user profile of the user.
+     *
+     * @return Optional user profile
+     */
     public Optional<UserProfile> receiveProfile() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -136,12 +189,18 @@ public class User {
             this.profile = new Gson().fromJson(responseBody.get(), UserProfile.class);
             System.out.println("Received user profile successfully.");
             return Optional.of(this.profile);
-        } else  {
+        } else {
             System.out.println("Failed to receive user profile.");
         }
         return Optional.empty();
     }
 
+    /**
+     * Tries to update the user profile of the user.
+     *
+     * @param profile
+     * @return isUpdated
+     */
     public Boolean updateProfile(UserProfile profile) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -158,6 +217,11 @@ public class User {
         }
     }
 
+    /**
+     * Tries to receive the account info of the user.
+     *
+     * @return Optional account
+     */
     public Optional<Account> receiveAccountInfo() {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
@@ -167,15 +231,22 @@ public class User {
             Account info = new Gson().fromJson(responseBody.get(), Account.class);
             this.fullname = info.getFullname();
             this.username = info.getUsername();
-            System.out.println("Received fullname successfully.");
+            System.out.println("Received account information successfully.");
             return Optional.of(info);
-        } else  {
-            System.out.println("Failed to receive fullname.");
+        } else {
+            System.out.println("Failed to receive account information.");
         }
         return Optional.empty();
     }
 
-    public Boolean updateAccountInfo(String fullname, String password) {
+    /**
+     * Tries to update the account info of the user.
+     *
+     * @param fullname
+     * @param password
+     * @return Optional account
+     */
+    public Optional<Account> updateAccountInfo(String fullname, String password) {
         HttpPreferenceService httpService = new HttpPreferenceService();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -187,10 +258,10 @@ public class User {
             this.fullname = info.getFullname();
             this.password = password;
             System.out.println("Updated user account successfully.");
-            return true;
+            return Optional.of(info);
         } else {
             System.out.println("Failed to update user account.");
-            return false;
+            return Optional.empty();
         }
     }
 
@@ -210,6 +281,11 @@ public class User {
         this.fullname = fullname;
     }
 
+    /**
+     * Updates the fullname of the user.
+     *
+     * @param fullname
+     */
     public void updateFullname(String fullname) {
         this.updateAccountInfo(fullname, this.password);
     }
@@ -222,6 +298,11 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Updates the password of the user.
+     *
+     * @param password
+     */
     public void updatePassword(String password) {
         this.updateAccountInfo(this.fullname, password);
     }
