@@ -9,6 +9,9 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Http endpoint of the preference service.
+ */
 public class HttpPreferenceService {
     private static final String BASE_URL = "https://regiomove.fzi.de/backend/";
     private final Integer OK_STATUS_CODE = 200;
@@ -21,6 +24,12 @@ public class HttpPreferenceService {
         this.httpClient = HttpClient.newBuilder().build();
     }
 
+    /**
+     * Sends a GET request to the preference service.
+     * @param path
+     * @param headers
+     * @return Optional String response body
+     */
     public Optional<String> getRequest(String path, Map<String, String> headers) {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(this.getCompleteURL(path)))
@@ -32,6 +41,13 @@ public class HttpPreferenceService {
         return this.sendRequest(request);
     }
 
+    /**
+     * Sends a POST request to the preference service.
+     * @param path
+     * @param headers
+     * @param body
+     * @return Optional String response body
+     */
     public Optional<String> postRequest(String path, Map<String, String> headers, String body) {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(this.getCompleteURL(path)))
@@ -43,6 +59,13 @@ public class HttpPreferenceService {
         return this.sendRequest(request);
     }
 
+    /**
+     * Sends a PUT request to the preference service.
+     * @param path
+     * @param headers
+     * @param body
+     * @return Optional String response body
+     */
     public Optional<String> putRequest(String path, Map<String, String> headers, String body) {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(this.getCompleteURL(path)))
@@ -54,6 +77,11 @@ public class HttpPreferenceService {
         return this.sendRequest(request);
     }
 
+    /**
+     * Returns a response to a http request.
+     * @param request
+     * @return Optional String response body
+     */
     private Optional<String> sendRequest(HttpRequest request) {
         try {
             HttpResponse<String> response = this.httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -67,6 +95,12 @@ public class HttpPreferenceService {
         return Optional.empty();
     }
 
+    /**
+     * Sends a DELETE request to the preference service.
+     * @param path
+     * @param headers
+     * @return Optional String response body
+     */
     public Optional<String> deleteRequest(String path, Map<String, String> headers) {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(this.getCompleteURL(path)))
@@ -86,6 +120,11 @@ public class HttpPreferenceService {
         return Optional.empty();
     }
 
+    /**
+     * Returns a URL including BASE_URL and a path.
+     * @param path
+     * @return String URL
+     */
     public String getCompleteURL(String path) {
         return BASE_URL + path;
     }
