@@ -7,6 +7,8 @@ import com.routing.gateway.preferenceservice.mobilitypreferences.PreferenceProfi
 import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User of the preference service.
@@ -29,17 +31,31 @@ public class User {
      * @return isSignedUp
      */
     public Boolean signup() {
-        HttpPreferenceService httpService = new HttpPreferenceService();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
-        Optional<String> responseBody = httpService.postRequest("signup", headers, this.toSignupBodyFormat());
-        if (responseBody.isPresent()) {
-            System.out.println("User " + this.username + " is registered.");
-            return true;
-        } else {
-            System.out.println("User " + this.username + " could not be registered.");
-            return false;
+        if (checkUsername()) {
+            HttpPreferenceService httpService = new HttpPreferenceService();
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Content-Type", "application/x-www-form-urlencoded");
+            Optional<String> responseBody = httpService.postRequest("signup", headers, this.toSignupBodyFormat());
+            if (responseBody.isPresent()) {
+                System.out.println("User " + this.username + " is registered.");
+                return true;
+            } else {
+                System.out.println("User " + this.username + " could not be registered.");
+            }
         }
+        return false;
+    }
+
+    /**
+     * Checks if the username conforms to preference service specifications.
+     *
+     * @return isCorrectFormat
+     */
+    public Boolean checkUsername() {
+        Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(this.username);
+        return matcher.find();
     }
 
     /**
