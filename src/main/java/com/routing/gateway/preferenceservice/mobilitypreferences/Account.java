@@ -7,7 +7,6 @@ public class Account {
     private String fullname;
     private List<Link> links;
     private String platform;
-    private Object platformRelation;
     private String role;
     private String username;
 
@@ -36,17 +35,6 @@ public class Account {
 
     public void setPlatform(String platform) {
         this.platform = platform;
-    }
-
-    public Object getPlatformRelation() {
-        if (this.platformRelation == null) {
-            this.platformRelation = new Object();
-        }
-        return platformRelation;
-    }
-
-    public void setPlatformRelation(Object platformRelation) {
-        this.platformRelation = platformRelation;
     }
 
     public String getRole() {
