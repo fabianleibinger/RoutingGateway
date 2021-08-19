@@ -78,8 +78,8 @@ public class UserController {
     /**
      * Updates user profile or throws BadGatewayException.
      *
-     * @param user User; accessToken and userProfile required
-     * @return user profile
+     * @param user User; accessToken and profile required
+     * @return profile UserProfile
      */
     @PutMapping(path = "profile",
             consumes = MediaType.APPLICATION_JSON_VALUE,
