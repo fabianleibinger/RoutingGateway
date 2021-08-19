@@ -10,6 +10,7 @@ import com.routing.gateway.preferenceservice.mobilitypreferences.UserProfile;
 public class RoutingRequest {
     private LatLng origin;
     private LatLng destination;
+    private String routingService;
     private PreferenceProfile preferenceProfile;
     private UserProfile userProfile;
 
@@ -27,6 +28,14 @@ public class RoutingRequest {
 
     public void setDestination(LatLng destination) {
         this.destination = destination;
+    }
+
+    public String getRoutingService() {
+        return routingService;
+    }
+
+    public void setRoutingService(String routingService) {
+        this.routingService = routingService;
     }
 
     public PreferenceProfile getPreferenceProfile() {
