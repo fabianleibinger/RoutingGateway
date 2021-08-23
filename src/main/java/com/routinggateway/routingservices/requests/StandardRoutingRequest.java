@@ -1,11 +1,6 @@
 package com.routinggateway.routingservices.requests;
 
-import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.adapters.IRoutingService;
-import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Standardized request for routing services.

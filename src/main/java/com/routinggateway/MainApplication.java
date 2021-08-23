@@ -1,24 +1,7 @@
 package com.routinggateway;
 
-import com.google.maps.model.LatLng;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
-import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
-import com.routinggateway.clients.travelinformationapp.adapters.OpenRouteService;
-import com.routinggateway.clients.travelinformationapp.adapters.OpenTripPlanner;
-import com.routinggateway.clients.travelinformationapp.adapters.Valhalla;
-import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
-import com.routinggateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters;
-import com.routinggateway.routingservices.requests.OpenRouteServiceRequest;
-import com.routinggateway.routingservices.requests.OpenTripPlannerRequest;
-import com.routinggateway.routingservices.requests.ValhallaRequest;
-import com.routinggateway.routingservices.requests.parameters.valhallaparameters.ValhallaLocation;
-import com.routinggateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class MainApplication {

@@ -1,16 +1,14 @@
 package com.routinggateway.clients.travelinformationapp.adapters;
 
 import com.google.gson.Gson;
+import com.google.maps.model.EncodedPolyline;
+import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
-import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultNew;
-import com.routinggateway.clients.travelinformationapp.mappers.response.OpenRouteServiceRouteToRoutingResult;
 import com.routinggateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routinggateway.routingservices.requests.StandardRoutingRequest;
-import com.routinggateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceResponse;
-import com.routinggateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceRoute;
-import fr.xebia.extras.selma.Selma;
+import com.routinggateway.routingservices.responses.openrouteserviceresponse.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -103,10 +101,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     public List<RoutingResult> extractRoutingResult(OpenRouteServiceResponse openRouteServiceResponse) {
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenRouteServiceRoute route : openRouteServiceResponse.getRoutes()) {
-            OpenRouteServiceRouteToRoutingResult mapper = Selma.builder(OpenRouteServiceRouteToRoutingResult.class).build();
-            RoutingResultNew result = mapper.asRoutingResult(route);
-            System.out.println(result.toJson());
-            /*OpenRouteServiceSummary summary = route.getSummary();
+            OpenRouteServiceSummary summary = route.getSummary();
             EncodedPolyline encodedPolyline = new EncodedPolyline(route.getGeometry());
             List<LatLng> polyline = encodedPolyline.decodePath();
             Double durationInMinutes = summary.getDuration() / 60;
@@ -124,7 +119,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             Double ascent = summary.getAscent();
             Double descent = summary.getDescent();
 
-            RoutingResult result = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
+            /*RoutingResultNew result = new RoutingResultNew(polyline, durationInMinutes, distanceInMeters);
             result.setInstructions(instructions);
             result.setWarnings(warnings);
             result.setAscent(ascent);

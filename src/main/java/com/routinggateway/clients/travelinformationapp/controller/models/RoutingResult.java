@@ -1,42 +1,30 @@
 package com.routinggateway.clients.travelinformationapp.controller.models;
 
-import com.google.maps.model.LatLng;
+import com.routinggateway.routingservices.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Route expected by clients of this service.
+ * Route expected by travel information app client.
  */
-public class RoutingResult {
-
+public class RoutingResult extends Parameters {
     //Covers the hole trip.
-    private List<LatLng> polyline;
+    private String encodedPolyline;
     private Double durationInMinutes;
     private Double distanceInMeters;
-    private List<String> instructions;
-    private List<String> warnings;
     private String departureTime;
     private String arrivalTime;
     private Integer numberOfTransfers;
-    private Double ascent;
-    private Double descent;
     //Covers segments of the trip.
     private List<RoutingResultSegment> segments;
 
-    public RoutingResult
-            (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters) {
-        this.polyline = polyline;
-        this.durationInMinutes = durationInMinutes;
-        this.distanceInMeters = distanceInMeters;
+    public String getEncodedPolyline() {
+        return encodedPolyline;
     }
 
-    public List<LatLng> getPolyline() {
-        return polyline;
-    }
-
-    public void setPolyline(List<LatLng> polyline) {
-        this.polyline = polyline;
+    public void setEncodedPolyline(String encodedPolyline) {
+        this.encodedPolyline = encodedPolyline;
     }
 
     public Double getDurationInMinutes() {
@@ -53,28 +41,6 @@ public class RoutingResult {
 
     public void setDistanceInMeters(Double distanceInMeters) {
         this.distanceInMeters = distanceInMeters;
-    }
-
-    public List<String> getInstructions() {
-        if (this.instructions == null) {
-            this.instructions = new ArrayList<>();
-        }
-        return instructions;
-    }
-
-    public void setInstructions(List<String> instructions) {
-        this.instructions = instructions;
-    }
-
-    public List<String> getWarnings() {
-        if (this.warnings == null) {
-            this.warnings = new ArrayList<>();
-        }
-        return warnings;
-    }
-
-    public void setWarnings(List<String> warnings) {
-        this.warnings = warnings;
     }
 
     public String getDepartureTime() {
@@ -99,22 +65,6 @@ public class RoutingResult {
 
     public void setNumberOfTransfers(Integer numberOfTransfers) {
         this.numberOfTransfers = numberOfTransfers;
-    }
-
-    public Double getAscent() {
-        return ascent;
-    }
-
-    public void setAscent(Double ascent) {
-        this.ascent = ascent;
-    }
-
-    public Double getDescent() {
-        return descent;
-    }
-
-    public void setDescent(Double descent) {
-        this.descent = descent;
     }
 
     public List<RoutingResultSegment> getSegments() {

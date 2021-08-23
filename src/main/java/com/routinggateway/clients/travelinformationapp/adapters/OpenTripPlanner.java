@@ -114,9 +114,9 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
                 RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
                 segments.add(segment);
                 distanceInMeters += segment.getDistanceInMeters();
-                for (LatLng latLng : segment.getPolyline()) {
+                /*for (LatLng latLng : segment.getPolyline()) {
                     polyline.add(latLng);
-                }
+                }*/
                 for (String instruction : segment.getInstructions()) {
                     instructions.add(instruction);
                 }
@@ -124,7 +124,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
                     warnings.add(warning);
                 }
             }
-            RoutingResult route = new RoutingResult(polyline, durationInMinutes, distanceInMeters);
+            /*RoutingResultNew route = new RoutingResultNew(polyline, durationInMinutes, distanceInMeters);
             route.setInstructions(instructions);
             route.setWarnings(warnings);
             route.setDepartureTime(departureTime);
@@ -132,7 +132,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
             route.setNumberOfTransfers(numberOfTransfers);
             route.setAscent(ascent);
             route.setDescent(descent);
-            route.setSegments(segments);
+            route.setSegments(segments);*/
         }
         return routes;
     }
@@ -159,13 +159,14 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         }
         String departureTime = String.valueOf(leg.getStartTime());
         String arrivalTime = String.valueOf(leg.getEndTime());
-        RoutingResultSegment segment = new RoutingResultSegment
+        /*RoutingResultSegmentNew segment = new RoutingResultSegmentNew
                 (polyline, durationInMinutes, distanceInMeters, modeOfTransport);
         segment.setInstructions(instructions);
         segment.setWarnings(warnings);
         segment.setDepartureTime(departureTime);
         segment.setArrivalTime(arrivalTime);
-        return segment;
+        return segment;*/
+        return null;
     }
 
     /**

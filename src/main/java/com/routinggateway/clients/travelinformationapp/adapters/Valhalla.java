@@ -5,9 +5,9 @@ import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.requests.ValhallaRequest;
 import com.routinggateway.routingservices.responses.valhallaresponse.ValhallaLeg;
 import com.routinggateway.routingservices.responses.valhallaresponse.ValhallaManeuver;
@@ -122,8 +122,8 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
         Double distanceInMeters = summary.getLength() * 1000;
         List<String> instructions = new ArrayList<>();
         List<RoutingResultSegment> segments = new ArrayList<>();
-        for (ValhallaLeg leg : valhallaResponse.getTrip().getLegs()) {
-            RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
+        /*for (ValhallaLeg leg : valhallaResponse.getTrip().getLegs()) {
+            RoutingResultSegmentNew segment = this.extractRoutingResultSegment(leg);
             segments.add(segment);
             for (LatLng latLng : segment.getPolyline()) {
                 polyline.add(latLng);
@@ -131,7 +131,7 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
             for (String instruction : segment.getInstructions()) {
                 instructions.add(instruction);
             }
-        }
+        }*/
 
         return routes;
     }
@@ -152,10 +152,11 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
         for (ValhallaManeuver maneuver : leg.getManeuvers()) {
             instructions.add(maneuver.getInstruction());
         }
-        RoutingResultSegment segment = new RoutingResultSegment
+        /*RoutingResultSegmentNew segment = new RoutingResultSegmentNew
                 (polyline, durationInMinutes, distanceInMeters, modeOfTransport);
         segment.setInstructions(instructions);
-        return segment;
+        return segment;*/
+        return null;
     }
 
     /**

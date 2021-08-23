@@ -1,14 +1,13 @@
 package com.routinggateway.clients.travelinformationapp.controller.models;
 
-import com.google.maps.model.LatLng;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A segment of a route corresponding to one mode of transport.
+ * A segment of a route.
  */
 public class RoutingResultSegment {
-    private List<LatLng> polyline;
+    private String encodedPolyline;
     private Double durationInMinutes;
     private Double distanceInMeters;
     private String modeOfTransport;
@@ -19,20 +18,12 @@ public class RoutingResultSegment {
     private Double ascent;
     private Double descent;
 
-    public RoutingResultSegment
-            (List<LatLng> polyline, Double durationInMinutes, Double distanceInMeters, String modeOfTransport) {
-        this.polyline = polyline;
-        this.durationInMinutes = durationInMinutes;
-        this.distanceInMeters = distanceInMeters;
-        this.modeOfTransport = modeOfTransport;
+    public String getEncodedPolyline() {
+        return encodedPolyline;
     }
 
-    public List<LatLng> getPolyline() {
-        return polyline;
-    }
-
-    public void setPolyline(List<LatLng> polyline) {
-        this.polyline = polyline;
+    public void setEncodedPolyline(String encodedPolyline) {
+        this.encodedPolyline = encodedPolyline;
     }
 
     public Double getDurationInMinutes() {
@@ -60,6 +51,9 @@ public class RoutingResultSegment {
     }
 
     public List<String> getInstructions() {
+        if (this.instructions == null) {
+            this.instructions = new ArrayList<>();
+        }
         return instructions;
     }
 
@@ -68,6 +62,9 @@ public class RoutingResultSegment {
     }
 
     public List<String> getWarnings() {
+        if (this.warnings == null) {
+            this.warnings = new ArrayList<>();
+        }
         return warnings;
     }
 

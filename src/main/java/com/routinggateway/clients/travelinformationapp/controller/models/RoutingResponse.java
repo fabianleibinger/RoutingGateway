@@ -6,13 +6,13 @@ import java.util.List;
  * Routing response expected by travel information app client.
  */
 public class RoutingResponse {
-    List<RoutingResultNew> routes;
+    List<RoutingResult> routes;
 
-    public List<RoutingResultNew> getRoutes() {
+    public List<RoutingResult> getRoutes() {
         return routes;
     }
 
-    public void setRoutes(List<RoutingResultNew> routes) {
+    public void setRoutes(List<RoutingResult> routes) {
         this.routes = routes;
     }
 }
