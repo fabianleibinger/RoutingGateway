@@ -31,7 +31,7 @@ public class RoutingController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public static RoutingResponse receiveRoutes(RoutingRequest request) {
+    public static RoutingResponse receiveRoutes(@RequestBody RoutingRequest request) {
         LatLng origin = request.getOrigin();
         LatLng destination = request.getDestination();
         RoutingServiceRequest routingServiceRequest = null;
