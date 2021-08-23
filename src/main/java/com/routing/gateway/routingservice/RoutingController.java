@@ -1,10 +1,9 @@
 package com.routing.gateway.routingservice;
 
+import com.routing.gateway.clients.travelinformationapp.controller.NameList;
 import com.routing.gateway.clients.travelinformationapp.controller.RoutingServiceController;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Controller for a travel information application that handles all requests related to routing.
@@ -20,7 +19,7 @@ public class RoutingController {
     @GetMapping(path = "services")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public static List<String> getRoutingServices() {
+    public static NameList getRoutingServices() {
         //TODO call correct controller moved to different service
         return RoutingServiceController.getRoutingServices();
     }

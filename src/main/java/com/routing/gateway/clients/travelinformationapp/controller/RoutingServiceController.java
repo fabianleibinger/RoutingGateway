@@ -23,7 +23,7 @@ public class RoutingServiceController {
     @GetMapping(path = "names")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public static List<String> getRoutingServices() {
+    public static NameList getRoutingServices() {
         OpenRouteService openRouteService = new OpenRouteService();
         OpenTripPlanner openTripPlanner = new OpenTripPlanner();
         Valhalla valhalla = new Valhalla();
@@ -32,6 +32,9 @@ public class RoutingServiceController {
         routingServices.add(openRouteService.getName());
         routingServices.add(openTripPlanner.getName());
         routingServices.add(valhalla.getName());
-        return routingServices;
+
+        NameList routingServiceNames = new NameList();
+        routingServiceNames.setNames(routingServices);
+        return  routingServiceNames;
     }
 }
