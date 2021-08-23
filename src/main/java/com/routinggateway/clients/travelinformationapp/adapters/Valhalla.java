@@ -3,7 +3,7 @@ package com.routinggateway.clients.travelinformationapp.adapters;
 import com.google.gson.Gson;
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
-import com.routinggateway.routingservices.requests.RoutingRequest;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.routingservices.requests.ValhallaRequest;
@@ -37,7 +37,7 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request) {
         Optional<String> responseOptional;
         if (request.getRequest().getClass() == ValhallaRequest.class) {
             responseOptional = this.receiveResponse((ValhallaRequest) request.getRequest());

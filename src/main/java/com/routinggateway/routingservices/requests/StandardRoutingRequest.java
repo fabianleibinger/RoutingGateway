@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Standardized request for routing services.
  */
-public class RoutingRequest {
+public class StandardRoutingRequest {
 
     //TODO: Add origin and destination to request in Adapter classes
     //TODO: Maybe remove origin destination
@@ -19,7 +19,7 @@ public class RoutingRequest {
     RoutingServiceRequest request;
     IRoutingService routingService;
 
-    public RoutingRequest
+    public StandardRoutingRequest
             (LatLng origin, LatLng destination, RoutingServiceRequest request, IRoutingService routingService) {
         this.origin = origin;
         this.destination = destination;

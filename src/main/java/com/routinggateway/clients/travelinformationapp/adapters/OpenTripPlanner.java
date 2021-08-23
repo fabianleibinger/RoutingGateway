@@ -6,7 +6,7 @@ import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.routingservices.requests.OpenTripPlannerRequest;
-import com.routinggateway.routingservices.requests.RoutingRequest;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.responses.opentripplannerresponse.*;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request) {
         Optional<String> responseOptional;
         if (request.getRequest().getClass() == OpenTripPlannerRequest.class) {
             responseOptional = this.receiveResponse((OpenTripPlannerRequest) request.getRequest());

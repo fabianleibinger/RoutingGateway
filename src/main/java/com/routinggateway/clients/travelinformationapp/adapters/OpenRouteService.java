@@ -5,7 +5,7 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultNew;
 import com.routinggateway.clients.travelinformationapp.mappers.response.OpenRouteServiceRouteToRoutingResult;
 import com.routinggateway.routingservices.requests.OpenRouteServiceRequest;
-import com.routinggateway.routingservices.requests.RoutingRequest;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceResponse;
 import com.routinggateway.routingservices.responses.openrouteserviceresponse.OpenRouteServiceRoute;
 import fr.xebia.extras.selma.Selma;
@@ -36,7 +36,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoute(RoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request) {
         OpenRouteServiceRequest orsRequest;
         if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
             orsRequest = (OpenRouteServiceRequest) request.getRequest();

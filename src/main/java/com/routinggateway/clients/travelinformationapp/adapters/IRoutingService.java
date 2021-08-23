@@ -1,6 +1,6 @@
 package com.routinggateway.clients.travelinformationapp.adapters;
 
-import com.routinggateway.routingservices.requests.RoutingRequest;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 
 import java.net.http.HttpClient;
@@ -19,7 +19,7 @@ public interface IRoutingService<RoutingServiceRequest, RoutingServiceResponse> 
      * @param request RoutingRequest
      * @return Optional List RoutingResult
      */
-    Optional<List<RoutingResult>> computeRoute(RoutingRequest request);
+    Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request);
 
     /**
      * Sends HTTP request to the Routing Service and tries to receive a HTTP response.

@@ -1,7 +1,7 @@
 package com.routinggateway;
 
 import com.google.maps.model.LatLng;
-import com.routinggateway.routingservices.requests.RoutingRequest;
+import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.adapters.OpenRouteService;
 import com.routinggateway.clients.travelinformationapp.adapters.OpenTripPlanner;
@@ -44,7 +44,7 @@ public class MainApplication {
 		OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest();
 		orsRequest.setProfile("cycling-regular");
 		orsRequest.setParameters(parameters);
-		RoutingRequest request = new RoutingRequest(start, destination, orsRequest, new OpenRouteService());
+		StandardRoutingRequest request = new StandardRoutingRequest(start, destination, orsRequest, new OpenRouteService());
 		Optional<List<RoutingResult>> result = request.send();
 		if (result.isPresent()) {
 			System.out.println(result.get().get(0).getDistanceInMeters());
@@ -57,7 +57,7 @@ public class MainApplication {
 
 		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest();
 		otpRequest.setParameters(otpParameters);
-		request = new RoutingRequest(start, destination, otpRequest, new OpenTripPlanner());
+		request = new StandardRoutingRequest(start, destination, otpRequest, new OpenTripPlanner());
 		result = request.send();
 		if (result.isPresent()) {
 			System.out.println(result.get().get(0).getDistanceInMeters());
