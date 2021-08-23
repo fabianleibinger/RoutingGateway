@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for a travel information application that handles all requests related to routing.
+ * Controller that handles all requests related to routing services.
  */
 @RestController
-@RequestMapping("routing")
-public class RoutingController {
+@RequestMapping("routingServices")
+public class RoutingServiceController {
     /**
      * Returns the names of the available routing services.
      *
      * @return nameList
      */
-    @GetMapping(path = "services")
+    @GetMapping(path = "names")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public static List<String> getRoutingServices() {
