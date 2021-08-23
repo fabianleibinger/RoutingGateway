@@ -1,8 +1,8 @@
 package mappings.openrouteservice
 
-import com.routing.gateway.clients.travelinformationapp.controller.RoutingRequest
-import com.routing.gateway.clients.travelinformationapp.mappers.request.RoutingRequestToOpenRouteServiceParametersHelper
-import com.routing.gateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest
+import com.routinggateway.clients.travelinformationapp.mappers.request.RoutingRequestToOpenRouteServiceParametersHelper
+import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters
 
 mappingFor a: OpenRouteServiceParameters, b: RoutingRequest
 a.coordinates = { RoutingRequestToOpenRouteServiceParametersHelper.toCoordinates(b.origin, b.destination) }
