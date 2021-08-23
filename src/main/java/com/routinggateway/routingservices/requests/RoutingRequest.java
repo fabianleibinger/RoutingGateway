@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Request for clients of this service.
+ * Standardized request for routing services.
  */
 public class RoutingRequest {
 
