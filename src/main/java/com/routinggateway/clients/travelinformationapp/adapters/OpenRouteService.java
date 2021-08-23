@@ -1,6 +1,8 @@
 package com.routinggateway.clients.travelinformationapp.adapters;
 
 import com.google.gson.Gson;
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultNew;
 import com.routinggateway.clients.travelinformationapp.mappers.response.OpenRouteServiceRouteToRoutingResult;
@@ -30,13 +32,18 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
+    @Override
+    public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        return Optional.empty();
+    }
+
     /**
      * Returns a routing result for a Openrouteservice request.
      * @param request RoutingRequest
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request) {
         OpenRouteServiceRequest orsRequest;
         if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
             orsRequest = (OpenRouteServiceRequest) request.getRequest();
@@ -60,17 +67,17 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
 
     /**
      * Sends POST request to Openrouteservice and tries to receive a HTTP response.
-     * @param orsRequest for Openrouteservice
+     * @param openRouteServiceRequest for Openrouteservice
      * @return Optional String: response body that includes a route.
      */
     @Override
-    public Optional<String> receiveResponse(OpenRouteServiceRequest orsRequest) {
+    public Optional<String> receiveResponse(OpenRouteServiceRequest openRouteServiceRequest) {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(buildURI(orsRequest.getProfile()))
+                .uri(buildURI(openRouteServiceRequest.getProfile()))
                 .header("Content-Type", "application/json")
-                .header("authorization", orsRequest.getAuthorization())
+                .header("authorization", openRouteServiceRequest.getAuthorization())
                 .timeout(Duration.ofSeconds(35))
-                .POST(HttpRequest.BodyPublishers.ofString(orsRequest.serialize()))
+                .POST(HttpRequest.BodyPublishers.ofString(openRouteServiceRequest.serialize()))
                 .build();
         try {
             HttpResponse<String> response = HTTP_CLIENT.send(postRequest, HttpResponse.BodyHandlers.ofString());

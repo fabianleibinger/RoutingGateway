@@ -3,6 +3,8 @@ package com.routinggateway.clients.travelinformationapp.adapters;
 import com.google.gson.Gson;
 import com.google.maps.model.EncodedPolyline;
 import com.google.maps.model.LatLng;
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.routingservices.requests.OpenTripPlannerRequest;
@@ -25,13 +27,18 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
+    @Override
+    public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        return Optional.empty();
+    }
+
     /**
      * Returns a routing result for a OpenTripPlanner request.
      * @param request RoutingRequest
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoute(StandardRoutingRequest request) {
+    public Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request) {
         Optional<String> responseOptional;
         if (request.getRequest().getClass() == OpenTripPlannerRequest.class) {
             responseOptional = this.receiveResponse((OpenTripPlannerRequest) request.getRequest());

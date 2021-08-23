@@ -12,39 +12,13 @@ import java.util.Optional;
  */
 public class StandardRoutingRequest {
 
-    //TODO: Add origin and destination to request in Adapter classes
-    //TODO: Maybe remove origin destination
-    private LatLng origin;
-    private LatLng destination;
     RoutingServiceRequest request;
     IRoutingService routingService;
 
     public StandardRoutingRequest
-            (LatLng origin, LatLng destination, RoutingServiceRequest request, IRoutingService routingService) {
-        this.origin = origin;
-        this.destination = destination;
+            (RoutingServiceRequest request, IRoutingService routingService) {
         this.request = request;
         this.routingService = routingService;
-    }
-
-    public Optional<List<RoutingResult>> send() {
-        return this.routingService.computeRoute(this);
-    }
-
-    public LatLng getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(LatLng origin) {
-        this.origin = origin;
-    }
-
-    public LatLng getDestination() {
-        return destination;
-    }
-
-    public void setDestination(LatLng destination) {
-        this.destination = destination;
     }
 
     public RoutingServiceRequest getRequest() {

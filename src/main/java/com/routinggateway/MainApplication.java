@@ -26,7 +26,7 @@ public class MainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
 
-		LatLng start = new LatLng(8.681495, 49.41461);
+		/*LatLng start = new LatLng(8.681495, 49.41461);
 		LatLng destination = new LatLng(8.686507, 49.41943);
 		Double[] startCoord = {start.lat, start.lng};
 		Double[] destCoord = {destination.lat, destination.lng};
@@ -37,7 +37,7 @@ public class MainApplication {
 		/**
 		 * ORS
 		 */
-		OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
+		/*OpenRouteServiceParameters parameters = new OpenRouteServiceParameters();
 		parameters.setCoordinates(coordList);
 
 		parameters.getOptions().getProfile_params().getWeightings().setSteepness_difficulty(2);
@@ -53,7 +53,7 @@ public class MainApplication {
 		/**
 		 * OTP
 		 */
-		OpenTripPlannerParameters otpParameters = new OpenTripPlannerParameters();
+		/*OpenTripPlannerParameters otpParameters = new OpenTripPlannerParameters();
 
 		OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest();
 		otpRequest.setParameters(otpParameters);
@@ -66,7 +66,7 @@ public class MainApplication {
 		/**
 		 * Valhalla
 		 */
-		ValhallaParameters valhallaParameters = new ValhallaParameters();
+		/*ValhallaParameters valhallaParameters = new ValhallaParameters();
 		ValhallaLocation startLocation = new ValhallaLocation();
 		ValhallaLocation destinationLocation = new ValhallaLocation();
 		startLocation.setLat(8.681495);
@@ -79,7 +79,7 @@ public class MainApplication {
 		ValhallaRequest valhallaRequest = new ValhallaRequest();
 		valhallaRequest.setParameters(valhallaParameters);
 		Valhalla valhalla = new Valhalla();
-		valhalla.receiveResponse(valhallaRequest);
+		valhalla.receiveResponse(valhallaRequest);*/
 	}
 
 }

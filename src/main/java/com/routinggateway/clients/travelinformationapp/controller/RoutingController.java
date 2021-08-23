@@ -53,7 +53,7 @@ public class RoutingController {
         }
 
         StandardRoutingRequest standardRoutingRequest =
-                new StandardRoutingRequest(origin, destination, routingServiceRequest, routingService);
+                new StandardRoutingRequest(routingServiceRequest, routingService);
 
         return null;
     }
