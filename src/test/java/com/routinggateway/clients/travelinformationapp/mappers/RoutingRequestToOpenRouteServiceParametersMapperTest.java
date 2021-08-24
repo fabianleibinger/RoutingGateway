@@ -2,7 +2,7 @@ package com.routinggateway.clients.travelinformationapp.mappers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.google.maps.model.LatLng;
+import com.routinggateway.clients.travelinformationapp.controller.models.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,8 +21,11 @@ public class RoutingRequestToOpenRouteServiceParametersMapperTest {
     @Test
     public void testRRToORSParams() {
         RoutingRequest request = new RoutingRequest();
-        request.setOrigin(new LatLng(0, 1));
-        request.setDestination(new LatLng(2, 3));
+        LatLng location = new LatLng();
+        location.setLat(0d);
+        location.setLng(1d);
+        request.setOrigin(location);
+        request.setDestination(location);
         request.getPreferenceProfile().getWeighting().setComfort(50f);
         request.getPreferenceProfile().getWeighting().setDuration(75f);
         request.getPreferenceProfile().getWeighting().setEnvironment(30f);

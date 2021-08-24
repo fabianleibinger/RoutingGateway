@@ -1,6 +1,5 @@
 package com.routinggateway.clients.travelinformationapp.controller.models;
 
-import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.preferences.PreferenceProfile;
 import com.routinggateway.clients.travelinformationapp.controller.models.preferences.UserProfile;
 
