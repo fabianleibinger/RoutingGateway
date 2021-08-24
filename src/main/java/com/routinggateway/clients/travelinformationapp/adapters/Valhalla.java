@@ -7,7 +7,6 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.requests.ValhallaRequest;
 import com.routinggateway.routingservices.responses.valhallaresponse.ValhallaLeg;
 import com.routinggateway.routingservices.responses.valhallaresponse.ValhallaManeuver;
@@ -35,6 +34,12 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
 
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        /*if (request.getClass() == ValhallaRequest.class) {
+            responseOptional = this.receiveResponse((ValhallaRequest) request);
+        } else {
+            System.out.println("Wrong RoutingRequest type provided.");
+            return Optional.empty();
+        }*/
         return Optional.empty();
     }
 
@@ -44,14 +49,8 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request) {
-        Optional<String> responseOptional;
-        if (request.getRequest().getClass() == ValhallaRequest.class) {
-            responseOptional = this.receiveResponse((ValhallaRequest) request.getRequest());
-        } else {
-            System.out.println("Wrong RoutingRequest type provided.");
-            return Optional.empty();
-        }
+    public Optional<List<RoutingResult>> computeRoutes(ValhallaRequest request) {
+        Optional<String> responseOptional = this.receiveResponse(request);
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             ValhallaResponse responseObject = new Gson().fromJson(response, ValhallaResponse.class);

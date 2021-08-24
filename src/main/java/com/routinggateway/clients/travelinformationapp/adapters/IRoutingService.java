@@ -3,7 +3,6 @@ package com.routinggateway.clients.travelinformationapp.adapters;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 
 import java.net.http.HttpClient;
 import java.util.List;
@@ -29,7 +28,7 @@ public interface IRoutingService<RoutingServiceRequest, RoutingServiceResponse> 
      * @param request StandardRoutingRequest
      * @return Optional List RoutingResult
      */
-    Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request);
+    Optional<List<RoutingResult>> computeRoutes(RoutingServiceRequest request);
 
     /**
      * Sends HTTP request to the Routing Service and tries to receive a HTTP response.

@@ -5,15 +5,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nomin.NominMapper;
 import org.nomin.core.Nomin;
 
-public class PreferenceProfileToOpenRouteServiceParametersMapperTest {
+public class RoutingRequestToOpenRouteServiceParametersMapperTest {
+    private NominMapper nomin;
+
+    @BeforeEach
+    public void setUp() {
+        nomin = new Nomin("mappings/RoutingRequestToOpenRouteServiceParameters.groovy");
+    }
 
     @Test
-    public void testNominRRToORSParams() {
-        NominMapper nomin = new Nomin("mappings/openrouteservice/RoutingRequestToOpenRouteServiceParameters.groovy");
+    public void testRRToORSParams() {
         RoutingRequest request = new RoutingRequest();
         request.setOrigin(new LatLng(0, 1));
         request.setDestination(new LatLng(2, 3));

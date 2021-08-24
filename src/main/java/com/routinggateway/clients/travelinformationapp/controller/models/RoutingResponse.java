@@ -8,6 +8,10 @@ import java.util.List;
 public class RoutingResponse {
     List<RoutingResult> routes;
 
+    public RoutingResponse(List<RoutingResult> routes) {
+        this.routes = routes;
+    }
+
     public List<RoutingResult> getRoutes() {
         return routes;
     }

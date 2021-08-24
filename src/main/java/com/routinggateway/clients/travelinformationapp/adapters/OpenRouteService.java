@@ -7,8 +7,10 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.clients.travelinformationapp.mappings.OpenRouteServiceRouteToRoutingResult;
 import com.routinggateway.routingservices.requests.OpenRouteServiceRequest;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
+import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import com.routinggateway.routingservices.responses.openrouteserviceresponse.*;
+import org.nomin.NominMapper;
+import org.nomin.core.Nomin;
 
 import java.io.IOException;
 import java.net.URI;
@@ -30,9 +32,24 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final Integer OK_STATUS_CODE = 200;
 
+    /**
+     * Returns a routing response for a routing request according to mobility preferences.
+     *
+     * @param request RoutingRequest
+     * @return Optional RoutingResponse
+     */
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
-        return Optional.empty();
+        NominMapper mapping = new Nomin("mappings/RoutingRequestToOpenRouteServiceParameters.groovy");
+        OpenRouteServiceParameters parameters = mapping.map(request, OpenRouteServiceParameters.class);
+
+        OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest();
+        orsRequest.setParameters(parameters);
+
+        // TODO set profile for modes
+
+        Optional<List<RoutingResult>> routeList = this.computeRoutes(orsRequest);
+        return Optional.ofNullable(new RoutingResponse(routeList.get()));
     }
 
     /**
@@ -42,15 +59,8 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request) {
-        OpenRouteServiceRequest orsRequest;
-        if (request.getRequest().getClass() == OpenRouteServiceRequest.class) {
-            orsRequest = (OpenRouteServiceRequest) request.getRequest();
-        } else {
-            System.out.println("Wrong RoutingRequest type provided.");
-            return Optional.empty();
-        }
-        Optional<String> responseOptional = this.receiveResponse(orsRequest);
+    public Optional<List<RoutingResult>> computeRoutes(OpenRouteServiceRequest request) {
+        Optional<String> responseOptional = this.receiveResponse(request);
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
@@ -59,7 +69,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
                 // Add mode to RoutingResultSegments
                 for (RoutingResult result : routingResults) {
                     for (RoutingResultSegment segment : result.getSegments()) {
-                        segment.setModeOfTransport(orsRequest.getProfile());
+                        segment.setModeOfTransport(request.getProfile());
                     }
                 }
                 return Optional.of(routingResults);

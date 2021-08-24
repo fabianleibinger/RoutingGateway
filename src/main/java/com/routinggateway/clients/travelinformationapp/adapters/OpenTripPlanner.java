@@ -8,7 +8,6 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.routingservices.requests.OpenTripPlannerRequest;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.responses.opentripplannerresponse.*;
 
 import java.io.IOException;
@@ -29,6 +28,12 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        /*if (request.getClass() == OpenTripPlannerRequest.class) {
+            responseOptional = this.receiveResponse((OpenTripPlannerRequest) request);
+        } else {
+            System.out.println("Wrong RoutingRequest type provided.");
+            return Optional.empty();
+        }*/
         return Optional.empty();
     }
 
@@ -38,14 +43,8 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
      * @return Optional List RoutingResult
      */
     @Override
-    public Optional<List<RoutingResult>> computeRoutes(StandardRoutingRequest request) {
-        Optional<String> responseOptional;
-        if (request.getRequest().getClass() == OpenTripPlannerRequest.class) {
-            responseOptional = this.receiveResponse((OpenTripPlannerRequest) request.getRequest());
-        } else {
-            System.out.println("Wrong RoutingRequest type provided.");
-            return Optional.empty();
-        }
+    public Optional<List<RoutingResult>> computeRoutes(OpenTripPlannerRequest request) {
+        Optional<String> responseOptional = this.receiveResponse(request);
         if (responseOptional.isPresent()) {
             String response = responseOptional.get();
             OpenTripPlannerResponse responseObject = new Gson().fromJson(response, OpenTripPlannerResponse.class);
