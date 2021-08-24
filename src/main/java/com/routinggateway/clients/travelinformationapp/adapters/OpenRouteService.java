@@ -49,7 +49,16 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         // TODO set profile for modes
 
         Optional<List<RoutingResult>> routeList = this.computeRoutes(orsRequest);
-        return Optional.ofNullable(new RoutingResponse(routeList.get()));
+        if (routeList.isPresent()) {
+            // Add mode to RoutingResultSegments
+            for (RoutingResult result : routeList.get()) {
+                for (RoutingResultSegment segment : result.getSegments()) {
+                    segment.setModeOfTransport(orsRequest.getProfile());
+                }
+            }
+            return Optional.of(new RoutingResponse(routeList.get()));
+        }
+        return Optional.empty();
     }
 
     /**
@@ -66,12 +75,6 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
             List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
             if (!routingResults.isEmpty()) {
-                // Add mode to RoutingResultSegments
-                for (RoutingResult result : routingResults) {
-                    for (RoutingResultSegment segment : result.getSegments()) {
-                        segment.setModeOfTransport(request.getProfile());
-                    }
-                }
                 return Optional.of(routingResults);
             } else {
                 System.out.println("No routes found for the given request");
