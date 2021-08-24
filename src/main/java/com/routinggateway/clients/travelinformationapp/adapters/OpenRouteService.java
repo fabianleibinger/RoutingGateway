@@ -64,6 +64,12 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             this.addResultsToRouteList(orsRequest, routeList);
         }
 
+        // Fallback
+        if (routeList.isEmpty()) {
+            orsRequest.setProfile("driving-car");
+            this.addResultsToRouteList(orsRequest, routeList);
+        }
+
         if (!routeList.isEmpty()) {
             System.out.println("Returned routes for preference successfully.");
             return Optional.of(new RoutingResponse(routeList));
