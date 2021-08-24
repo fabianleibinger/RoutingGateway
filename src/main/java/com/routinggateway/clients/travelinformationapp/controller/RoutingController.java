@@ -1,17 +1,17 @@
 package com.routinggateway.clients.travelinformationapp.controller;
 
-import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.adapters.IRoutingService;
 import com.routinggateway.clients.travelinformationapp.adapters.OpenRouteService;
 import com.routinggateway.clients.travelinformationapp.adapters.OpenTripPlanner;
 import com.routinggateway.clients.travelinformationapp.adapters.Valhalla;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
-import com.routinggateway.routingservices.requests.RoutingServiceRequest;
-import com.routinggateway.routingservices.requests.StandardRoutingRequest;
+import com.routinggateway.exceptions.BadGatewayException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * Controller that handles all requests related to routing.
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoutingController {
 
     /**
-     * Returns routes for a routing request.
+     * Returns routes for a routing request or throws BadGatewayException.
      *
      * @param request
      * @return response, that consists of one or more routing results
@@ -32,29 +32,26 @@ public class RoutingController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public static RoutingResponse receiveRoutes(@RequestBody RoutingRequest request) {
-        LatLng origin = request.getOrigin();
-        LatLng destination = request.getDestination();
-        RoutingServiceRequest routingServiceRequest = null;
         IRoutingService routingService;
 
+        // Choosing the requested Routing Service
         String routingServiceName = request.getRoutingService();
-        String openRouteServiceName = new OpenRouteService().getName();
-        String openTripPlannerName = new OpenTripPlanner().getName();
-        String valhallaName = new Valhalla().getName();
-        if (routingServiceName.equals(openRouteServiceName)) {
+        if (routingServiceName.equals(new OpenRouteService().getName())) {
             routingService = new OpenRouteService();
-        } else if (routingServiceName.equals(openTripPlannerName)) {
+        } else if (routingServiceName.equals(new OpenTripPlanner().getName())) {
             routingService = new OpenTripPlanner();
-        } else if (routingServiceName.equals(valhallaName)) {
+        } else if (routingServiceName.equals(new Valhalla().getName())) {
             routingService = new Valhalla();
         } else {
             // Fallback routing service
             routingService = new OpenRouteService();
         }
 
-        StandardRoutingRequest standardRoutingRequest =
-                new StandardRoutingRequest(routingServiceRequest, routingService);
-
-        return null;
+        Optional<RoutingResponse> response = routingService.receiveRoutesForPreference(request);
+        if (response.isPresent()) {
+            return response.get();
+        } else {
+            throw new BadGatewayException("Failed to receive Routes");
+        }
     }
 }
