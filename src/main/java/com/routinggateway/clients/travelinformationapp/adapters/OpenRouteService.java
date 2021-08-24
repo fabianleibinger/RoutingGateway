@@ -46,19 +46,44 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         OpenRouteServiceRequest orsRequest = new OpenRouteServiceRequest();
         orsRequest.setParameters(parameters);
 
-        // TODO set profile for modes
+        List<RoutingResult> routeList = new ArrayList<>();
 
-        Optional<List<RoutingResult>> routeList = this.computeRoutes(orsRequest);
-        if (routeList.isPresent()) {
-            // Add mode to RoutingResultSegments
-            for (RoutingResult result : routeList.get()) {
-                for (RoutingResultSegment segment : result.getSegments()) {
-                    segment.setModeOfTransport(orsRequest.getProfile());
-                }
-            }
-            return Optional.of(new RoutingResponse(routeList.get()));
+        // TODO set profile for modes
+        List<String> preferredModes = request.getPreferenceProfile().getModePreferences().getPreferredModes();
+        if (preferredModes.stream().anyMatch(s -> s.equals("car"))) {
+            orsRequest.setProfile("driving-car");
+            this.addResultsToRouteList(orsRequest, routeList);
+        }
+        if (preferredModes.stream().anyMatch(s -> s.equals("bike"))) {
+            orsRequest.setProfile("cycling-regular");
+            this.addResultsToRouteList(orsRequest, routeList);
+        }
+        if (preferredModes.stream().anyMatch(s -> s.equals("walk"))) {
+            orsRequest.setProfile("foot-walking");
+            this.addResultsToRouteList(orsRequest, routeList);
+        }
+
+        if (!routeList.isEmpty()) {
+            System.out.println("Returned routes for preference successfully.");
+            return Optional.of(new RoutingResponse(routeList));
         }
         return Optional.empty();
+    }
+
+    /**
+     * Receives an optional list of results for a request to add it to a list of routes including mode.
+     *
+     * @param request
+     * @param routeList
+     */
+    public void addResultsToRouteList(OpenRouteServiceRequest request, List<RoutingResult> routeList) {
+        Optional<List<RoutingResult>> resultList = this.computeRoutes(request);
+        if (resultList.isPresent()) {
+            this.addModeToRoutingResult(request.getProfile(), resultList.get());
+            for (RoutingResult result : resultList.get()) {
+                routeList.add(result);
+            }
+        }
     }
 
     /**
@@ -127,6 +152,20 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             routes.add(result);
         }
         return routes;
+    }
+
+    /**
+     * Adds a mode String to the routing results.
+     *
+     * @param mode
+     * @param routingResult
+     */
+    public void addModeToRoutingResult(String mode, List<RoutingResult> routingResult) {
+        for (RoutingResult result : routingResult) {
+            for (RoutingResultSegment segment : result.getSegments()) {
+                segment.setModeOfTransport(mode);
+            }
+        }
     }
 
     /**
