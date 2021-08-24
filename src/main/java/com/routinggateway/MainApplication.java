@@ -9,6 +9,7 @@ public class MainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
 
+		//TODO remove
 		/*LatLng start = new LatLng(8.681495, 49.41461);
 		LatLng destination = new LatLng(8.686507, 49.41943);
 		Double[] startCoord = {start.lat, start.lng};
