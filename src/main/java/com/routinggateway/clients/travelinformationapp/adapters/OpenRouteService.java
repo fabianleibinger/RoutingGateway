@@ -1,11 +1,11 @@
 package com.routinggateway.clients.travelinformationapp.adapters;
 
 import com.google.gson.Gson;
-import com.google.maps.model.EncodedPolyline;
-import com.google.maps.model.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResponse;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
+import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
+import com.routinggateway.clients.travelinformationapp.mappings.OpenRouteServiceRouteToRoutingResult;
 import com.routinggateway.routingservices.requests.OpenRouteServiceRequest;
 import com.routinggateway.routingservices.requests.StandardRoutingRequest;
 import com.routinggateway.routingservices.responses.openrouteserviceresponse.*;
@@ -37,6 +37,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
 
     /**
      * Returns a routing result for a Openrouteservice request.
+     *
      * @param request RoutingRequest
      * @return Optional List RoutingResult
      */
@@ -55,6 +56,12 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
             OpenRouteServiceResponse responseObject = new Gson().fromJson(response, OpenRouteServiceResponse.class);
             List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
             if (!routingResults.isEmpty()) {
+                // Add mode to RoutingResultSegments
+                for (RoutingResult result : routingResults) {
+                    for (RoutingResultSegment segment : result.getSegments()) {
+                        segment.setModeOfTransport(orsRequest.getProfile());
+                    }
+                }
                 return Optional.of(routingResults);
             } else {
                 System.out.println("No routes found for the given request");
@@ -65,6 +72,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
 
     /**
      * Sends POST request to Openrouteservice and tries to receive a HTTP response.
+     *
      * @param openRouteServiceRequest for Openrouteservice
      * @return Optional String: response body that includes a route.
      */
@@ -94,6 +102,7 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
 
     /**
      * Returns a list of routes from the openRouteServiceResponse. List might be empty.
+     *
      * @param openRouteServiceResponse
      * @return routes List of RoutingResult
      */
@@ -101,36 +110,15 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     public List<RoutingResult> extractRoutingResult(OpenRouteServiceResponse openRouteServiceResponse) {
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenRouteServiceRoute route : openRouteServiceResponse.getRoutes()) {
-            OpenRouteServiceSummary summary = route.getSummary();
-            EncodedPolyline encodedPolyline = new EncodedPolyline(route.getGeometry());
-            List<LatLng> polyline = encodedPolyline.decodePath();
-            Double durationInMinutes = summary.getDuration() / 60;
-            Double distanceInMeters = summary.getDistance();
-            List<String> instructions = new ArrayList<>();
-            for (OpenRouteServiceSegment segment : route.getSegments()) {
-                for (OpenRouteServiceStep step : segment.getSteps()) {
-                    instructions.add(step.getInstruction());
-                }
-            }
-            List<String> warnings = new ArrayList<>();
-            for (OpenRouteServiceWarning warning : route.getWarnings()) {
-                warnings.add(warning.getMessage());
-            }
-            Double ascent = summary.getAscent();
-            Double descent = summary.getDescent();
-
-            /*RoutingResultNew result = new RoutingResultNew(polyline, durationInMinutes, distanceInMeters);
-            result.setInstructions(instructions);
-            result.setWarnings(warnings);
-            result.setAscent(ascent);
-            result.setDescent(descent);
-            routes.add(result);*/
+            RoutingResult result = OpenRouteServiceRouteToRoutingResult.map(route);
+            routes.add(result);
         }
         return routes;
     }
 
     /**
      * Adds a path variable to the URL.
+     *
      * @param pathSegment
      * @return URI including pathSegment
      */
