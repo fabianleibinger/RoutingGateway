@@ -74,10 +74,10 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
     /**
      * Adds routes to the routeList that match a mode preference list.
      *
-     * @param modes
-     * @param orsRequest
+     * @param modes preferred modes
+     * @param orsRequest OpenRouteServiceRequest
      * @param routingRequest
-     * @param routeList
+     * @param routeList List RoutingResult
      */
     public void addToRouteListAccordingToModeList(List<String> modes,
                                                   OpenRouteServiceRequest orsRequest,
@@ -101,8 +101,8 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      * Receives an optional list of results for a request.
      * Adds it to a list of routes including the mode.
      *
-     * @param request
-     * @param routeList
+     * @param request OpenRouteServiceRequest
+     * @param routeList List RoutingResult
      */
     public void addResultsToRouteList(OpenRouteServiceRequest request, List<RoutingResult> routeList) {
         Optional<List<RoutingResult>> resultList = this.computeRoutes(request);
