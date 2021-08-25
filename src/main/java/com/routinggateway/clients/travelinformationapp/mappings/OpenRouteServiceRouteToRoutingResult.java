@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class OpenRouteServiceRouteToRoutingResult {
     public static final Integer DURATION_TRANSFORMATION = 60;
-    public static final Integer NUMBER_OF_TRANSFERS = 1;
+    public static final Integer NUMBER_OF_TRANSFERS = 0;
 
     public static RoutingResult map(OpenRouteServiceRoute route) {
         RoutingResult result = new RoutingResult();
