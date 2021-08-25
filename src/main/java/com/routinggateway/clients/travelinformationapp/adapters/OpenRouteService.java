@@ -59,10 +59,12 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
         }
 
         // Add routes for accessibility
-        if (request.getUserProfile().getAccessibility()) {
-            orsRequest.setProfile("wheelchair");
-            this.addResultsToRouteList(orsRequest, routeList);
-        }
+        try {
+            if (request.getUserProfile().getAccessibility()) {
+                orsRequest.setProfile("wheelchair");
+                this.addResultsToRouteList(orsRequest, routeList);
+            }
+        } catch (NullPointerException e) {}
 
         // Fallback
         if (routeList.isEmpty()) {
