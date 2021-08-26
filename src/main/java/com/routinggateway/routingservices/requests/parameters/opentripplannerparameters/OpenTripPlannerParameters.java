@@ -61,7 +61,7 @@ public class OpenTripPlannerParameters extends Parameters {
     //default 2
     private Double walkReluctance;
     private Double walkSpeed;
-    private Double wheelchair;
+    private Boolean wheelchair;
 
     public Integer getAlightSlack() {
         return alightSlack;
@@ -455,11 +455,11 @@ public class OpenTripPlannerParameters extends Parameters {
         this.walkSpeed = walkSpeed;
     }
 
-    public Double getWheelchair() {
+    public Boolean getWheelchair() {
         return wheelchair;
     }
 
-    public void setWheelchair(Double wheelchair) {
+    public void setWheelchair(Boolean wheelchair) {
         this.wheelchair = wheelchair;
     }
 }
