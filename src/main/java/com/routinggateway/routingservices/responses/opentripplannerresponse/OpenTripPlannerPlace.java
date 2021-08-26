@@ -5,10 +5,10 @@ public class OpenTripPlannerPlace {
     private OpenTripPlannerAgencyAndId stopId;
     private String stopCode;
     private String platformCode;
-    private Integer lon;
-    private Integer lat;
-    private Integer arrival;
-    private Integer departure;
+    private Double lon;
+    private Double lat;
+    private Double arrival;
+    private Double departure;
     private String orig;
     private String zoneId;
     private Integer stopIndex;
@@ -51,35 +51,35 @@ public class OpenTripPlannerPlace {
         this.platformCode = platformCode;
     }
 
-    public Integer getLon() {
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(Integer lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
-    public Integer getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(Integer lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public Integer getArrival() {
+    public Double getArrival() {
         return arrival;
     }
 
-    public void setArrival(Integer arrival) {
+    public void setArrival(Double arrival) {
         this.arrival = arrival;
     }
 
-    public Integer getDeparture() {
+    public Double getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Integer departure) {
+    public void setDeparture(Double departure) {
         this.departure = departure;
     }
 

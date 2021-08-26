@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenTripPlannerLeg {
-    private Integer startTime;
-    private Integer endTime;
-    private Integer departureDelay;
-    private Integer arrivalDelay;
+    private Double startTime;
+    private Double endTime;
+    private Double departureDelay;
+    private Double arrivalDelay;
     private Boolean realTime;
     private Boolean isNonExactFrequency;
-    private Integer headway;
-    private Integer distance;
+    private Double headway;
+    private Double distance;
     private Boolean pathway;
     private String mode;
     private String route;
     private String agencyName;
     private String agencyUrl;
-    private Integer agencyTimeZoneOffset;
+    private Double agencyTimeZoneOffset;
     private String routeColor;
     private Integer routeType;
     private OpenTripPlannerAgencyAndId routeId;
@@ -41,37 +41,37 @@ public class OpenTripPlannerLeg {
     private String alightRule;
     private Boolean rentedBike;
     private Boolean transitLeg;
-    private Integer duration;
+    private Double duration;
 
-    public Integer getStartTime() {
+    public Double getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public void setStartTime(Double startTime) {
         this.startTime = startTime;
     }
 
-    public Integer getEndTime() {
+    public Double getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Integer endTime) {
+    public void setEndTime(Double endTime) {
         this.endTime = endTime;
     }
 
-    public Integer getDepartureDelay() {
+    public Double getDepartureDelay() {
         return departureDelay;
     }
 
-    public void setDepartureDelay(Integer departureDelay) {
+    public void setDepartureDelay(Double departureDelay) {
         this.departureDelay = departureDelay;
     }
 
-    public Integer getArrivalDelay() {
+    public Double getArrivalDelay() {
         return arrivalDelay;
     }
 
-    public void setArrivalDelay(Integer arrivalDelay) {
+    public void setArrivalDelay(Double arrivalDelay) {
         this.arrivalDelay = arrivalDelay;
     }
 
@@ -91,19 +91,19 @@ public class OpenTripPlannerLeg {
         isNonExactFrequency = nonExactFrequency;
     }
 
-    public Integer getHeadway() {
+    public Double getHeadway() {
         return headway;
     }
 
-    public void setHeadway(Integer headway) {
+    public void setHeadway(Double headway) {
         this.headway = headway;
     }
 
-    public Integer getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(Integer distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
@@ -147,11 +147,11 @@ public class OpenTripPlannerLeg {
         this.agencyUrl = agencyUrl;
     }
 
-    public Integer getAgencyTimeZoneOffset() {
+    public Double getAgencyTimeZoneOffset() {
         return agencyTimeZoneOffset;
     }
 
-    public void setAgencyTimeZoneOffset(Integer agencyTimeZoneOffset) {
+    public void setAgencyTimeZoneOffset(Double agencyTimeZoneOffset) {
         this.agencyTimeZoneOffset = agencyTimeZoneOffset;
     }
 
@@ -360,11 +360,11 @@ public class OpenTripPlannerLeg {
         this.transitLeg = transitLeg;
     }
 
-    public Integer getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 }

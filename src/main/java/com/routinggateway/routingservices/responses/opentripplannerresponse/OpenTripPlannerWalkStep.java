@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenTripPlannerWalkStep {
-    private Integer distance;
+    private Double distance;
     private String relativeDirection;
     private String streetName;
     private String absoluteDirection;
@@ -12,16 +12,15 @@ public class OpenTripPlannerWalkStep {
     private Boolean stayOn;
     private Boolean area;
     private Boolean bogusName;
-    private Integer lon;
-    private Integer lat;
+    private Double lon;
+    private Double lat;
     private List<OpenTripPlannerLocalizedAlert> alerts;
-    private String elevation;
 
-    public Integer getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(Integer distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
@@ -81,19 +80,19 @@ public class OpenTripPlannerWalkStep {
         this.bogusName = bogusName;
     }
 
-    public Integer getLon() {
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(Integer lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
-    public Integer getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(Integer lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
@@ -106,13 +105,5 @@ public class OpenTripPlannerWalkStep {
 
     public void setAlerts(List<OpenTripPlannerLocalizedAlert> alerts) {
         this.alerts = alerts;
-    }
-
-    public String getElevation() {
-        return elevation;
-    }
-
-    public void setElevation(String elevation) {
-        this.elevation = elevation;
     }
 }

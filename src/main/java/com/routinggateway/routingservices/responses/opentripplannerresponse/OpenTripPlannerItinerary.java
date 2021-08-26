@@ -4,74 +4,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenTripPlannerItinerary {
-    private Integer duration;
-    private Integer startTime;
-    private Integer endTime;
-    private Integer walkTime;
-    private Integer transitTime;
-    private Integer waitingTime;
-    private Integer walkDistance;
+    private Double duration;
+    private Double startTime;
+    private Double endTime;
+    private Double walkTime;
+    private Double transitTime;
+    private Double waitingTime;
+    private Double walkDistance;
     private Boolean walkLimitExceeded;
-    private Integer elevationLost;
-    private Integer elevationGained;
+    private Double elevationLost;
+    private Double elevationGained;
     private Integer transfers;
     private Object fare;
-    private List<OpenTripPlannerLeg> leg;
+    private List<OpenTripPlannerLeg> legs;
     private Boolean tooSloped;
 
-    public Integer getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
-    public Integer getStartTime() {
+    public Double getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public void setStartTime(Double startTime) {
         this.startTime = startTime;
     }
 
-    public Integer getEndTime() {
+    public Double getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Integer endTime) {
+    public void setEndTime(Double endTime) {
         this.endTime = endTime;
     }
 
-    public Integer getWalkTime() {
+    public Double getWalkTime() {
         return walkTime;
     }
 
-    public void setWalkTime(Integer walkTime) {
+    public void setWalkTime(Double walkTime) {
         this.walkTime = walkTime;
     }
 
-    public Integer getTransitTime() {
+    public Double getTransitTime() {
         return transitTime;
     }
 
-    public void setTransitTime(Integer transitTime) {
+    public void setTransitTime(Double transitTime) {
         this.transitTime = transitTime;
     }
 
-    public Integer getWaitingTime() {
+    public Double getWaitingTime() {
         return waitingTime;
     }
 
-    public void setWaitingTime(Integer waitingTime) {
+    public void setWaitingTime(Double waitingTime) {
         this.waitingTime = waitingTime;
     }
 
-    public Integer getWalkDistance() {
+    public Double getWalkDistance() {
         return walkDistance;
     }
 
-    public void setWalkDistance(Integer walkDistance) {
+    public void setWalkDistance(Double walkDistance) {
         this.walkDistance = walkDistance;
     }
 
@@ -83,19 +83,19 @@ public class OpenTripPlannerItinerary {
         this.walkLimitExceeded = walkLimitExceeded;
     }
 
-    public Integer getElevationLost() {
+    public Double getElevationLost() {
         return elevationLost;
     }
 
-    public void setElevationLost(Integer elevationLost) {
+    public void setElevationLost(Double elevationLost) {
         this.elevationLost = elevationLost;
     }
 
-    public Integer getElevationGained() {
+    public Double getElevationGained() {
         return elevationGained;
     }
 
-    public void setElevationGained(Integer elevationGained) {
+    public void setElevationGained(Double elevationGained) {
         this.elevationGained = elevationGained;
     }
 
@@ -118,15 +118,15 @@ public class OpenTripPlannerItinerary {
         this.fare = fare;
     }
 
-    public List<OpenTripPlannerLeg> getLeg() {
-        if (this.leg == null) {
-            this.leg = new ArrayList<>();
+    public List<OpenTripPlannerLeg> getLegs() {
+        if (this.legs == null) {
+            this.legs = new ArrayList<>();
         }
-        return leg;
+        return legs;
     }
 
-    public void setLeg(List<OpenTripPlannerLeg> leg) {
-        this.leg = leg;
+    public void setLegs(List<OpenTripPlannerLeg> legs) {
+        this.legs = legs;
     }
 
     public Boolean getTooSloped() {

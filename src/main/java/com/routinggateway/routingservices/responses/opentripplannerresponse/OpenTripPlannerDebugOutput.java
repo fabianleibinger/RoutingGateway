@@ -4,53 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenTripPlannerDebugOutput {
-    private Integer precalculationTime;
-    private Integer pathCalculationTime;
-    private List<Integer> pathTimes;
-    private Integer renderingTime;
-    private Integer totalTime;
+    private Double precalculationTime;
+    private Double pathCalculationTime;
+    private List<Double> pathTimes;
+    private Double renderingTime;
+    private Double totalTime;
     private Boolean timedOut;
 
-    public Integer getPrecalculationTime() {
+    public Double getPrecalculationTime() {
         return precalculationTime;
     }
 
-    public void setPrecalculationTime(Integer precalculationTime) {
+    public void setPrecalculationTime(Double precalculationTime) {
         this.precalculationTime = precalculationTime;
     }
 
-    public Integer getPathCalculationTime() {
+    public Double getPathCalculationTime() {
         return pathCalculationTime;
     }
 
-    public void setPathCalculationTime(Integer pathCalculationTime) {
+    public void setPathCalculationTime(Double pathCalculationTime) {
         this.pathCalculationTime = pathCalculationTime;
     }
 
-    public List<Integer> getPathTimes() {
+    public List<Double> getPathTimes() {
         if (this.pathTimes == null) {
             this.pathTimes = new ArrayList<>();
         }
         return pathTimes;
     }
 
-    public void setPathTimes(List<Integer> pathTimes) {
+    public void setPathTimes(List<Double> pathTimes) {
         this.pathTimes = pathTimes;
     }
 
-    public Integer getRenderingTime() {
+    public Double getRenderingTime() {
         return renderingTime;
     }
 
-    public void setRenderingTime(Integer renderingTime) {
+    public void setRenderingTime(Double renderingTime) {
         this.renderingTime = renderingTime;
     }
 
-    public Integer getTotalTime() {
+    public Double getTotalTime() {
         return totalTime;
     }
 
-    public void setTotalTime(Integer totalTime) {
+    public void setTotalTime(Double totalTime) {
         this.totalTime = totalTime;
     }
 

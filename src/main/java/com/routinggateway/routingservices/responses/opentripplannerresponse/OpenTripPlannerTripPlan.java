@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpenTripPlannerTripPlan {
-    private Integer date;
+    private Double date;
     private OpenTripPlannerPlace from;
     private OpenTripPlannerPlace to;
     private List<OpenTripPlannerItinerary> itineraries;
 
-    public Integer getDate() {
+    public Double getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Double date) {
         this.date = date;
     }
 

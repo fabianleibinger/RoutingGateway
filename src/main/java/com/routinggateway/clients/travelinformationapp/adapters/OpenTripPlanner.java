@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -28,6 +29,7 @@ import java.util.List;
 public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, OpenTripPlannerResponse> {
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     /**
      * Returns a routing response for a routing request according to mobility preferences.
@@ -124,7 +126,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
             List<RoutingResultSegment> segments = new ArrayList<>();
 
             List<LatLng> polyline = new ArrayList<>();
-            for (OpenTripPlannerLeg leg : itinerary.getLeg()) {
+            for (OpenTripPlannerLeg leg : itinerary.getLegs()) {
                 RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
                 segments.add(segment);
                 distanceInMeters += segment.getDistanceInMeters();
@@ -162,7 +164,9 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         List<String> instructions = new ArrayList<>();
         for (OpenTripPlannerWalkStep step : leg.getSteps()) {
             instructions.add
-                    (step.getRelativeDirection() + " on " + step.getStreetName() + " for " + step.getDistance());
+                    (step.getRelativeDirection() + " on " +
+                            step.getStreetName() + " in " +
+                            DECIMAL_FORMAT.format(step.getDistance()) + " m.");
         }
         List<String> warnings = new ArrayList<>();
         for (OpenTripPlannerLocalizedAlert alert : leg.getAlerts()) {
