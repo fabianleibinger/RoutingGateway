@@ -28,12 +28,6 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
-        /*if (request.getClass() == OpenTripPlannerRequest.class) {
-            responseOptional = this.receiveResponse((OpenTripPlannerRequest) request);
-        } else {
-            System.out.println("Wrong RoutingRequest type provided.");
-            return Optional.empty();
-        }*/
         return Optional.empty();
     }
 
@@ -45,10 +39,9 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
      */
     @Override
     public Optional<List<RoutingResult>> computeRoutes(OpenTripPlannerRequest request) {
-        Optional<String> responseOptional = this.receiveResponse(request);
-        if (responseOptional.isPresent()) {
-            String response = responseOptional.get();
-            OpenTripPlannerResponse responseObject = new Gson().fromJson(response, OpenTripPlannerResponse.class);
+        Optional<String> response = this.receiveResponse(request);
+        if (response.isPresent()) {
+            OpenTripPlannerResponse responseObject = new Gson().fromJson(response.get(), OpenTripPlannerResponse.class);
             List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
             if (!routingResults.isEmpty()) {
                 return Optional.of(routingResults);
