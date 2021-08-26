@@ -8,7 +8,10 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResultSegment;
 import com.routinggateway.routingservices.requests.OpenTripPlannerRequest;
+import com.routinggateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters;
 import com.routinggateway.routingservices.responses.opentripplannerresponse.*;
+import org.nomin.NominMapper;
+import org.nomin.core.Nomin;
 
 import java.io.IOException;
 import java.net.URI;
@@ -26,8 +29,26 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     private static final String NAME = "OpenTripPlanner";
     private static final String URL = "http://se-elsbeere:8090/otp/routers/";
 
+    /**
+     * Returns a routing response for a routing request according to mobility preferences.
+     *
+     * @param request RoutingRequest
+     * @return Optional RoutingResponse
+     */
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        NominMapper nomin = new Nomin("mappings/RoutingRequestToOpenTripPlannerParameters.groovy");
+        OpenTripPlannerParameters parameters = nomin.map(request, OpenTripPlannerParameters.class);
+
+        OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest();
+        otpRequest.setParameters(parameters);
+
+        Optional<List<RoutingResult>> resultList = this.computeRoutes(otpRequest);
+
+        if (resultList.isPresent()) {
+            System.out.println("Returned routes for preference successfully.");
+            return Optional.of(new RoutingResponse(resultList.get()));
+        }
         return Optional.empty();
     }
 
