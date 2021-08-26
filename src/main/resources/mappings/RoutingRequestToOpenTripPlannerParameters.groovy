@@ -1,6 +1,7 @@
 package mappings
 
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest
+import com.routinggateway.clients.travelinformationapp.mappings.helpers.HelperRoutingRequestToOpenTripPlannerParameters
 import com.routinggateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters
 
 mappingFor a: OpenTripPlannerParameters, b: RoutingRequest
@@ -15,7 +16,7 @@ a.toPlace = { b.destination.getLat().toString() + ", " + b.destination.getLng().
 a.waitReluctance = { (b.preferenceProfile.levelOfIntermodality / 5) + 1 }
 a.walkSpeed = { b.preferenceProfile.walkingPace + 1 }
 a.wheelchair = b.userProfile.accessibility
-//a.mode = {  }
+a.mode = { HelperRoutingRequestToOpenTripPlannerParameters.toModes(b.preferenceProfile.modePreferences) }
 a.optimize = {
     if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.duration) {
         if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.environment) {

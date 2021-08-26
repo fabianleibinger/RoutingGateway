@@ -32,6 +32,7 @@ public class NominTest {
         request.getPreferenceProfile().setMaxWalkingDistance(20f);
         request.getPreferenceProfile().setLevelOfIntermodality(45);
         request.getUserProfile().setAccessibility(true);
+        request.getPreferenceProfile().getModePreferences().getPreferredModes().add("car");
     }
 
     @Test
@@ -62,5 +63,6 @@ public class NominTest {
         assertEquals(10d, parameters.getWaitReluctance());
         assertEquals(2d, parameters.getWalkSpeed());
         assertEquals(true , parameters.getWheelchair());
+        assertEquals("CAR, CAR_TO_PARK, ", parameters.getMode());
     }
 }
