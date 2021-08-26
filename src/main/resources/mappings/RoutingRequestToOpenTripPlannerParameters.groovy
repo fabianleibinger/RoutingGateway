@@ -15,19 +15,12 @@ a.toPlace = { b.destination.getLat().toString() + ", " + b.destination.getLng().
 a.waitReluctance = { (b.preferenceProfile.levelOfIntermodality / 5) + 1 }
 a.walkSpeed = { b.preferenceProfile.walkingPace + 1}
 a.wheelchair = b.userProfile.accessibility
-a.mode = {}
+//a.mode = {  }
 a.optimize = { if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.duration) {
-                    if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.environment) {
-                        "SAFE"
-                    } else {
-                        "GREENWAYS"
-                    }
+                    if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.environment) { "SAFE" }
                 } else {
-                    if (b.preferenceProfile.weighting.duration > b.preferenceProfile.weighting.environment) {
-                        "QUICK"
-                    } else {
-                        "GREENWAYS"
-                    }
-                } }
+                    if (b.preferenceProfile.weighting.duration > b.preferenceProfile.weighting.environment) { "QUICK" }
+                }
+                "GREENWAYS" }
 
 swallow NullPointerException
