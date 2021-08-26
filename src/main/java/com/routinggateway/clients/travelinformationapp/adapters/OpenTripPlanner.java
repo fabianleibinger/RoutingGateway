@@ -39,6 +39,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     /**
      * Returns a routing result for a OpenTripPlanner request.
+     *
      * @param request RoutingRequest
      * @return Optional List RoutingResult
      */
@@ -60,6 +61,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     /**
      * Sends GET request to OpenTripPlanner and tries to receive a HTTP response.
+     *
      * @param otpRequest for OpenTripPlanner
      * @return Optional String: response body that includes a route.
      */
@@ -91,6 +93,7 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
 
     /**
      * Returns a list of routes from the openTripPlannerResponse. List might be empty.
+     *
      * @param openTripPlannerResponse
      * @return routes List of RoutingResult
      */
@@ -98,52 +101,47 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
     public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenTripPlannerItinerary itinerary : openTripPlannerResponse.getPlan().getItineraries()) {
-            List<LatLng> polyline = new ArrayList<>();
-            Double durationInMinutes = (double) itinerary.getDuration() / 60;
+            EncodedPolyline encodedPolyline;
+            Double durationInMinutes = ((double) itinerary.getDuration()) / 60;
             Double distanceInMeters = 0.0;
-            List<String> instructions = new ArrayList<>();
-            List<String> warnings = new ArrayList<>();
             String departureTime = String.valueOf(itinerary.getStartTime());
             String arrivalTime = String.valueOf(itinerary.getEndTime());
             Integer numberOfTransfers = itinerary.getTransfers();
-            Double ascent = (double) itinerary.getElevationGained();
-            Double descent = (double) itinerary.getElevationLost();
             List<RoutingResultSegment> segments = new ArrayList<>();
+
+            List<LatLng> polyline = new ArrayList<>();
             for (OpenTripPlannerLeg leg : itinerary.getLeg()) {
                 RoutingResultSegment segment = this.extractRoutingResultSegment(leg);
                 segments.add(segment);
                 distanceInMeters += segment.getDistanceInMeters();
-                /*for (LatLng latLng : segment.getPolyline()) {
-                    polyline.add(latLng);
-                }*/
-                for (String instruction : segment.getInstructions()) {
-                    instructions.add(instruction);
-                }
-                for (String warning : segment.getWarnings()) {
-                    warnings.add(warning);
-                }
+
+                EncodedPolyline googlePolyline = new EncodedPolyline(segment.getEncodedPolyline());
+                List<LatLng> polyPoints = googlePolyline.decodePath();
+                polyline.addAll(polyPoints);
             }
-            /*RoutingResultNew route = new RoutingResultNew(polyline, durationInMinutes, distanceInMeters);
-            route.setInstructions(instructions);
-            route.setWarnings(warnings);
+            encodedPolyline = new EncodedPolyline(polyline);
+
+            RoutingResult route = new RoutingResult();
+            route.setEncodedPolyline(encodedPolyline.getEncodedPath());
+            route.setDurationInMinutes(durationInMinutes);
+            route.setDistanceInMeters(distanceInMeters);
             route.setDepartureTime(departureTime);
             route.setArrivalTime(arrivalTime);
             route.setNumberOfTransfers(numberOfTransfers);
-            route.setAscent(ascent);
-            route.setDescent(descent);
-            route.setSegments(segments);*/
+            route.setSegments(segments);
+            routes.add(route);
         }
         return routes;
     }
 
     /**
      * Returns a route segment from the openTripPlannerLeg.
+     *
      * @param leg openTripPlannerLeg
      * @return RoutingResultSegment
      */
     public RoutingResultSegment extractRoutingResultSegment(OpenTripPlannerLeg leg) {
-        EncodedPolyline encodedPolyline = new EncodedPolyline(leg.getLegGeometry().getPoints());
-        List<LatLng> polyline = encodedPolyline.decodePath();
+        String encodedPolyline = leg.getLegGeometry().getPoints();
         Double durationInMinutes = (double) leg.getDuration() / 60;
         Double distanceInMeters = (double) leg.getDistance();
         String modeOfTransport = leg.getMode();
@@ -158,14 +156,17 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         }
         String departureTime = String.valueOf(leg.getStartTime());
         String arrivalTime = String.valueOf(leg.getEndTime());
-        /*RoutingResultSegmentNew segment = new RoutingResultSegmentNew
-                (polyline, durationInMinutes, distanceInMeters, modeOfTransport);
+
+        RoutingResultSegment segment = new RoutingResultSegment();
+        segment.setEncodedPolyline(encodedPolyline);
+        segment.setDurationInMinutes(durationInMinutes);
+        segment.setDistanceInMeters(distanceInMeters);
+        segment.setModeOfTransport(modeOfTransport);
         segment.setInstructions(instructions);
         segment.setWarnings(warnings);
         segment.setDepartureTime(departureTime);
         segment.setArrivalTime(arrivalTime);
-        return segment;*/
-        return null;
+        return segment;
     }
 
     /**
