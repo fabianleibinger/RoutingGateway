@@ -106,7 +106,8 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
     @Override
     public List<RoutingResult> extractRoutingResult(ValhallaResponse valhallaResponse) {
         List<RoutingResult> routes = new ArrayList<>();
-        routes.add(ValhallaTripToRoutingResult.map(valhallaResponse.getTrip()));
+        RoutingResult result = ValhallaTripToRoutingResult.map(valhallaResponse.getTrip());
+        routes.add(result);
         return routes;
     }
 
