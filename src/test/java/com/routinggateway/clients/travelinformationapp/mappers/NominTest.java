@@ -6,6 +6,7 @@ import com.routinggateway.clients.travelinformationapp.controller.models.LatLng;
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest;
 import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters;
 import com.routinggateway.routingservices.requests.parameters.opentripplannerparameters.OpenTripPlannerParameters;
+import com.routinggateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nomin.NominMapper;
@@ -64,5 +65,21 @@ public class NominTest {
         assertEquals(2d, parameters.getWalkSpeed());
         assertEquals(true , parameters.getWheelchair());
         assertEquals("CAR, CAR_TO_PARK, ", parameters.getMode());
+    }
+
+    @Test
+    public void testRRToValhallaParams() {
+        nomin = new Nomin("mappings/RoutingRequestToValhallaParameters.groovy");
+
+        ValhallaParameters parameters = nomin.map(request, ValhallaParameters.class);
+
+        assertEquals(0.0, parameters.getLocations().get(0).getLat());
+        assertEquals(1.0, parameters.getLocations().get(1).getLon());
+        assertEquals("multimodal", parameters.getCosting());
+        assertEquals("hybrid", parameters.getCosting_options().getBicycle().getBicycle_type());
+        assertEquals(24.0, parameters.getCosting_options().getBicycle().getCycling_speed());
+        assertEquals(3.0, parameters.getCosting_options().getPedestrian().getWalking_speed());
+        assertEquals("kilometers", parameters.getUnits());
+        assertEquals("instructions", parameters.getDirections_type());
     }
 }
