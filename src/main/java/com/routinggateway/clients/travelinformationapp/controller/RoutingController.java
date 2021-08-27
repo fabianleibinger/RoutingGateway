@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("routing")
 public class RoutingController {
-    public static IRoutingService FALLBACK_ROUTING_SERVICE = new OpenRouteService();
+    public static final IRoutingService FALLBACK_ROUTING_SERVICE = new OpenRouteService();
 
     /**
      * Returns routes for a routing request or throws BadGatewayException.

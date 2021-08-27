@@ -20,6 +20,12 @@ public class OpenTripPlannerItineraryToRoutingResult {
     public static final Integer DURATION_TRANSFORMATION = 60;
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
+    /**
+     * Mapping.
+     *
+     * @param itinerary OpenTripPlannerItinerary
+     * @return routing result
+     */
     public static RoutingResult map(OpenTripPlannerItinerary itinerary) {
         EncodedPolyline encodedPolyline;
         Double durationInMinutes = ((double) itinerary.getDuration()) / DURATION_TRANSFORMATION;
@@ -31,7 +37,7 @@ public class OpenTripPlannerItineraryToRoutingResult {
 
         List<LatLng> polyline = new ArrayList<>();
         for (OpenTripPlannerLeg leg : itinerary.getLegs()) {
-            RoutingResultSegment segment = extractRoutingResultSegment(leg);
+            RoutingResultSegment segment = mapToRoutingResultSegment(leg);
             segments.add(segment);
             distanceInMeters += segment.getDistanceInMeters();
 
@@ -53,29 +59,30 @@ public class OpenTripPlannerItineraryToRoutingResult {
     }
 
     /**
-     * Returns a route segment from the openTripPlannerLeg.
+     * Inner Mapping.
      *
      * @param leg openTripPlannerLeg
-     * @return RoutingResultSegment
+     * @return routing result segment
      */
-    private static RoutingResultSegment extractRoutingResultSegment(OpenTripPlannerLeg leg) {
+    private static RoutingResultSegment mapToRoutingResultSegment(OpenTripPlannerLeg leg) {
         String encodedPolyline = leg.getLegGeometry().getPoints();
         Double durationInMinutes = leg.getDuration() / DURATION_TRANSFORMATION;
         Double distanceInMeters = leg.getDistance();
         String modeOfTransport = leg.getMode();
         List<String> instructions = new ArrayList<>();
-        for (OpenTripPlannerWalkStep step : leg.getSteps()) {
-            instructions.add
-                    (step.getRelativeDirection() + " on " +
-                            step.getStreetName() + " in " +
-                            DECIMAL_FORMAT.format(step.getDistance()) + " m.");
-        }
         List<String> warnings = new ArrayList<>();
+        String departureTime = String.valueOf(leg.getStartTime());
+        String arrivalTime = String.valueOf(leg.getEndTime());
+
+        for (OpenTripPlannerWalkStep step : leg.getSteps()) {
+            instructions.add(step.getRelativeDirection() + " on " +
+                    step.getStreetName() + " in " +
+                    DECIMAL_FORMAT.format(step.getDistance()) + " m.");
+        }
+
         for (OpenTripPlannerLocalizedAlert alert : leg.getAlerts()) {
             warnings.add(alert.getAlertHeaderText());
         }
-        String departureTime = String.valueOf(leg.getStartTime());
-        String arrivalTime = String.valueOf(leg.getEndTime());
 
         RoutingResultSegment segment = new RoutingResultSegment();
         segment.setEncodedPolyline(encodedPolyline);
