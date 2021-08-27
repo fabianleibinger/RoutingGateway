@@ -16,7 +16,7 @@ a.maxWalkDistance = { b.preferenceProfile.maxWalkingDistance * 1000 }
 a.waitReluctance = { (b.preferenceProfile.levelOfIntermodality / 5) + 1 }
 a.walkSpeed = { b.preferenceProfile.walkingPace + 1 }
 a.wheelchair = b.userProfile.accessibility
-a.mode = { HelperRoutingRequestToOpenTripPlannerParameters.toModes(b.preferenceProfile.modePreferences) }
+//a.mode = { HelperRoutingRequestToOpenTripPlannerParameters.toModes(b.preferenceProfile.modePreferences) }
 a.optimize = {
     if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.duration) {
         if (b.preferenceProfile.weighting.comfort > b.preferenceProfile.weighting.environment) {
