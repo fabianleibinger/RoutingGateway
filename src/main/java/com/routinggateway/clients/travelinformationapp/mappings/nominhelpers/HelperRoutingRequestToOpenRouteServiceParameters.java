@@ -1,4 +1,4 @@
-package com.routinggateway.clients.travelinformationapp.mappings.helpers;
+package com.routinggateway.clients.travelinformationapp.mappings.nominhelpers;
 
 import com.routinggateway.clients.travelinformationapp.controller.models.LatLng;
 

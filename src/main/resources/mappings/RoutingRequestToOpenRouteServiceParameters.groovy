@@ -1,7 +1,7 @@
 package mappings
 
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingRequest
-import com.routinggateway.clients.travelinformationapp.mappings.helpers.HelperRoutingRequestToOpenRouteServiceParameters
+import com.routinggateway.clients.travelinformationapp.mappings.nominhelpers.HelperRoutingRequestToOpenRouteServiceParameters
 import com.routinggateway.routingservices.requests.parameters.openrouteserviceparameters.OpenRouteServiceParameters
 
 mappingFor a: OpenRouteServiceParameters, b: RoutingRequest
