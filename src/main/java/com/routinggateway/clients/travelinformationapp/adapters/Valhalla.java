@@ -43,6 +43,8 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
 
         ValhallaRequest valhallaRequest = new ValhallaRequest();
         valhallaRequest.setParameters(parameters);
+        //TODO remove
+        System.out.println(parameters.toJson());
 
         Optional<List<RoutingResult>> resultList = this.computeRoutes(valhallaRequest);
         if (resultList.isPresent()) {
