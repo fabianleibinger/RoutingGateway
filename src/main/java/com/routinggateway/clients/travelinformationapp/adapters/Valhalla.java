@@ -6,8 +6,11 @@ import com.routinggateway.clients.travelinformationapp.controller.models.Routing
 import com.routinggateway.clients.travelinformationapp.controller.models.RoutingResult;
 import com.routinggateway.clients.travelinformationapp.mappings.ValhallaTripToRoutingResult;
 import com.routinggateway.routingservices.requests.ValhallaRequest;
+import com.routinggateway.routingservices.requests.parameters.valhallaparameters.ValhallaParameters;
 import com.routinggateway.routingservices.responses.valhallaresponse.ValhallaResponse;
 import org.apache.http.client.utils.URIBuilder;
+import org.nomin.NominMapper;
+import org.nomin.core.Nomin;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,8 +30,25 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
     private static final String NAME = "Valhalla";
     private static final String URL = "http://se-elsbeere:8002/route";
 
+    /**
+     * Returns a routing response for a routing request according to mobility preferences.
+     *
+     * @param request RoutingRequest
+     * @return Optional RoutingResponse
+     */
     @Override
     public Optional<RoutingResponse> receiveRoutesForPreference(RoutingRequest request) {
+        NominMapper nomin = new Nomin("mappings/RoutingRequestToValhallaParameters.groovy");
+        ValhallaParameters parameters = nomin.map(request, ValhallaParameters.class);
+
+        ValhallaRequest valhallaRequest = new ValhallaRequest();
+        valhallaRequest.setParameters(parameters);
+
+        Optional<List<RoutingResult>> resultList = this.computeRoutes(valhallaRequest);
+        if (resultList.isPresent()) {
+            System.out.println("Returned routes for preference successfully.");
+            return Optional.of(new RoutingResponse(resultList.get()));
+        }
 
         return Optional.empty();
     }
