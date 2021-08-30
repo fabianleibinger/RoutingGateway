@@ -14,7 +14,6 @@ import org.nomin.core.Nomin;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
@@ -26,11 +25,8 @@ import java.util.Optional;
  * Adapter for Openrouteservice.
  */
 public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest, OpenRouteServiceResponse> {
-
     private static final String NAME = "Openrouteservice";
     private static final String URL = "https://api.openrouteservice.org/v2/directions/";
-    private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
-    private static final Integer OK_STATUS_CODE = 200;
 
     /**
      * Returns a routing response for a routing request according to mobility preferences.
