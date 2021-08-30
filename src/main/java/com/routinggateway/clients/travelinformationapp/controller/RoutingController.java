@@ -20,7 +20,9 @@ import java.util.Optional;
 @RequestMapping("routing")
 public class RoutingController {
     public static final IRoutingService FALLBACK_ROUTING_SERVICE = new OpenRouteService();
-    private static IRoutingService routingService;
+    private static OpenRouteService openRouteService = new OpenRouteService();
+    private static OpenTripPlanner openTripPlanner = new OpenTripPlanner();
+    private static Valhalla valhalla = new Valhalla();
 
     /**
      * Returns routes for a routing request or throws BadGatewayException.
@@ -34,14 +36,16 @@ public class RoutingController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public static RoutingResponse receiveRoutes(@RequestBody RoutingRequest request) {
+        IRoutingService routingService;
+
         // Choosing the requested Routing Service
         String routingServiceName = request.getRoutingService();
-        if (routingServiceName.equals(new OpenRouteService().getName())) {
-            routingService = new OpenRouteService();
-        } else if (routingServiceName.equals(new OpenTripPlanner().getName())) {
-            routingService = new OpenTripPlanner();
-        } else if (routingServiceName.equals(new Valhalla().getName())) {
-            routingService = new Valhalla();
+        if (routingServiceName.equals(openRouteService.getName())) {
+            routingService = openRouteService;
+        } else if (routingServiceName.equals(openTripPlanner.getName())) {
+            routingService = openTripPlanner;
+        } else if (routingServiceName.equals(valhalla.getName())) {
+            routingService = valhalla;
         } else {
             // Fallback routing service
             routingService = FALLBACK_ROUTING_SERVICE;
