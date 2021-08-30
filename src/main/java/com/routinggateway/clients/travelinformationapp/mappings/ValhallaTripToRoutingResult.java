@@ -24,7 +24,7 @@ public class ValhallaTripToRoutingResult {
      * @param trip ValhallaTrip
      * @return routing result
      */
-    public static RoutingResult map(ValhallaTrip trip) {
+    public RoutingResult map(ValhallaTrip trip) {
         EncodedPolyline encodedPolyline;
         ValhallaSummary summary = trip.getSummary();
         Double durationInMinutes = summary.getTime();
@@ -38,7 +38,7 @@ public class ValhallaTripToRoutingResult {
         List<LatLng> polyline = new ArrayList<>();
         List<ValhallaLeg> legs = trip.getLegs();
         for (int i = 0; i < legs.size(); i++) {
-            RoutingResultSegment segment = mapToRoutingResultSegment(legs.get(i));
+            RoutingResultSegment segment = this.mapToRoutingResultSegment(legs.get(i));
             segments.add(segment);
 
             EncodedPolyline googlePolyline = new EncodedPolyline(segment.getEncodedPolyline());
@@ -70,7 +70,7 @@ public class ValhallaTripToRoutingResult {
      * @param leg ValhallaLeg
      * @return routing result segment
      */
-    private static RoutingResultSegment mapToRoutingResultSegment(ValhallaLeg leg) {
+    private RoutingResultSegment mapToRoutingResultSegment(ValhallaLeg leg) {
         String encodedPolyline = leg.getShape();
         ValhallaSummary summary = leg.getSummary();
         Double durationInMinutes = summary.getTime();

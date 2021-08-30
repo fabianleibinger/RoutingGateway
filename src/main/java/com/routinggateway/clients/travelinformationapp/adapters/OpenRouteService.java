@@ -181,9 +181,11 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      */
     @Override
     public List<RoutingResult> extractRoutingResult(OpenRouteServiceResponse openRouteServiceResponse) {
+        OpenRouteServiceRouteToRoutingResult mapper = new OpenRouteServiceRouteToRoutingResult();
+
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenRouteServiceRoute route : openRouteServiceResponse.getRoutes()) {
-            RoutingResult result = OpenRouteServiceRouteToRoutingResult.map(route);
+            RoutingResult result = mapper.map(route);
             routes.add(result);
         }
         return routes;

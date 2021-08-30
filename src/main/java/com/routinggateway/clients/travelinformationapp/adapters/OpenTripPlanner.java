@@ -111,9 +111,11 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
      */
     @Override
     public List<RoutingResult> extractRoutingResult(OpenTripPlannerResponse openTripPlannerResponse) {
+        OpenTripPlannerItineraryToRoutingResult mapper = new OpenTripPlannerItineraryToRoutingResult();
+
         List<RoutingResult> routes = new ArrayList<>();
         for (OpenTripPlannerItinerary itinerary : openTripPlannerResponse.getPlan().getItineraries()) {
-            routes.add(OpenTripPlannerItineraryToRoutingResult.map(itinerary));
+            routes.add(mapper.map(itinerary));
         }
         return routes;
     }

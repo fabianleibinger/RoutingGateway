@@ -26,7 +26,7 @@ public class OpenTripPlannerItineraryToRoutingResult {
      * @param itinerary OpenTripPlannerItinerary
      * @return routing result
      */
-    public static RoutingResult map(OpenTripPlannerItinerary itinerary) {
+    public RoutingResult map(OpenTripPlannerItinerary itinerary) {
         EncodedPolyline encodedPolyline;
         Double durationInMinutes = ((double) itinerary.getDuration()) / DURATION_TRANSFORMATION;
         Double distanceInMeters = 0.0;
@@ -37,7 +37,7 @@ public class OpenTripPlannerItineraryToRoutingResult {
 
         List<LatLng> polyline = new ArrayList<>();
         for (OpenTripPlannerLeg leg : itinerary.getLegs()) {
-            RoutingResultSegment segment = mapToRoutingResultSegment(leg);
+            RoutingResultSegment segment = this.mapToRoutingResultSegment(leg);
             segments.add(segment);
             distanceInMeters += segment.getDistanceInMeters();
 
@@ -64,7 +64,7 @@ public class OpenTripPlannerItineraryToRoutingResult {
      * @param leg openTripPlannerLeg
      * @return routing result segment
      */
-    private static RoutingResultSegment mapToRoutingResultSegment(OpenTripPlannerLeg leg) {
+    private RoutingResultSegment mapToRoutingResultSegment(OpenTripPlannerLeg leg) {
         String encodedPolyline = leg.getLegGeometry().getPoints();
         Double durationInMinutes = leg.getDuration() / DURATION_TRANSFORMATION;
         Double distanceInMeters = leg.getDistance();

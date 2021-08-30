@@ -22,7 +22,7 @@ public class OpenRouteServiceRouteToRoutingResult {
      * @param route OpenRouteServiceRoute
      * @return routing result
      */
-    public static RoutingResult map(OpenRouteServiceRoute route) {
+    public RoutingResult map(OpenRouteServiceRoute route) {
         String encodedPolyline = route.getGeometry();
         OpenRouteServiceSummary summary = route.getSummary();
         Double durationInMinutes = summary.getDuration() / DURATION_TRANSFORMATION;
