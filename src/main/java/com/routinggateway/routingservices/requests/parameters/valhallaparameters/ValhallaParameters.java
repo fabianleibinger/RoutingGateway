@@ -13,10 +13,10 @@ public class ValhallaParameters extends Parameters {
     private List<ValhallaLocation> locations;
     private String costing;
     private ValhallaCostingOptions costing_options;
-    private String units = "kilometers";
+    private String units;
     //default "en-US"
     private String language;
-    private String directions_type = "instructions";
+    private String directions_type;
     private List<ValhallaLocation> avoid_locations;
     private List<List<Double>> avoid_polygons;
     private ValhallaRoutingDateTime date_time;
