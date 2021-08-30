@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("routing")
 public class RoutingController {
     public static final IRoutingService FALLBACK_ROUTING_SERVICE = new OpenRouteService();
-    private static IRoutingService routingService = FALLBACK_ROUTING_SERVICE;
+    private static IRoutingService routingService;
 
     /**
      * Returns routes for a routing request or throws BadGatewayException.
@@ -42,6 +42,9 @@ public class RoutingController {
             routingService = new OpenTripPlanner();
         } else if (routingServiceName.equals(new Valhalla().getName())) {
             routingService = new Valhalla();
+        } else {
+            // Fallback routing service
+            routingService = FALLBACK_ROUTING_SERVICE;
         }
 
         Optional<RoutingResponse> response = routingService.receiveRoutesForPreference(request);
