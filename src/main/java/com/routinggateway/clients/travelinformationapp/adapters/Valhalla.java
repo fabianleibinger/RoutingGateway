@@ -66,9 +66,9 @@ public class Valhalla implements IRoutingService<ValhallaRequest, ValhallaRespon
         Optional<String> response = this.receiveResponse(request);
         if (response.isPresent()) {
             ValhallaResponse responseObject = new Gson().fromJson(response.get(), ValhallaResponse.class);
-            List<RoutingResult> routingResults = this.extractRoutingResult(responseObject);
-            if (!routingResults.isEmpty()) {
-                return Optional.of(routingResults);
+            List<RoutingResult> results = this.extractRoutingResult(responseObject);
+            if (!results.isEmpty()) {
+                return Optional.of(results);
             } else {
                 System.out.println("No routes found for the given request");
             }

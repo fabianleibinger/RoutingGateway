@@ -109,9 +109,9 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      * @param routeList List RoutingResult
      */
     public void addResultsToRouteList(OpenRouteServiceRequest request, List<RoutingResult> routeList) {
-        Optional<List<RoutingResult>> resultList = this.computeRoutes(request);
-        if (resultList.isPresent()) {
-            for (RoutingResult result : resultList.get()) {
+        Optional<List<RoutingResult>> routes = this.computeRoutes(request);
+        if (routes.isPresent()) {
+            for (RoutingResult result : routes.get()) {
                 // Add mode to result segments.
                 for (RoutingResultSegment segment : result.getSegments()) {
                     segment.setModeOfTransport(request.getProfile());

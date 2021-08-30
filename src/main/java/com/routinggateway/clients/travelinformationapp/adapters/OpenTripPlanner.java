@@ -41,11 +41,11 @@ public class OpenTripPlanner implements IRoutingService<OpenTripPlannerRequest, 
         OpenTripPlannerRequest otpRequest = new OpenTripPlannerRequest();
         otpRequest.setParameters(parameters);
 
-        Optional<List<RoutingResult>> resultList = this.computeRoutes(otpRequest);
+        Optional<List<RoutingResult>> routes = this.computeRoutes(otpRequest);
 
-        if (resultList.isPresent()) {
+        if (routes.isPresent()) {
             System.out.println("Returned routes for preference successfully.");
-            return Optional.of(new RoutingResponse(resultList.get()));
+            return Optional.of(new RoutingResponse(routes.get()));
         }
         return Optional.empty();
     }
