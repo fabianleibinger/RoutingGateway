@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public abstract class Parameters {
     /**
-     * Transforms <RoutingServiceParameters> object to Json.
+     * Transforms a <RoutingServiceParameters> object to Json.
      *
      * @return String json
      */
@@ -27,7 +27,7 @@ public abstract class Parameters {
     }
 
     /**
-     * Transforms <RoutingServiceParameters> object to XML.
+     * Transforms a <RoutingServiceParameters> object to XML.
      *
      * @return String XML
      */
@@ -41,9 +41,9 @@ public abstract class Parameters {
     }
 
     /**
-     * Transforms <RoutingServiceParameters> object to Query String for http.
+     * Transforms a <RoutingServiceParameters> object to Query String for http.
      *
-     * @return String Query String for http
+     * @return Query String for http
      */
     public String toQueryString() {
         String json = this.toJson();
