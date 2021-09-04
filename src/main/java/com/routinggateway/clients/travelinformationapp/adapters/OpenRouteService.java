@@ -46,12 +46,12 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
 
         // Add routes for preferredModes
         List<String> preferredModes = request.getPreferenceProfile().getModePreferences().getPreferredModes();
-        this.addToRouteListAccordingToModeList(preferredModes, orsRequest, request, routeList);
+        this.addToRoutesAccordingToModes(preferredModes, orsRequest, request, routeList);
 
         // Add routes for neutral modes
         if (routeList.isEmpty()) {
             List<String> neutralModes = request.getPreferenceProfile().getModePreferences().getNeutralModes();
-            this.addToRouteListAccordingToModeList(preferredModes, orsRequest, request, routeList);
+            this.addToRoutesAccordingToModes(preferredModes, orsRequest, request, routeList);
         }
 
         // Add routes for accessibility
@@ -81,23 +81,23 @@ public class OpenRouteService implements IRoutingService<OpenRouteServiceRequest
      * @param modes preferred modes
      * @param orsRequest OpenRouteServiceRequest
      * @param routingRequest
-     * @param routeList List RoutingResult
+     * @param routes List RoutingResult
      */
-    public void addToRouteListAccordingToModeList(List<String> modes,
+    public void addToRoutesAccordingToModes(List<String> modes,
                                                   OpenRouteServiceRequest orsRequest,
                                                   RoutingRequest routingRequest,
-                                                  List<RoutingResult> routeList) {
+                                                  List<RoutingResult> routes) {
         if (modes.stream().anyMatch(s -> s.equals("car")) && routingRequest.getUserProfile().getPrivateCarAvailable()) {
             orsRequest.setProfile("driving-car");
-            this.addResultsToRouteList(orsRequest, routeList);
+            this.addResultsToRouteList(orsRequest, routes);
         }
         if (modes.stream().anyMatch(s -> s.equals("bike")) && routingRequest.getUserProfile().getPrivateBicycleAvailable()) {
             orsRequest.setProfile("cycling-regular");
-            this.addResultsToRouteList(orsRequest, routeList);
+            this.addResultsToRouteList(orsRequest, routes);
         }
         if (modes.stream().anyMatch(s -> s.equals("walk"))) {
             orsRequest.setProfile("foot-walking");
-            this.addResultsToRouteList(orsRequest, routeList);
+            this.addResultsToRouteList(orsRequest, routes);
         }
     }
 
